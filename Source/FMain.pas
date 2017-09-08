@@ -673,7 +673,7 @@ procedure TMainForm.FormCreate(Sender: TObject);
   FilesList            := TStringList.Create;
   FilesList.Sorted     := true;
   ///FilesList.Reversed   := false;
-  ///FilesList.Duplicates := qdupAccept;
+  FilesList.Duplicates:= dupAccept;
   NeedReSort           := false;
 
   StatusSection0Size := 0;

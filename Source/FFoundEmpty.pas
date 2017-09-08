@@ -559,6 +559,7 @@ procedure TFormFoundEmptyList.ResortFoundList;
   NewFoundList := TStringList.Create;
   NewFoundList.Capacity := FoundList.Count;
   NewFoundList.Sorted := true;
+  NewFoundList.Duplicates := dupAccept;
   ///NewFoundList.Reversed := ReversedSort;
   ///NewFoundList.Duplicates := qdupAccept;
   for Index := 0 to pred(Total) do

@@ -598,8 +598,9 @@ procedure TDBaseExport.Init(FormatFileName: ShortString; aDBaseHandle: PDBaseHan
 
   ///FilesList            := TQStringList.Create;
   FilesList            := TStringList.Create;
-  ///FilesList.Sorted     := true;
+  FilesList.Sorted     := true;
   ///FilesList.Duplicates := qdupAccept;
+  FilesList.Duplicates := dupAccept;
 
   F.Init(StrPCopy(TmpBuf, FormatFileName), stOpenReadNonExclusive);
   BufSize := F.GetSize;

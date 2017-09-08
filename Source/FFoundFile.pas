@@ -248,6 +248,7 @@ procedure TFormFoundFileList.FormCreate(Sender: TObject);
   FoundList := TStringList.Create;
   FoundList.Sorted := true;
   ///FoundList.Duplicates := qdupAccept;
+  FoundList.Duplicates := dupAccept;
   SortArr := FormSearchFileDlg.DlgData.SortArr;
   NeedResort := false;
   ReversedSort := false;
@@ -648,6 +649,7 @@ procedure TFormFoundFileList.ResortFoundList;
   NewFoundList := TStringList.Create;
   NewFoundList.Capacity := FoundList.Count;
   NewFoundList.Sorted := true;
+  NewFoundList.Duplicates := dupAccept;
   ///NewFoundList.Reversed := ReversedSort;
   ///NewFoundList.Duplicates := qdupAccept;
   for Index := 0 to pred(Total) do
