@@ -1,0 +1,18 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+DefaultExt      = txt
+//ExcludeChars    = "
+ReplaceChar     = "'
+ReplaceChar     = ;,
+FileFilter      = Text files(*.txt)|*.txt
+
+//====================================================================
+
+<<On Database Begin>>
+"Disk";"Size";"Free";"Free %"<<CrLf>>
+//------------------------------------------------------------------
+<<On Disk Begin>>
+"<<DiskName>>";"<<DiskSizeKb>>";"<<DiskFreeKb>>";"<<DiskFreePercent>>"<<CrLf>>
+

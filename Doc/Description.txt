@@ -1,0 +1,385 @@
+DISKBASE COMPONENTS
+-------------------
+
+Besides the EXE, there are the following components:
+
+*.q32 - filters: these are also DLLs, but renamed to Q32, so that they 
+can be easily recognized and loaded by DiskBase. They are written also 
+in Delphi and are usually very simple. 
+
+DskBUtl.dll - a DLL written in MS Visual C++ 6.0, currently contains 
+only routines for ejecting the CD.
+
+DiskBase.hlp - help compiled with MS Help compiler from the Word file 
+saved as RTF.
+
+Export folder: templates (plain text files).
+
+UnACEv2.dll, UnRAR.dll - freely distributable DLLs from the authors of 
+RAR and ACE.
+
+DUnZip32.dll - the only DLL to which I do not provide source code. 
+
+
+DISKBASE SOURCE CODE
+--------------------
+
+The code is written in Delphi 5. 
+
+The source code consists of Delphi forms (files named with F at the 
+beginning, for example FDbase.pas) and units (files named with U at the 
+beginning, for example UCollections.pas). The original concept was to 
+strictly separate the user interface from the database handling code. 
+The point of separation is the UApi.pas unit, together with 
+UApiTypes.pas unit, which encapsulates the database Engine and makes an 
+application programming interface. The interface is bi-directional; 
+besides calls from the user part to the Engine, the Engine can call back 
+to the user interface (for example to indicate progress of scanning), 
+using a set of supplied callback functions.
+
+
+DiskBase Database Structure (QDR file)
+--------------------------------------
+
+The database was designed to be a single file. As the records put to the 
+database are typically of very variable lengths, it is not possible to 
+effectively reuse space occupied by the deleted records in the database, 
+so whenever some record changes, the original one is marked as deleted 
+and the modified one is appended to the end of the database. This makes 
+the database still growing, requiring from time to compress the 
+database, i.e. copy it to another file, with skipping the unused space. 
+To make the growing not too fast, there are some optimizations included, 
+for example, when rescanning a disk, most of the folders on it will 
+probably contain the same files; in such case the lists of files which 
+did not change are reused, and only modified are replaced. 
+
+The database has the following parts:
+
+1. Header
+2. LocalOptions
+3. KeyField
+4. Data: Tree, FileList, Description
+
+1. The header contains some necessary info, for example the version 
+needed to open this database and date/time of the last usage of the 
+database, so that DiskBase can harass unregistered users, which are 
+using the database for a longer period than one month. See THeader in 
+the source code.
+
+2. LocalOptions are the options from the Database Settings dialog box, 
+which are specific to this database. See TLocalOptions in the source 
+code.
+
+3. KeyField is an array of disk names. As the disk name is a string of 
+variable length, it would be waste of space to reserve for each name 
+fixed number of characters. So the KeyField is rather an array of 32-bit 
+file pointers to the database, pointing to the record, containing 
+besides another info also the name of the disk. The file pointer 
+(TFilePointer) specifies the offset of the record in the database from 
+the file beginning.
+
+The array of pointers consists of 10000 items, each 6 bytes big (see 
+TKeyRecord), so it takes about 60 kB of space. This array is always 
+saved in its full size, even if the database is empty. Thus the empty 
+database will take about 60 kB and the 10000 is the limit for the number 
+of disks. In reality this capacity is used by more than 10% only 
+exceptionally.
+
+The TKeyField record encapsulates this array of keys plus few additional 
+fields, holding for example the last focused disk and number of disks in 
+the database.
+
+When we use the word KEY in the following text, it means one disk in the 
+database, as the basic unit.
+
+4. The rest Data of the database consist of Trees, File Lists and 
+Descriptions. Each of these record types is preceded by the 
+TRecordHeader field. The TRecordHeader provides the possibility to 
+check, if we are reading the correct type of data, in order to be able 
+to abort reading, if the data are corrupted. Also the repair of the 
+database is based on sequential search of the TRecordHeader field of the 
+Tree records in the database.
+
+The Tree record (see TTreeInfo in source code) contains a tree of all 
+the folders on the disk. Each node in the tree contains a file pointer 
+to a File List (of TOneFile items), the record containing list of files 
+in the node. 
+
+Any folder or file can contain the Description - thus each File or 
+Folder has the file pointer for description; if it is non-zero, the 
+corresponding description is saved in the specified location in the 
+database.
+
+All these records are stored so that no space is wasted by unused 
+spaces. That means that each file or folder stores first its constant 
+size part (size, date/time, attributes. etc.) and then the string 
+containing the name, using only the space needed. 
+
+----
+
+To save memory requirements, DiskBase holds in the memory only the 
+KeyField, one Tree (of the currently displayed disk) and one File List 
+(of the currently displayed contents of the folder). In some cases 
+another one Tree and FileList can be held - for example when rescanning 
+disk, we need to copy info from the original disk to the new one.
+
+Scanning the disk is made in 2 stages: First the tree is build, second, 
+the found tree is recursively iterated and for each folder a list of 
+files is scanned. When each file list is complete, the program scans for 
+possible descriptions and saves them to the database (so the file 
+pointers to the descriptions are known and assigned to items in the file 
+list). After that the file list can be also saved to the database, so 
+that its file pointer is also known and can be put to the tree node. 
+When iteration of the tree is complete, the tree itself is saved to the 
+database, so that the file pointer to it is known and can be put to the 
+key field, which is then stored to the database as well.
+
+A bit different situation is with archives - the archive extraction 
+routines extract the list of all files in the archive to a plain string 
+list, containing each file name with a full path. The string list is 
+then scanned to create a subtree and file lists from it; the only 
+difference then is that the extraction of descriptions from the archive 
+requires first to extract the appropriate file to a temporary folder and 
+then scan it for the description.
+
+About Some Classes
+------------------
+
+The Tree is represented by the TTreeStruct object. In the Dta member (of 
+TTreeInfo) is located the general info about the disk, including namely 
+the disk Name. The Dta record is of fixed size and is written to the 
+database as first. So if we know the file pointer to the Tree in the 
+database (the pointer is in Key), we can calculate the position of the 
+Name string (is at position + treeInfoHeadSize - see ReadKeyStr). So to 
+create a list of disks (left panel in the database window) we can 
+quickly read all the disk names from the database.
+The RootDirCol (of PDirCollection type) represents the root collection 
+of the folders. The collections used in DiskBase are defined in 
+UCollections. In contrast to Delphi lists, the collections are owners of 
+their items (which must be a descendants of TQObject), i.e. when a 
+collection is deleted, first all owned objects are deleted. The items in 
+the PDirCollection are again of PDirCollection type, so by deleting the 
+root collection, the whole tree is recursively deleted and freed from 
+memory.
+
+List of files are stored in PFileCollection object. Only one file 
+collection is held in memory, so the file collection is used separately 
+from the tree (in the tree, the file pointer to the PFileCollection in 
+the database is stored).
+
+
+Alphabetical list of files:
+--------------------------
+
+*** FAbortPrint.pas ***
+This is a non-modal window showed during print so that the user can 
+click on
+the Abort button.
+
+*** FAbout.pas ***
+The About Dialog, available in Menu->Help->About
+
+*** FAskForLabel.pas ***
+Dialog for disk name, under which the disk will be put into the 
+database.
+
+*** FDBase.pas ***
+MDI Window with one database. Here is the top level implementation of
+most DiskBase commands.
+
+*** FDbInfo.pas ***
+Dialog box displaying information about the database.
+
+*** FDescription.pas ***
+Edit window for the descriptions
+
+*** FDiskExport.pas ***
+Progress info window for exporting disks to text format
+
+*** FDiskInfo.pas ***
+Dialog box with info about selected disk in the database.
+
+*** FDiskPrint.pas ***
+Progress window for printing disks, implements the printing in the
+Run procedure
+
+*** FDiskPrintSelect.pas ***
+Dialog for selection of print options
+
+*** FFindEmpty.pas ***
+Progress window for searching disks according to the size of disks,
+implements the searching in the Run procedure
+
+*** FFindEmptyDlg.pas ***
+Options for searching disks according free space - not used
+
+*** FFindFile.pas ***
+Progress window for finding a file, implements the search in the
+Run procedure
+
+*** FFindFileDlg.pas ***
+Dialog box for find file options
+
+*** FFoundEmpty.pas ***
+MDI window with found files
+
+*** FFoundExport.pas ***
+Progress window for exporting found items to text format, implements
+the export in the Run procedure
+
+*** FFoundFile.pas ***
+MDI window with found files
+
+*** FHidden.pas ***
+Hidden window - it is used for formatting of yellow quick-info windows
+
+*** FLocalOptions.pas ***
+Dialog box for Local Options - which are individual for the database.
+The values set are put to the LocalOptions structure
+
+*** FMain.pas ***
+DiskBase main application window
+
+*** FMaskSelect.pas ***
+Dialog box for selecting set of disks/files by a mask
+
+*** FMoreOptions.pas ***
+Dialog box for extended options for file search
+
+*** FProgress.pas ***
+Universal progress window - used when resorting window with found items
+
+*** FReindex.pas ***
+Reindex progress window. Implements reindex in the Run method.
+Used for compressing database, exporting to run-time, exporting and
+importing to and from DiskBase format
+
+*** FRenameDlg.pas ***
+Dialog for renaming disk
+
+*** FRepair.pas ***
+Progress window for repairing the database. Implements the repair in the
+Run procedure
+
+*** FScanArchive.pas ***
+Dialog box for asking, whether to scan the contents of specified 
+archive.
+By default asking is disabled, and probably nobody uses it...
+
+*** FScanFolder.pas ***
+Dialog box for scanning a folder as a disk and for rescanning disk
+
+*** FScanProgress.pas ***
+Progress window for scanning the disk or importing from QuickDir 4 
+format.
+Implements the scan in the Run procedure
+
+*** FSelectDrive.pas ***
+Dialog box for selecting the drive to be scanned
+
+*** FSelectFolder.pas ***
+Dialog box for selecting the folder to be scanned.
+
+*** FSettings.pas ***
+Dialog box for DiskBase general settings
+
+*** UApi.pas ***
+API layer between visual components and the DiskBase Engine. The API
+functions are prefixed with QI_
+
+*** UApiTypes.pas ***
+Definition of public types (public goes outside of API)
+
+*** UBaseTypes.pas ***
+Private types - internal, not published from the API
+
+*** UBaseUtils.pas ***
+Useful functions of general usage
+
+*** UCallbacks.pas ***
+Defines dummy callbacks for the Engine to the user interface. Instead of
+setting the callbacks to nil, we use dummy callbacks, so that the usage 
+is
+safer.
+
+*** UCollections.pas ***
+Collections - similar to Delphi Lists
+
+*** UCollectionsExt.pas ***
+Extended collections
+
+*** UConvQDir4.pas ***
+Functions for converting data from QuickDir 4.0
+
+*** UDebugLog.pas ***
+Functions for sending debug messages to external debug receiver
+
+*** UDrives.pas ***
+Functions to get the list of available drives
+
+*** UDskBUtl.pas ***
+*** for accessing external DLL, written in C++
+
+*** UEngineArchives.pas ***
+Functions for reading various types of archive files. The Scan... 
+functions
+read the archive and put the files to a unified collection of TOneArc 
+items,
+which is then given to the Engine to dispatch to tree.
+
+*** UEngineArchivesExt.pas ***
+Functions for accessing RAR and ACE archives via DLLs from RAR and ACE
+
+*** UEngineFileFind.pas ***
+Class for searched items.
+
+*** UEngineMain.pas ***
+Main DiskBase Engine functions
+
+*** UExceptions.pas ***
+Exceptions used in DiskBase
+
+*** UExport.pas ***
+Implementation of the export to text format
+
+*** UFont.pas ***
+Workaround for Delphi 2.0 inability to work with font scripts
+
+*** ULang.pas ***
+All language dependent strings, except for the strings in the forms
+
+*** UPrinter.pas ***
+Implementation of printing
+
+*** UStream.pas ***
+Implementation of a stream, used for all file reads/writes
+
+*** UStringList.pas ***
+Better implementation of string list than Delphi provides
+in contrast to TStringList
+  - deallocates also objects, not only strings
+  - Capacity can be set
+  - better reallocation of the array of pointers
+
+*** UTypes.pas ***
+Common types and utility functions
+
+*** UUnAce.pas ***
+ACE files decompression
+
+*** UUnRar.pas ***
+RAR files decompression
+
+*** UUserDll.pas ***
+User DLL access
+
+
+---
+
+DiskBase was made in 2 language variants: English and Czech. For the 
+Czech version I had different version of the DFM file, and the strings 
+were selected from ULang unit according to {$ifdef CZECH} directive. Not 
+very good solution, this may be one of the things to change in order to 
+support localization to other languages.
+
+

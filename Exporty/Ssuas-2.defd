@@ -1,0 +1,18 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+DefaultExt      = txt
+//ExcludeChars    = "
+ReplaceChar     = "'
+ReplaceChar     = ;,
+FileFilter      = Textové soubory (*.txt)|*.txt
+
+//====================================================================
+
+<<On Database Begin>>
+"Disk";"Velikost";"Volno";"Volno %"<<CrLf>>
+//------------------------------------------------------------------
+<<On Disk Begin>>
+"<<DiskName>>";"<<DiskSizeKb>>";"<<DiskFreeKb>>";"<<DiskFreePercent>>"<<CrLf>>
+

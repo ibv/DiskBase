@@ -1,0 +1,113 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = [#
+IdentifierEnd   = #]
+MaxDescLines    = 5
+MaxDescSize     = 300
+FileColumns     = 1
+DefaultExt      = htm
+FileFilter      = Soubory HTML (*.htm,*.html)|*.htm;*html
+
+//====================================================================
+
+
+[#On Database Begin#]
+<HTML>[#CrLf#]
+<HEAD>[#CrLf#]
+   <TITLE>DiskBase Export: [#DatabaseName#]</TITLE>[#CrLf#]
+</HEAD>[#CrLf#]
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">[#CrLf#]
+
+<H1><FONT COLOR="#800080">Databáze: [#DatabasePath#][#DatabaseName#]</FONT></H1>[#CrLf#]
+<UL>[#CrLf#]
+<LI>Poèet diskù v databázi: <FONT COLOR="#0000A0"><B>[#NumberOfDisks#]</B></FONT></LI>[#CrLf#]
+</UL>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Disk Begin#]
+
+<H2><FONT COLOR="#008040">Disk: [#DiskName#]</FONT></H2>[#CrLf#]
+<UL>
+<LI>Velikost disku: <FONT COLOR="#0000A0"><B>[#DiskSizeKb#]</B></FONT>, volno na disku: <FONT COLOR="#0000A0"><B>[#DiskFreeKb#]</B></FONT></LI>[#CrLf#]
+<LI>Adresáøù: <FONT COLOR="#0000A0"><B>[#Folders#]</B></FONT>, souborù: <FONT COLOR="#0000A0"><B>[#Files#]</B></FONT>, archivù: <FONT COLOR="#0000A0"><B>[#Archives#]</B></FONT></LI>[#CrLf#]
+<LI>Souborù v archivech: <FONT COLOR="#0000A0"><B>[#TotalFilesInArchives#]</B></FONT>, složek v archivech: <FONT COLOR="#0000A0"><B>[#TotalFoldersInArchives#]</B></FONT></LI>[#CrLf#]
+<LI>Celková velikost dat: <FONT COLOR="#0000A0"><B>[#TotalDataSize#]</B></FONT></LI>[#CrLf#]
+<LI>Pùvodní cesta: <FONT COLOR="#0000A0"><B>[#OriginalPath#]</B></FONT>, pùvodní jméno disku: <FONT COLOR="#0000A0"><B>[#VolumeLabel#]</B></FONT></LI>[#CrLf#]
+<LI>Celkem fyzických dat:  <FONT COLOR="#0000A0"><B>[#PhysSize#]</B></FONT>, celkem v archivech:  <FONT COLOR="#0000A0"><B>[#ArchSize#]</B></FONT></LI>[#CrLf#]
+<LI>Datum záznamu:  <FONT COLOR="#0000A0"><B>[#ScanDate#]</B></FONT></LI>[#CrLf#]
+</UL>
+
+//------------------------------------------------------------------
+
+[#On Folder Begin#]
+
+<H3>Složka: [#PathToFolder#][#FolderName#]</H3>[#CrLf#]
+<UL>[#CrLf#]
+<LI>Velikost dat ve složce: <FONT COLOR="#0000A0"><B>[#FolderDataSize#]</B></FONT></LI>[#CrLf#]
+<LI>Souborù ve složce: <FONT COLOR="#0000A0"><B>[#FilesInFolder#]</B></FONT></LI>[#CrLf#]
+<LI>Složek ve složce: <FONT COLOR="#0000A0"><B>[#FoldersInFolder#]</B></FONT></LI>[#CrLf#]
+<LI>Velikost fyzických dat ve složce: <FONT COLOR="#0000A0"><B>[#PhysFolderDataSize#]</B></FONT></LI>[#CrLf#]
+<LI>Fyzických souborù ve složce: <FONT COLOR="#0000A0"><B>[#PhysFilesInFolder#]</B></FONT></LI>[#CrLf#]
+<LI>Fyzických složek ve složce: <FONT COLOR="#0000A0"><B>[#PhysFoldersInFolder#]</B></FONT></LI>[#CrLf#]
+</UL>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On First Column Begin#]
+
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3">[#CrLf#]
+<TR BGCOLOR="#FFFFC4">[#CrLf#]
+<TD>Jméno</TD>
+<TD ALIGN=RIGHT>Velikost</TD>
+<TD ALIGN=RIGHT>Datum</TD>
+<TD ALIGN=RIGHT>Èas</TD>
+<TD>Popiska</TD>
+</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+// [#On Each Column Begin#]
+
+//------------------------------------------------------------------
+
+[#On File#]
+<TR>
+<TD VALIGN=TOP><TT>[#FileName#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileSize#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileDate#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileTime#]</TT></TD>
+<TD VALIGN=TOP><FONT SIZE="-1">[#ShortDesc#]&nbsp;</FONT></TD>
+</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+//[#On Description#]
+//<TR>
+//<TD VALIGN=TOP><FONT SIZE="-1">[#Desc#][#CrLf#]</FONT></TD>
+//</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+// [#On Each Column End#]
+
+//------------------------------------------------------------------
+
+[#On Last Column End#]
+</TABLE>
+
+//------------------------------------------------------------------
+
+// [#On Folder End#]
+
+//------------------------------------------------------------------
+
+// [#On Disk End#]
+
+//------------------------------------------------------------------
+
+[#On Database End#]
+</BODY>[#CrLf#]
+</HTML>[#CrLf#]
+
+

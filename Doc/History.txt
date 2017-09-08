@@ -1,0 +1,51 @@
+A bit about history
+-------------------
+
+DiskBase began as a set of DOS command line utilities sometime around 
+year 1988 I guess. At this time it was named QuickDir and I made it for 
+my own need and also gave it to my friends. Some years it was 
+functioning well, my friends were really using it, but then it started 
+to be clear, that it must get a real GUI. I was using Delphi at this 
+time, so I have developed with Delphi 1.0 a 16-bit version and with 
+Delphi 2.0 a 32-bit version. As QuickDir was already used name of 
+somebody's else program, I have changed the name to DiskBase and started 
+to sell it as a shareware. 
+
+The 16-bit and 32-bit versions coexisted for a long time. The 16-bit 
+version support was terminated in version 5.11, however, relicts from 
+the compatibility with Delphi 1.0 still remain; for example, some of the 
+Win32 window controls are not used - the Tree panel is implemented with 
+Borland's OutlineTree component and not with the TreeView component, 
+representing Win32 control, used for example in Windows Explorer.
+
+I have worked on DiskBase namely in the years, when I was employed at a 
+university; at that time I had enough power and free time. However, as 
+salaries at Czech universities were shamefully low and I had my family 
+living in a quite odd flat, I decided to go to a private company as a 
+programmer. This happened in 1996 and since that time I became quite 
+busy and exhausted, so that I did not have much power to develop 
+DiskBase further. For a long time I was still optimistic about returning 
+to it, I even had prepared a complete new base of code in C++ to start 
+DiskBase 7 from the scratch, so that I could make a substantially better 
+program design. But after some other troubles came, it was clear to me 
+that I will not be able to continue in the development anymore. 
+
+DiskBase was never a big commercial success; today I am almost sure the 
+error was not in the program itself (I got quite a lot of praise from 
+existing users), but in almost none publicity, which I significantly 
+underestimated.
+
+Due to continuing requests from DiskBase users I did not terminate the 
+development, but was searching somebody who would take it over. After a 
+failure to find anybody, I finally decided to make the source code 
+public domain. Hopefully somebody will it interesting and will be able 
+to implement the new features, which are the users requiring.
+
+In the Description.txt is a rough description. The truth is that after years,
+I have forgot almost the whole code, which I was originally holding fully in my
+head. But still if something is needed to be explained, please do not 
+hesitate to contact me, I will have a look, and if I will understand it 
+:-) I will explain.
+
+
+                                          21.3.2006, Zdenek Martinek

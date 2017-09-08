@@ -1,0 +1,48 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+MaxDescLines    = 5
+MaxDescSize     = 300
+DefaultExt      = htm
+FileFilter      = HTML files (*.htm,*.html)|*.htm;*html
+
+//====================================================================
+
+<<On Database Begin>>
+<HTML><<CrLf>>
+<HEAD><<CrLf>>
+   <TITLE>DiskBase Export</TITLE><<CrLf>>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><<CrLf>>
+</HEAD><<CrLf>>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000"><<CrLf>>
+
+<H2><FONT COLOR="#800080">Database: <<DatabasePath>><<DatabaseName>></FONT></H2><<CrLf>>
+
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3"><<CrLf>>
+<TR BGCOLOR="#FFFFC4"><<CrLf>>
+<TD><B>Disk</B></TD>
+<TD ALIGN=RIGHT><B>Size</B></TD>
+<TD ALIGN=RIGHT><B>Free</B></TD>
+<TD ALIGN=RIGHT><B>Free %</B></TD>
+</TR><<CrLf>>
+
+//------------------------------------------------------------------
+
+<<On Disk Begin>>
+<TR><<CrLf>>
+<TD><<DiskName>></TD>
+<TD ALIGN=RIGHT><<DiskSizeKb>></TD>
+<TD ALIGN=RIGHT><<DiskFreeKb>></TD>
+<TD ALIGN=RIGHT><<DiskFreePercent>></TD>
+</TR><<CrLf>>
+
+//------------------------------------------------------------------
+
+<<On Database End>>
+</TABLE><<CrLf>>
+</BODY><<CrLf>>
+</HTML><<CrLf>>
+
+

@@ -1,0 +1,53 @@
+DiskBase Export Format Definition File
+		   
+IdentifierBegin = <<
+IdentifierEnd   = >>
+MaxDescLines    = 5
+MaxDescSize     = 300
+DefaultExt      = htm
+FileFilter      = Soubory HTML (*.htm,*.html)|*.htm;*html
+
+//====================================================================
+
+<<On Database Begin>>
+<HTML><<CrLf>>
+<HEAD><<CrLf>>
+   <TITLE>DiskBase Export</TITLE><<CrLf>>
+</HEAD><<CrLf>>
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000"><<CrLf>>
+
+<H2><FONT COLOR="#800080">Databáze: <<DatabasePath>><<DatabaseName>></FONT></H2><<CrLf>>
+
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3"><<CrLf>>
+<TR BGCOLOR="#FFFFC4"><<CrLf>>
+<TD><B>Disk</B></TD>
+<TD><B>Složka</B></TD>
+<TD><B>Soubor</B></TD>
+<TD ALIGN=RIGHT><B>Velikost</B></TD>
+<TD ALIGN=RIGHT><B>Datum</B></TD>
+<TD ALIGN=RIGHT><B>Èas</B></TD>
+<TD><B>Popiska</B></TD>
+</TR><<CrLf>>
+
+//------------------------------------------------------------------
+
+<<On File>>
+<TR><<CrLf>>
+<TD><<DiskName>></TD>
+<TD><<FolderName>></TD>
+<TD><<FileName>></TD>
+<TD ALIGN=RIGHT><<FileSize>></TD>
+<TD ALIGN=RIGHT><<FileDate>></TD>
+<TD ALIGN=RIGHT><<FileTime>></TD>
+<TD><<ShortDesc>>&nbsp;</TD>
+</TR><<CrLf>>
+
+//------------------------------------------------------------------
+
+<<On Database End>>
+</TABLE><<CrLf>>
+</BODY><<CrLf>>
+</HTML><<CrLf>>
+
+

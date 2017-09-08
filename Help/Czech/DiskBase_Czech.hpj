@@ -1,0 +1,27 @@
+; This file is maintained by HCW. Do not modify this file directly.
+
+[OPTIONS]
+COMPRESS=12 Hall Zeck
+ERRORLOG=DiskBase.ERR
+LCID=0x405 0x0 0x0 ; Èeština
+REPORT=Yes
+CHARSET=238
+TITLE=DiskBase
+HLP=..\..\Release\DiskBase_Czech.hlp
+
+[FILES]
+DiskBase_Czech.RTF
+
+[MAP]
+#include <DiskBase.H>
+
+[WINDOWS]
+;main="QDIR.HMP",(100,100,823,823),0,(255,255,255),(255,255,255),0
+
+[CONFIG]
+;CreateButton("1","Next","Next()")
+;CreateButton("2","Previous","Prev()")
+BrowseButtons()
+
+[FONTS]
+=,,238

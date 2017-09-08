@@ -1,0 +1,19 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+DefaultExt      = txt
+FileFilter      = Text files (*.txt)|*.txt
+//ExcludeChars    = "
+ReplaceChar     = "'
+ReplaceChar     = ;,
+
+
+//====================================================================
+
+<<On Database Begin>>
+"Disk";"Folder";"File";"Size";"Date";"Time";"Description"<<CrLf>>
+//------------------------------------------------------------------
+<<On File>>
+"<<DiskName>>";"<<PathToFolder>><<FolderName>>";"<<FileName>>";"<<FileSize>>";"<<FileDate>>";"<<FileTime>>";"<<ShortDesc>>"<<CrLf>>
+

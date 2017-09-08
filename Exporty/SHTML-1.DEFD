@@ -1,0 +1,80 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = [#
+IdentifierEnd   = #]
+MaxDescLines    = 5
+MaxDescSize     = 300
+FileColumns     = 5
+DefaultExt      = htm
+FileFilter      = Soubory HTML (*.htm,*.html)|*.htm;*html
+//FileFilter      = Soubory EXE (*.exe)|*.exe
+FileFilter      = Soubory All (*.*)|*.*
+
+//====================================================================
+
+
+[#On Database Begin#]
+<HTML>[#CrLf#]
+<HEAD>[#CrLf#]
+   <TITLE>DiskBase Export: [#DatabaseName#]</TITLE>[#CrLf#]
+</HEAD>[#CrLf#]
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">[#CrLf#]
+
+<H1><FONT COLOR="#800080">Databáze: [#DatabasePath#][#DatabaseName#]</FONT></H1>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Disk Begin#]
+
+<H2><FONT COLOR="#008040">Disk: [#DiskName#]</FONT></H2>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Folder Begin#]
+
+<H3>[#PathToFolder#][#FolderName#]</H3>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On First Column Begin#]
+
+// //<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3">[#CrLf#]
+// //<TR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Each Column Begin#]
+// //<TD ALIGN=LEFT VALIGN=TOP NOWRAP>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On File#]
+// //<TT>[#FileName#]</TT><BR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Each Column End#]
+// //</TD>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Last Column End#]
+// //</TR>[#CrLf#]
+// //</TABLE>[#CrLf#]
+
+//------------------------------------------------------------------
+
+// [#On Folder End#]
+
+//------------------------------------------------------------------
+
+// [#On Disk End#]
+
+//------------------------------------------------------------------
+
+[#On Database End#]
+</BODY>[#CrLf#]
+</HTML>[#CrLf#]
+
+

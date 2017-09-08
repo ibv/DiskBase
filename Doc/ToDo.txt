@@ -1,0 +1,104 @@
+DiskBase To Do
+--------------
+
+- Enhance the searching capabilities
+
+- automatic run - run only in a small window
+
+- add print of This disk -- selected folders
+
+- add Disk Category tool
+
+- add Properties dialog for selected disks, folders, files (sum of 
+  sizes etc.)
+
+- add check, if the same disk is not already stored under 
+  different name
+
+- add fast file search - simply by start typing the file name
+
+- add horizontal scroll bar to Disk window, or pop up bubble when 
+  the length of the disk name is too long
+
+- add print of Descriptions
+
+- add Export to DiskBase format of selected folders
+
+- implement search of duplicates, deleted files, new files.
+
+- configurable support of archive extraction for files with non-
+  expected extension
+
+- select from archive the most important description and make it a 
+  description of the whole archive
+
+- sort by Descriptions
+
+- create filter for FILE_ID.DIZ, remove ACSII frames
+
+- implement search in disk names
+
+- implement deletion of files and folder in the database
+
+- when searching for files, add info how many were found
+
+- add support of Audio CD, DVD
+
+- add possibility to compare file by contents (by CRC)
+
+- add support for CAB archives
+
+- add support for ZIPs in ZIPs (although seem to be nonsense, this 
+  was quite frequent request)
+
+- read tags version 2 from MP3 files
+
+- add possibility to drag anmd drop file directly form Diskbase -> 
+  will result in prompt to insert appropriate disk.
+
+- add support of storing thumbnails of pictures
+
+- add possibility to compare the disk image in the database with 
+  actual disk contents and report differences.
+
+- add search across multiple databases
+
+- add possibility to export the search results
+
+- add possibility to save search options and history
+
+- add possibiliy to seach for duplicates and unique files in the 
+  database
+
+- create automatic unicode filter
+
+- add possibility to edit descriptions in the Search Results 
+  window
+
+- save the history in all combo boxes etc., so that the work next 
+  time is more comfortable.
+
+- implement preview of print
+
+- implement filter for DLL/EXE, which shows version info
+
+- find a solution for missing descriptions when the original disk 
+  is reorganized
+
+- Enable to hide selected columns in the Search Results window
+
+- Enable to delete multiple descriptions
+
+- add smooth scrolling
+
+- add drag&drop operation - dropping a DC-ROM drive on DiskBase 
+  starts scanning. Add automatic naming to avoid dialog boxes
+
+- add sound replay after longer search
+
+- add logical operators to search 
+
+- add more print capabilities
+
+- add Lend List - to make evidence to whom I lent the disk.
+

@@ -1,0 +1,17 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+MaxDescLines    = 5
+MaxDescSize     = 300
+DefaultExt      = txt
+FileFilter      = Textové soubory (*.txt)|*.txt
+
+//====================================================================
+
+<<On Database Begin>>
+Disk<<Tab>>Složka<<Tab>>Soubor<<Tab>>Velikost<<Tab>>Datum<<Tab>>Èas<<Tab>>Popiska<<CrLf>>
+//------------------------------------------------------------------
+<<On File>>
+<<DiskName>><<Tab>><<FolderName>><<Tab>><<FileName>><<Tab>><<FileSize>><<Tab>><<FileDate>><<Tab>><<FileTime>><<Tab>><<ShortDesc>><<CrLf>>
+

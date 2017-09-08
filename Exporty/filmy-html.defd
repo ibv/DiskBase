@@ -1,0 +1,92 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = [#
+IdentifierEnd   = #]
+MaxDescLines    = 5
+MaxDescSize     = 300
+FileColumns     = 1
+DefaultExt      = htm
+FileFilter      = Soubory HTML (*.htm,*.html)|*.htm;*html
+
+//====================================================================
+
+
+[#On Database Begin#]
+<HTML>[#CrLf#]
+<HEAD>[#CrLf#]
+   <TITLE>DiskBase Export: [#DatabaseName#]</TITLE>[#CrLf#]
+</HEAD>[#CrLf#]
+
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">[#CrLf#]
+
+
+//------------------------------------------------------------------
+
+[#On Disk Begin#]
+
+<H2><FONT COLOR="#008040">[#DiskName#]</FONT></H2>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On Folder Begin#]
+
+<H3> [#PathToFolder#][#FolderName#]</H3>[#CrLf#]
+
+//------------------------------------------------------------------
+
+[#On First Column Begin#]
+
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=3">[#CrLf#]
+<TR BGCOLOR="#FFFFC4">[#CrLf#]
+<TD>Jméno</TD>
+<TD ALIGN=RIGHT>Velikost</TD>
+<TD ALIGN=RIGHT>Datum</TD>
+<TD ALIGN=RIGHT>Èas</TD>
+<TD>Popiska</TD>
+</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+//[#On Each Column Begin#]
+
+//------------------------------------------------------------------
+
+[#On File#]
+<TR>
+<TD VALIGN=TOP><TT>[#FileName#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileSize#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileDate#]</TT></TD>
+<TD ALIGN=RIGHT VALIGN=TOP NOWRAP><TT>&nbsp;[#FileTime#]</TT></TD>
+<TD VALIGN=TOP><FONT SIZE="-1">[#ShortDesc#]&nbsp;</FONT></TD>
+</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+//[#On Description#]
+//<TR>
+//<TD VALIGN=TOP><FONT SIZE="-1">[#Desc#][#CrLf#]</FONT></TD>
+//</TR>[#CrLf#]
+
+//------------------------------------------------------------------
+
+// [#On Each Column End#]
+
+//------------------------------------------------------------------
+
+[#On Last Column End#]
+</TABLE>
+
+//------------------------------------------------------------------
+
+// [#On Folder End#]
+//</TABLE>
+//------------------------------------------------------------------
+
+// [#On Disk End#]
+
+//------------------------------------------------------------------
+
+[#On Database End#]
+</BODY>[#CrLf#]
+</HTML>[#CrLf#]
+
+

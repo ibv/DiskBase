@@ -1,0 +1,94 @@
+DiskBase 5
+----------
+*** See the end of this file for info in English ***
+
+Tento soubor popisuje následující záležitosti:
+
+1. Co je DiskBase?
+2. Instalace programu.
+3. Odinstalace programu.
+
+-----------------------------------------------------
+
+1. Co je DiskBase?
+==================
+
+DiskBase je program pro vedení katalogu disků.
+
+DiskBase si umí přečíst z disku jména složek (adresářů) 
+a souborů a uložit si je do své databáze. V databázi je 
+pak možno v uložených obrazech disků vyhledávat, aniž 
+by příslušný disk musel být fyzicky přítomen v počítači. 
+To nabízí široké využití zejména při archivaci dat na 
+výměnná disková média, jakými jsou diskety, CD-R, CD-RW, 
+ZIP, DVD-ROM a vůbec všechna média, která se ve Windows 
+chovají jako standardní disk.
+
+DiskBase nabízí komfortní uživatelské prostředí, 
+zobrazující zaznamenané disky v obdobné formě, jako je 
+tomu u Průzkumníka ve Windows.
+
+Vedle jmen složek a souborů umožňuje DiskBase zaznamenat 
+též jména složek a souborů obsažených v archivních 
+souborech typu ZIP, RAR, ARJ, ACE a dalších. Je možno 
+číst též obsah samorozbalovacích (EXE) souborů s archivy.
+Ke každé složce či souboru je také možné vytvořit popisku, 
+tj. text, vztahující se k dané složce či souboru. U souborů 
+je možné využít funkci automatického vytvoření popisky 
+z obsahu souboru (např. okopírováním začátku u textových 
+souborů). Pro toto vytváření jsou používány filtry. Při 
+vyhledávání v databázi je pak možné hledat nejen ve 
+jménech složek a souborů, ale i v těchto popiskách.
+Mezi další možnosti programu patří zobrazení seznamu 
+disků podle velikosti a volného místa.
+
+-----------------------------------------------------
+
+2. Instalace programu
+=====================
+Instalace se provádí spuštěním programu Setup.exe.
+
+-----------------------------------------------------
+
+4. Odinstalace programu
+=======================
+Pro odinstalování je k dispozici program, který je 
+dostupný v nabídce:
+->Start 
+  ->Programy
+    ->DiskBase 5
+      ->Odstranit DiskBase
+
+nebo v nabídce:
+->Start
+  ->Nastavení
+    ->Ovládací panely
+      ->Přidat nebo Odebrat Programy
+
+Preferujte použití tohoto programu před pouhým smazáním 
+složky s DiskBase; odinstalační program odstraňuje též
+příslušná data z registrační databáze.
+
+-----------------------------------------------------
+
+Další informace o programu naleznete v nápovědě k programu,
+která je aktualizována souběžně s aktualizací programu 
+DiskBase a též na našem WWW serveru na URL:
+
+             http://diskbase.learsy.com/czech
+
+Dotazy můžete posílat na adresu elektronické pošty:
+
+             infoc@learsy.com
+
+
+--- Info in English ---------------------------------
+
+DiskBase is a disk cataloging program and is available also 
+in English version. You will find more information on 
+
+             http://diskbase.learsy.com
+
+You can also download the latest version of the program there. 
+
+E-mail contact: infoe@learsy.com

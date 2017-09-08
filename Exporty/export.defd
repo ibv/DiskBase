@@ -1,0 +1,14 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+DefaultExt      = txt
+FileFilter      = Textové soubory (*.txt)|*.txt
+FileColumns 	= 5
+
+//-----------------------------------------------------------------
+<<On Disk Begin>>
+Disk: <<DiskName>><<CrLf>>
+<<On File>>
+<<PathToFolder>><<FileName>>|<<FileSize>>|<<FileDate>> <<FileTime>>|<<ShortDesc>><<CrLf>>
+

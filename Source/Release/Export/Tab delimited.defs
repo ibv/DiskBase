@@ -1,0 +1,15 @@
+DiskBase Export Format Definition File
+
+IdentifierBegin = <<
+IdentifierEnd   = >>
+DefaultExt      = txt
+FileFilter      = Text files (*.txt)|*.txt
+
+//====================================================================
+
+<<On Database Begin>>
+Disk<<Tab>>Size<<Tab>>Free<<Tab>>Free %<<CrLf>>
+//------------------------------------------------------------------
+<<On Disk Begin>>
+<<DiskName>><<Tab>><<DiskSizeKb>><<Tab>><<DiskFreeKb>><<Tab>><<DiskFreePercent>><<CrLf>>
+

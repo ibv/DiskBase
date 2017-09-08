@@ -1,0 +1,19 @@
+Microsoft (R) Help Compiler
+HCRTF 4.03.0002
+Copyright (c) Microsoft Corp 1990 - 1995. All rights reserved.
+diskbase.hpj
+    HC1010: Note: 
+	The following mapped Topic IDs were not used in any topic:
+	h_SeznamTypuArchivnich
+	h_FAQOdpovediNa
+	h_TvorbaKonverznichFiltru
+52	Topics
+250	Jumps
+83	Keywords
+0	Bitmaps
+
+
+Created C:\Data\Zdenek\Prg\DiskBase\Source_Forge\Release\DISKBASE.hlp, 96,105 bytes
+Hall+Zeck compression decreased help file by 90,515 bytes.
+Compile time: 0 minutes, 1 second
+1 note, 0 warnings
