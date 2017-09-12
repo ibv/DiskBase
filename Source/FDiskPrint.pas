@@ -324,7 +324,7 @@ procedure TFormDiskPrint.Run (var Info);
   {$ifdef mswindows}
   FilesList            := TQStringList.Create;
   FilesList.Sorted     := true;
-  FilesList.Duplicates := qdupAccept;
+  FilesList.Duplicates := dupAccept;
 
   CanRun := false;
   try

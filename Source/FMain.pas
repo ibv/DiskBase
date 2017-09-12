@@ -680,7 +680,6 @@ procedure TMainForm.FormCreate(Sender: TObject);
   Tag := GetNewTag;
   MakeDiskSelection := false;
   MakeFileSelection := false;
-  FormIsClosed := false;
   MaxFileNameLength := 12;
   MaxFileNamePxLength := 50;
   FillChar(SubTotals, SizeOf(SubTotals), 0);
@@ -1830,6 +1829,7 @@ var
     LastUsedDir := ExtractDir(OpenDialog.FileName);
     if not IsDBaseOpened (OpenDialog.FileName, true) then
       begin
+      FormIsClosed:=false;
       DeleteFromLastFilesList(OpenDialog.FileName);
       OpenDatabase(OpenDialog.FileName);
       LastOpenedFile := OpenDialog.FileName;
@@ -2487,7 +2487,8 @@ procedure TMainForm.UpdateSpeedButtons;
   ///               or (ActiveMDIChild is TFormFoundEmptyList);
 
   FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);//true;
-  FormFoundOnTop := false;
+  FormFoundOnTop := (PageControl1.TabIndex=1) and ((TabSheet2.FindChildControl('FormFoundFileList') <> nil) or
+                    (TabSheet2.FindChildControl('FormFoundEmptyList') <> nil));
   ActivePanel := 0;
   if FormDBaseOnTop
     then
@@ -2577,7 +2578,9 @@ procedure TMainForm.MenuBarClick(Sender: TObject);
   FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);
   ///FormFoundOnTop := (ActiveMDIChild is TFormFoundFileList)
   ///                  or (ActiveMDIChild is TFormFoundEmptyList);
-  FormFoundOnTop := false;
+  FormFoundOnTop := (PageControl1.TabIndex=1) and ((TabSheet2.FindChildControl('FormFoundFileList') <> nil) or
+                    (TabSheet2.FindChildControl('FormFoundEmptyList') <> nil));
+  //FormFoundOnTop := false;
   if FormDBaseOnTop
     then
       begin
@@ -2841,10 +2844,24 @@ procedure TMainForm.MenuCloseDBaseClick(Sender: TObject);
   begin
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).Close;
-     QI_CloseDatabase(DBaseHandle,false);
-     Disks.RowCount:=0;
+
+     AddToLastFilesList(DBaseFileName);
+     QI_CloseDatabase(DBaseHandle, false);
+     DBaseFileName:='';
+     FormIsClosed := true;
+
+     Disks.DefaultColWidth:=Disks.ColWidths[0];
+     Disks.Clear;
+     Disks.RowCount:=1;
      DiskTree.Items.Clear;
-     DrawGridFiles.RowCount:=0;
+     DrawGridFiles.RowCount:=1;
+
+     if TabSheet2.FindChildControl('FormFoundFileList') <> nil then
+         TForm(TabSheet2.FindChildControl('FormFoundFileList')).Close;
+     if TabSheet2.FindChildControl('FormFoundEmptyList') <> nil then
+         TForm(TabSheet2.FindChildControl('FormFoundEmptyList')).Close;
+
+
      HeaderTop.Sections[0].Text:='';
      HeaderTop.Sections[1].Text:='';
      HeaderTop.Sections[2].Text:='';
@@ -2862,10 +2879,11 @@ function TMainForm.GetFoundForm(FormType: byte): TForm;
     i, ActiveTag: Integer;
 
   begin
-  Result := MainForm;
+  Result := nil;
 
   //if (FormType and foFoundFile <> 0) then Result:=FormFoundFileList;
-  if (FormType and foFoundEmpty <> 0) then Result:=FormSearchEmpty;
+  if (FormType and foFoundEmpty <> 0) then Result:=TForm(TabSheet2.FindChildControl('FormFoundEmptyList'));
+  if (FormType and foFoundFile <> 0)  then Result:=TForm(TabSheet2.FindChildControl('FormFoundFileList'));
   {
   if ActiveMDIChild is TFormDBase then
     begin
@@ -2894,7 +2912,8 @@ procedure TMainForm.SpeedButtonShowFoundClick(Sender: TObject);
 
   begin
   Form := GetFoundForm(foBoth);
-  if Form <> nil then Form.BringToFront;
+  ///if Form <> nil then Form.BringToFront;
+  if Form <> nil then PageControl1.TabIndex:=1;
   end;
 
 //-----------------------------------------------------------------------------
@@ -2920,6 +2939,7 @@ procedure TMainForm.SpeedButtonShowDBaseClick(Sender: TObject);
         end;
     end;
     }
+    PageControl1.TabIndex:=0;
   end;
 
 //-----------------------------------------------------------------------------
@@ -4821,14 +4841,14 @@ procedure TMainForm.RescanTree(SavePosition: boolean);
     RootDirColHandle := QI_GetRootDirCol(DBaseHandle);
     ///OutLineTree.AddObject (0, '\', RootDirColHandle);
     Node:=DiskTree.Items.AddObject (nil, '\', RootDirColHandle);
-    Node.ImageIndex:=1;
-    Node.SelectedIndex:=1;
+    //Node.ImageIndex:=1;
+    //Node.SelectedIndex:=1;
     TreePtrCol^.Insert(RootDirColHandle);
     DirsInTree := 1;
 
     try
       ///ScanTree (RootDirColHandle, 1, DirsInTree);
-      ScanTree (RootDirColHandle, Node, DirsInTree);
+      ScanTree (RootDirColHandle, nil, DirsInTree);
     except
       ///on Error: EOutlineError do
       on Error: ETreeViewError do
@@ -4844,7 +4864,7 @@ procedure TMainForm.RescanTree(SavePosition: boolean);
              EndUpdate;
           end
       else
-        DiskTree.Items[1].Expand(false);
+        ///DiskTree.Items[1].Expand(false);
     if SavePosition and (SaveSelected > 0) then
       begin
       ExpandBranch(DiskTree.Items[SaveSelected]);
@@ -5941,13 +5961,19 @@ procedure TMainForm.SearchName;
       ///if QGlobalOptions.FoundToNewWin
       ///  then FormFoundFileList := nil
       ///  else FormFoundFileList := TFormFoundFileList(MainForm.GetFoundForm(foFoundFile));
-      FormFoundFileList := nil;
+      if QGlobalOptions.FoundToNewWin
+        then FormFoundFileList := nil
+        else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+      //FormFoundFileList := nil;
       if FormFoundFileList = nil
         then
           begin
           FormFoundFileList := TFormFoundFileList.Create(Self);
           FormFoundFileList.Tag := Self.Tag;
           FormFoundFileList.DBaseWindow := Self;
+          FormFoundFileList.Parent:=TabSheet2;
+          //FormFoundFileList.WindowState := wsMaximized;
+          FormFoundFileList.Align:=alClient;
           end
         else
           FormFoundFileList.BringToFront;
@@ -6000,13 +6026,20 @@ var
       ///if {QGlobalOptions.FoundToNewWin} false // not necessary at all
       ///  then FormFoundEmptyList := nil
       ///  else FormFoundEmptyList := TFormFoundEmptyList(MainForm.GetFoundForm(foFoundEmpty));
-      FormFoundEmptyList := nil;
+      if {QGlobalOptions.FoundToNewWin} false // not necessary at all
+        then FormFoundEmptyList := nil
+        else FormFoundEmptyList := TFormFoundEmptyList(TabSheet2.FindChildControl('FormFoundEmptyList'));
+
+      //FormFoundEmptyList := nil;
       if FormFoundEmptyList = nil
         then
           begin
           FormFoundEmptyList := TFormFoundEmptyList.Create(Self);
           FormFoundEmptyList.Tag := Self.Tag;
           FormFoundEmptyList.DBaseWindow := Self;
+          FormFoundEmptyList.Parent:=TabSheet2;
+          FormFoundEmptyList.Align:=alClient;
+
           end
         else
           FormFoundEmptyList.BringToFront;
@@ -6097,13 +6130,19 @@ var
       ///if QGlobalOptions.FoundToNewWin
       ///  then FormFoundFileList := nil
       ///  else FormFoundFileList := TFormFoundFileList(MainForm.GetFoundForm(foFoundFile));
-      FormFoundFileList := nil;
+      if QGlobalOptions.FoundToNewWin
+        then FormFoundFileList := nil
+        else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+      //FormFoundFileList := nil;
       if FormFoundFileList = nil
         then
           begin
           FormFoundFileList := TFormFoundFileList.Create(Self);
           FormFoundFileList.Tag := Self.Tag;
           FormFoundFileList.DBaseWindow := Self;
+          FormFoundFileList.Parent:=TabSheet2;
+          FormFoundFileList.Align:=alClient;
+          FormFoundFileList.BorderIcons:=[biSystemMenu];
           end
         else
           FormFoundFileList.BringToFront;

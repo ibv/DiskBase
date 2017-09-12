@@ -3343,7 +3343,7 @@ procedure TDatabase.RepairKeys;
   for Index := KeyField^.CountValid to pred(KeyField^.Count) do
     if (KeyField^.Keys[Index].Attr and kaDeleted) > 0 then
       begin
-      DiskName := CP1250ToUtf8(ReadKeyStr(KeyField^.Keys[Index].Position));
+      DiskName := ReadKeyStr(KeyField^.Keys[Index].Position);
       if copy(DiskName, length(DiskName), 1) <> ']' then
         begin
         FoundRestoredDisks := true;

@@ -183,7 +183,7 @@ procedure TFormDiskExport.Run (var Info);
   ///FilesList            := TQStringList.Create;
   FilesList            := TStringList.Create;
   ///FilesList.Sorted     := true;
-  ///FilesList.Duplicates := qdupAccept;
+  FilesList.Duplicates := dupAccept;
   FormSettings.UpdateGlobalFormatSettings;
 
   try

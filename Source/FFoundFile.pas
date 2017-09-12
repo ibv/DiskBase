@@ -34,6 +34,8 @@ type
 
   TFormFoundFileList = class(TForm)
     DrawGrid: TDrawGrid;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     PopupMenu: TPopupMenu;
     MenuGoTo: TMenuItem;
     MenuPrint: TMenuItem;
@@ -55,6 +57,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure DrawGridDblClick(Sender: TObject);
     procedure MenuGoToClick(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
     procedure MenuPrintClick(Sender: TObject);
     procedure MenuHelpClick(Sender: TObject);
     procedure DrawGridSelectCell(Sender: TObject; Col, Row: Longint;
@@ -695,13 +698,13 @@ procedure TFormFoundFileList.ResetFontAndSize;
   with DrawGrid do
     begin
     {$ifndef LOGFONT}
-    Font.Assign       (QGlobalOptions.FoundFont);
-    Canvas.Font.Assign(QGlobalOptions.FoundFont);
+    ///Font.Assign       (QGlobalOptions.FoundFont);
+    ///Canvas.Font.Assign(QGlobalOptions.FoundFont);
     {$else}
     SetFontFromLogFont(Font, QGlobalOptions.FoundLogFont);
     SetFontFromLogFont(Canvas.Font, QGlobalOptions.FoundLogFont);
     {$endif}
-    DefaultRowHeight := Canvas.TextHeight('¡»Myj');
+    DefaultRowHeight := Canvas.TextHeight('My');
     TimeWidth := Canvas.TextWidth(DosTimeToStr(longint(23) shl 11,
                                                 QGlobalOptions.ShowSeconds));
     TimeWidth := TimeWidth + TimeWidth div 6;
@@ -751,6 +754,11 @@ procedure TFormFoundFileList.MenuGoToClick(Sender: TObject);
   begin
   DrawGridDblClick(Sender);
   end;
+
+procedure TFormFoundFileList.MenuItem2Click(Sender: TObject);
+begin
+  close;
+end;
 
 //---------------------------------------------------------------------------
 

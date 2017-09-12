@@ -35,6 +35,8 @@ type
 
   TFormFoundEmptyList = class(TForm)
     DrawGrid: TDrawGrid;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     PopupMenu: TPopupMenu;
     MenuGoTo: TMenuItem;
     MenuPrint: TMenuItem;
@@ -56,6 +58,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure DrawGridDblClick(Sender: TObject);
     procedure MenuGoToClick(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
     procedure MenuPrintClick(Sender: TObject);
     procedure MenuHelpClick(Sender: TObject);
     procedure DrawGridKeyDown(Sender: TObject; var Key: Word;
@@ -651,6 +654,11 @@ procedure TFormFoundEmptyList.MenuGoToClick(Sender: TObject);
   begin
   DrawGridDblClick(Sender);
   end;
+
+procedure TFormFoundEmptyList.MenuItem2Click(Sender: TObject);
+begin
+  close;
+end;
 
 //---------------------------------------------------------------------------
 

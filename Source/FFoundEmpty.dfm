@@ -126,6 +126,13 @@ object FormFoundEmptyList: TFormFoundEmptyList
       ShortCut = 112
       OnClick = MenuHelpClick
     end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Close'
+      OnClick = MenuItem2Click
+    end
   end
   object PrintDialog: TPrintDialog
     HelpContext = 320

@@ -8,7 +8,7 @@ object FormFoundFileList: TFormFoundFileList
   ClientWidth = 656
   Color = clBtnFace
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -13
   Font.Name = 'Sans'
   Icon.Data = {
     360400000000010002002020100000000000E802000026000000101010000000
@@ -127,6 +127,13 @@ object FormFoundFileList: TFormFoundFileList
       HelpContext = 250
       ShortCut = 112
       OnClick = MenuHelpClick
+    end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Close'
+      OnClick = MenuItem2Click
     end
   end
   object PrintDialog: TPrintDialog
