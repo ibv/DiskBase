@@ -744,6 +744,7 @@ procedure TFormFoundFileList.DrawGridDblClick(Sender: TObject);
     LongName := POneFile^.LongName + POneFile^.Ext;
     DBaseWindow.BringToFront;
     DBaseWindow.JumpTo(GetPQString(Disk), GetPQString(Dir), LongName);
+    DBaseWindow.PageControl1.TabIndex:=0;
     end;
   end;
 
