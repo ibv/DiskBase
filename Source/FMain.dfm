@@ -841,8 +841,8 @@ object MainForm: TMainForm
     SimplePanel = False
   end
   object MainMenu1: TMainMenu
-    left = 460
-    top = 48
+    left = 392
+    top = 104
     object MenuFile: TMenuItem
       Caption = '&File'
       OnClick = MenuBarClick

@@ -347,6 +347,7 @@ type
     m_EjectDriveLetter2: char;
 
     //---
+    ActivePanel        : integer;
     QGlobalOptions     : TGlobalOptions; {class}
     HeaderWidths       : TPanelHeaderWidths;
     ColumnAttrib       : array[0..maxColumnAttribs] of TOneColumn;
@@ -483,7 +484,7 @@ type
     function  DoScan (Drive: char;
                       StartPath: ShortString; DiskName: ShortString;
                       AutoRun, NoOverWarning: boolean): boolean;
-    function  ActivePanel: Integer;
+    function  APanel: Integer;
     function  CanUndeleteRecord: boolean;
     function  GetDBaseHandle: PDBaseHandle;
     function  GetSelectedFileName: ShortString;
@@ -699,6 +700,7 @@ procedure TMainForm.FormCreate(Sender: TObject);
 
   end;
 
+
 procedure TMainForm.PopupMenuDiskPopup(Sender: TObject);
 begin
   MenuDeleteDisk.Enabled := not DBaseIsReadOnly;
@@ -846,6 +848,10 @@ case QGlobalOptions.SortCrit of
   scTime: MenuSortTime.Checked := true;
   scSize: MenuSortSize.Checked := true;
   end;
+MenuSortName1.Checked:=MenuSortName.Checked;
+MenuSortExt1.Checked:=MenuSortExt.Checked;
+MenuSortTime1.Checked:=MenuSortTime.Checked;
+MenuSortSize1.Checked:=MenuSortSize.Checked;
 case QGlobalOptions.FileDisplayType of
   fdBrief:
     begin
@@ -858,6 +864,9 @@ case QGlobalOptions.FileDisplayType of
     MenuBrief.Checked := false;
     end;
   end;
+MenuBrief1.Checked   := MenuBrief.Checked;
+MenuDetailed1.Checked:=MenuDetailed.Checked;
+
 end;
 
 procedure TMainForm.PopupMenuTreePopup(Sender: TObject);
@@ -1118,7 +1127,7 @@ try
         end;
       end;
     end;
-
+    ActivePanel:=2;
 except
   on ENormal: EQDirNormalException do
     NormalErrorMessage(ENormal.Message);
@@ -1133,11 +1142,9 @@ except
 end;
 
 procedure TMainForm.ChangePanel(Sender: TObject);
-var
-  APanel: Integer;
 
 begin
-APanel := ActivePanel;
+ActivePanel:=APanel;
 EraseFileHint;
 {
 if APanel = 1
@@ -1150,7 +1157,7 @@ if APanel = 2
   ///else HeaderTop.Sections.Strings[1] := '';
   else HeaderTop.Sections[1].Text := '';
 }
-if APanel = 3
+if ActivePanel = 3
   then UpdateHeader
   ///else HeaderTop.Sections.Strings[2] := '';
   else HeaderTop.Sections[2].Text := '';
@@ -1645,6 +1652,7 @@ procedure TMainForm.DisksEnter(Sender: TObject);
   begin
   ///SetBriefFileDisplay(true);
   //SetBriefFileDisplay(QGlobalOptions.FileDisplayType=fdBrief);
+
   PopupMenuFilesPopup(Sender);
 end;
 
@@ -1807,7 +1815,8 @@ procedure TMainForm.DisksClick(Sender: TObject);
 var
   done: boolean;
 begin
-  AppIdle(sender,done);
+  //AppIdle(sender,done);
+  ActivePanel:=1;
 end;
 
 
@@ -2312,6 +2321,9 @@ procedure TMainForm.MenuBriefClick(Sender: TObject);
   begin
   SpeedButtonBriefClick(Sender);
   SetMenuFileDisplayType(fdBrief);
+  SetBriefFileDisplay(true);
+  PopupMenuFilesPopup(Sender);
+
   end;
 
 //-----------------------------------------------------------------------------
@@ -2322,6 +2334,9 @@ procedure TMainForm.MenuDetailedClick(Sender: TObject);
   begin
   SpeedButtonDetailedClick(Sender);
   SetMenuFileDisplayType(fdDetailed);
+  SetBriefFileDisplay(false);
+  PopupMenuFilesPopup(Sender);
+
   end;
 
 //-----------------------------------------------------------------------------
@@ -2352,6 +2367,7 @@ procedure TMainForm.MenuSortNameClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SetNeedResort(scName);
     SetNeedResort(scName);
+    PopupMenuFilesPopup(Sender);
   end;
 
 //-----------------------------------------------------------------------------
@@ -2364,6 +2380,7 @@ procedure TMainForm.MenuSortExtClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SetNeedResort(scExt);
   SetNeedResort(scExt);
+  PopupMenuFilesPopup(Sender);
   end;
 
 //-----------------------------------------------------------------------------
@@ -2376,6 +2393,7 @@ procedure TMainForm.MenuSortTimeClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SetNeedResort(scTime);
     SetNeedResort(scTime);
+    PopupMenuFilesPopup(Sender);
   end;
 
 //-----------------------------------------------------------------------------
@@ -2388,6 +2406,7 @@ procedure TMainForm.MenuSortSizeClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SetNeedResort(scSize);
      SetNeedResort(scSize);
+     PopupMenuFilesPopup(Sender);
   end;
 
 //-----------------------------------------------------------------------------
@@ -2479,23 +2498,26 @@ procedure TMainForm.UpdateSpeedButtons;
     DBaseNotReadOnly: boolean;
     FormDBaseOnTop  : boolean;
     FormFoundOnTop  : boolean;
-    ActivePanel     : Integer;
+    ///ActivePanel     : Integer;
 
   begin
   ///FormDBaseOnTop := ActiveMDIChild is TFormDBase;
   ///FormFoundOnTop := (ActiveMDIChild is TFormFoundFileList)
   ///               or (ActiveMDIChild is TFormFoundEmptyList);
 
-  FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);//true;
-  FormFoundOnTop := (PageControl1.TabIndex=1) and ((TabSheet2.FindChildControl('FormFoundFileList') <> nil) or
-                    (TabSheet2.FindChildControl('FormFoundEmptyList') <> nil));
-  ActivePanel := 0;
+  FormDBaseOnTop := false;
+  if PageControl1.TabIndex<>1 then
+    FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);//true;
+  //FormFoundOnTop := (PageControl1.TabIndex=1) and ((TabSheet2.FindChildControl('FormFoundFileList') <> nil) or
+  //                  (TabSheet2.FindChildControl('FormFoundEmptyList') <> nil));
+  FormFoundOnTop := (PageControl1.TabIndex=1) and (GetFoundForm(foBoth) <> nil);
+  ///ActivePanel := 0;
   if FormDBaseOnTop
     then
       begin
       DBaseNotEmpty := not DBaseIsEmpty;
       DBaseNotReadOnly := not DBaseIsReadOnly;
-      ActivePanel   := ActivePanel;
+      ///ActivePanel   := APanel;
       end
     else
       begin
@@ -2515,7 +2537,7 @@ procedure TMainForm.UpdateSpeedButtons;
   ///EnableSpeedButton(SpeedButtonExpand,   FormDBaseOnTop and TFormDBase(ActiveMDIChild).QGlobalOptions.ShowTree);
   EnableSpeedButton(SpeedButtonCollapse, FormDBaseOnTop and QGlobalOptions.ShowTree);
   EnableSpeedButton(SpeedButtonExpand,   FormDBaseOnTop and QGlobalOptions.ShowTree);
-  EnableSpeedButton(SpeedButtonShowFound, GetFoundForm(foBoth) <> nil);
+  EnableSpeedButton(SpeedButtonShowFound, (PageControl1.TabIndex=0) and (GetFoundForm(foBoth) <> nil));
   EnableSpeedButton(SpeedButtonShowDBase, FormFoundOnTop);
   EnableSpeedButton(SpeedButtonSelect,
                     FormDBaseOnTop and ((ActivePanel = 1) or (ActivePanel = 3)));
@@ -2570,12 +2592,14 @@ procedure TMainForm.MenuBarClick(Sender: TObject);
     DBaseNotReadOnly: boolean;
     FormFoundOnTop  : boolean;
     DBaseNotEmpty   : boolean;
-    ActivePanel     : Integer;
+    ///ActivePanel     : Integer;
 
   begin
-  ActivePanel := 0;
+  ///ActivePanel := 1;
   ///FormDBaseOnTop := ActiveMDIChild is TFormDBase;
-  FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);
+  FormDBaseOnTop := false;
+  if PageControl1.TabIndex<>1 then
+    FormDBaseOnTop := QI_DatabaseIsOpened (DBaseHandle);
   ///FormFoundOnTop := (ActiveMDIChild is TFormFoundFileList)
   ///                  or (ActiveMDIChild is TFormFoundEmptyList);
   FormFoundOnTop := (PageControl1.TabIndex=1) and ((TabSheet2.FindChildControl('FormFoundFileList') <> nil) or
@@ -2589,7 +2613,7 @@ procedure TMainForm.MenuBarClick(Sender: TObject);
       ///DBaseNotReadOnly := not TFormDBase(ActiveMDIChild).DBaseIsReadOnly;
       DBaseNotReadOnly := not DBaseIsReadOnly;
       ///ActivePanel   := TFormDBase(ActiveMDIChild).ActivePanel;
-      ActivePanel   := MainForm.ActivePanel;
+      ///ActivePanel   := APanel;
       end
     else
       begin
@@ -2779,7 +2803,22 @@ procedure TMainForm.MenuSearchNameClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SearchName;
   SearchName;
+  PageControl1.TabIndex:=1;
   end;
+
+
+//-----------------------------------------------------------------------------
+// Menu handler - Find selected files
+
+procedure TMainForm.MenuSearchSelectedClick(Sender: TObject);
+
+  begin
+  ///if ActiveMDIChild is TFormDBase then
+  ///  TFormDBase(ActiveMDIChild).SearchSelected;
+  SearchSelected;
+  PageControl1.TabIndex:=1;
+  end;
+
 
 //-----------------------------------------------------------------------------
 // Menu handler - search in database by disk size
@@ -2790,6 +2829,7 @@ procedure TMainForm.MenuSearchEmptyClick(Sender: TObject);
   ///if ActiveMDIChild is TFormDBase then
   ///  TFormDBase(ActiveMDIChild).SearchEmpty;
   SearchEmpty;
+  PageControl1.TabIndex:=1;
   end;
 
 //-----------------------------------------------------------------------------
@@ -2861,7 +2901,6 @@ procedure TMainForm.MenuCloseDBaseClick(Sender: TObject);
      if TabSheet2.FindChildControl('FormFoundEmptyList') <> nil then
          TForm(TabSheet2.FindChildControl('FormFoundEmptyList')).Close;
 
-
      HeaderTop.Sections[0].Text:='';
      HeaderTop.Sections[1].Text:='';
      HeaderTop.Sections[2].Text:='';
@@ -2877,13 +2916,24 @@ function TMainForm.GetFoundForm(FormType: byte): TForm;
 
   var
     i, ActiveTag: Integer;
+    b: boolean;
 
   begin
   Result := nil;
 
-  //if (FormType and foFoundFile <> 0) then Result:=FormFoundFileList;
-  if (FormType and foFoundEmpty <> 0) then Result:=TForm(TabSheet2.FindChildControl('FormFoundEmptyList'));
-  if (FormType and foFoundFile <> 0)  then Result:=TForm(TabSheet2.FindChildControl('FormFoundFileList'));
+  if FormType = foBoth then
+    begin
+      Result:=TForm(TabSheet2.FindChildControl('FormFoundEmptyList'));
+      if result <> nil then exit;
+      Result:=TForm(TabSheet2.FindChildControl('FormFoundFileList'));
+    end
+  else
+  begin
+    //if (FormType and foFoundFile <> 0) then Result:=FormFoundFileList;
+    if (FormType and foFoundEmpty <> 0) then Result:=TForm(TabSheet2.FindChildControl('FormFoundEmptyList'));
+    if (FormType and foFoundFile <> 0)  then Result:=TForm(TabSheet2.FindChildControl('FormFoundFileList'));
+  end;
+
   {
   if ActiveMDIChild is TFormDBase then
     begin
@@ -3260,16 +3310,6 @@ procedure TMainForm.SpeedButtonParentClick(Sender: TObject);
   GoToParent;
   end;
 
-//-----------------------------------------------------------------------------
-// Menu handler - Find selected files
-
-procedure TMainForm.MenuSearchSelectedClick(Sender: TObject);
-
-  begin
-  ///if ActiveMDIChild is TFormDBase then
-  ///  TFormDBase(ActiveMDIChild).SearchSelected;
-  SearchSelected;
-  end;
 
 //-----------------------------------------------------------------------------
 // Menu handler - Display database info
@@ -3389,6 +3429,7 @@ procedure TMainForm.MenuAboutClick(Sender: TObject);
 procedure TMainForm.MenuHelpContentClick(Sender: TObject);
 
   begin
+  if GetFoundForm(foBoth) <> nil then
   Application.HelpContext(0);
   end;
 
@@ -5508,7 +5549,7 @@ procedure TMainForm.EraseFileHint;
 //--------------------------------------------------------------------
 // Returns the tag of the active panel
 
-function TMainForm.ActivePanel: Integer;
+function TMainForm.APanel: Integer;
 begin
 Result := 0;
 if (ActiveControl is TDrawGrid)
@@ -5963,7 +6004,8 @@ procedure TMainForm.SearchName;
       ///  else FormFoundFileList := TFormFoundFileList(MainForm.GetFoundForm(foFoundFile));
       if QGlobalOptions.FoundToNewWin
         then FormFoundFileList := nil
-        else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+        //else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+        else FormFoundFileList := TFormFoundFileList(GetFoundForm(foFoundFile));
       //FormFoundFileList := nil;
       if FormFoundFileList = nil
         then
@@ -5977,6 +6019,7 @@ procedure TMainForm.SearchName;
           end
         else
           FormFoundFileList.BringToFront;
+      FormFoundFileList.Tag:=1;
       FoundTitle := Caption + ': ' + FormSearchFileDlg.ComboBoxMask.Text;
       if length(FoundTitle) > 30 then
         FoundTitle := ShortCopy(FoundTitle, 1, 26) + ' ...';
@@ -6028,7 +6071,8 @@ var
       ///  else FormFoundEmptyList := TFormFoundEmptyList(MainForm.GetFoundForm(foFoundEmpty));
       if {QGlobalOptions.FoundToNewWin} false // not necessary at all
         then FormFoundEmptyList := nil
-        else FormFoundEmptyList := TFormFoundEmptyList(TabSheet2.FindChildControl('FormFoundEmptyList'));
+        //else FormFoundEmptyList := TFormFoundEmptyList(TabSheet2.FindChildControl('FormFoundEmptyList'));
+        else FormFoundEmptyList := TFormFoundEmptyList(GetFoundForm(foFoundEmpty));
 
       //FormFoundEmptyList := nil;
       if FormFoundEmptyList = nil
@@ -6043,6 +6087,7 @@ var
           end
         else
           FormFoundEmptyList.BringToFront;
+      FormFoundEmptyList.Tag:=1;
       FoundTitle := Caption + lsListOfFreeSpace;
       ///FormFoundEmptyList.Caption := FoundTitle;
       FormFoundEmptyList.GetList(DBaseHandle);
@@ -6132,7 +6177,8 @@ var
       ///  else FormFoundFileList := TFormFoundFileList(MainForm.GetFoundForm(foFoundFile));
       if QGlobalOptions.FoundToNewWin
         then FormFoundFileList := nil
-        else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+        //else FormFoundFileList := TFormFoundFileList(TabSheet2.FindChildControl('FormFoundFileList'));
+        else FormFoundFileList := TFormFoundFileList(GetFoundForm(foFoundFile));
       //FormFoundFileList := nil;
       if FormFoundFileList = nil
         then
@@ -6146,6 +6192,7 @@ var
           end
         else
           FormFoundFileList.BringToFront;
+      FormFoundFileList.Tag:=1;
       FoundTitle := Caption + ': ' + FormSearchFileDlg.DlgData.Mask;
       if length(FoundTitle) > 30 then
         FoundTitle := ShortCopy(FoundTitle, 1, 26) + ' ...';
@@ -6432,13 +6479,34 @@ end;
 
 procedure TMainForm.DoSelection;
 begin
-  if (ActiveControl is TDrawGrid) then
+  {if (ActiveControl is TDrawGrid) then
     begin
     if TDrawGrid(ActiveControl).Tag = 1 then SelectDisksOrFiles(true);
     if TDrawGrid(ActiveControl).Tag = 3 then SelectDisksOrFiles(false);
-    end;
+    end;}
+  If ActivePanel = 1 then SelectDisksOrFiles(true);
+  if ActivePanel = 3 then SelectDisksOrFiles(false);
 
 end;
+
+
+//--------------------------------------------------------------------
+// called when the user selects Unselect All from the Main Form menu
+
+procedure TMainForm.UnselectAll;
+begin
+{
+if (ActiveControl is TDrawGrid) then
+  begin
+  if TDrawGrid(ActiveControl).Tag = 1 then UnselectDisksOrFiles(true);
+  if TDrawGrid(ActiveControl).Tag = 3 then UnselectDisksOrFiles(false);
+  end;
+}
+if ActivePanel = 1 then UnselectDisksOrFiles(true);
+if ActivePanel = 3 then UnselectDisksOrFiles(false);
+
+end;
+
 
 //--------------------------------------------------------------------
 // called when the user selects Select All from the Main Form menu
@@ -6450,21 +6518,11 @@ if (ActiveControl is TDrawGrid) then
   if TDrawGrid(ActiveControl).Tag = 1 then SelectAllDisksOrFiles(true);
   if TDrawGrid(ActiveControl).Tag = 3 then SelectAllDisksOrFiles(false);
   end;
+//if FPanel = 1 then SelectAllDisksOrFiles(true);
+//if FPanel = 3 then SelectAllDisksOrFiles(false);
 
 end;
 
-//--------------------------------------------------------------------
-// called when the user selects Unselect All from the Main Form menu
-
-procedure TMainForm.UnselectAll;
-begin
-if (ActiveControl is TDrawGrid) then
-  begin
-  if TDrawGrid(ActiveControl).Tag = 1 then UnselectDisksOrFiles(true);
-  if TDrawGrid(ActiveControl).Tag = 3 then UnselectDisksOrFiles(false);
-  end;
-
-end;
 
 procedure TMainForm.MakeCopy;
 begin
