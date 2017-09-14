@@ -644,6 +644,7 @@ procedure TFormFoundEmptyList.DrawGridDblClick(Sender: TObject);
     begin
     DBaseWindow.BringToFront;
     DBaseWindow.JumpTo(GetPQString(Disk), '', '');
+    DBaseWindow.PageControl1.TabIndex:=0;
     end;
   end;
 
