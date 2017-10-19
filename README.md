@@ -21,7 +21,6 @@ Netestované (nestabilní) funkce:
 ## Požadavky
 - Lazarus (FPC) kompilátor
 - Linux prostředí
-
 - utilitka lsblk, balíček util-linux
 - pustit příkaz visudo a zapsat řádek "user  ALL= NOPASSWD: /usr/bin/lsblk", kde "user" je aktuálně přihlášený uživatel v linuxu (pepik,franta,admin,..)
 

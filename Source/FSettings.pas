@@ -104,12 +104,18 @@ type
     EnableShellExecute: boolean;
     PanelHeaderWidths : TPanelHeaderWidths;
 
+    EnableUTFConvert  : boolean;
+
     constructor Create;
     destructor  Destroy; override;
     end;
 
 
+  { TFormSettings }
+
   TFormSettings = class(TForm)
+    CheckBoxEnableUTFConvert: TCheckBox;
+    GroupBoxMargins: TGroupBox;
     ///TabbedNotebook: TTabbedNotebook;
     TabbedNotebook: TPageControl;
     Page1: TTabSheet;
@@ -606,6 +612,8 @@ procedure TFormSettings.SaveToIni;
   IniFile.WriteBool ('General', 'ScanAfterInsert', CheckBoxScanAfterCdInsert.Checked);
   IniFile.WriteBool ('General', 'NoQueries',       CheckBoxNoQueries.Checked);
 
+  IniFile.WriteBool ('General', 'EnableUTFConvert',CheckBoxEnableUTFConvert.Checked);
+
 
   IniFile.WriteBool ('Display', 'ShowTree',        CheckBoxShowTree.Checked);
   IniFile.WriteBool ('Display', 'ExpandTree',      CheckBoxExpandTree.Checked);
@@ -621,6 +629,8 @@ procedure TFormSettings.SaveToIni;
   IniFile.WriteBool ('Display', 'OneKbIs1024',     CheckBoxOneKbIs1024.Checked);
   IniFile.WriteBool ('Display', 'ShowFileHints',   CheckBoxShowFileHints.Checked);
   IniFile.WriteBool ('Display', 'PersistentBlocks',CheckBoxPersistentBlocks.Checked);
+
+
 
 {$ifndef LOGFONT}
   WriteFont(DiskFont,  'DiskPanel');
@@ -737,6 +747,8 @@ procedure TFormSettings.LoadFromIni;
       EditAutoLoadDBase.Text             := '';
       CheckBoxOpenLastOpened.Checked     := true;
 
+      CheckBoxEnableUTFConvert.Checked    := false;
+
       CheckBoxShowTree.Checked   := true;
       CheckBoxExpandTree.Checked := false;
       CheckBoxExpandTree.Enabled := CheckBoxShowTree.Checked;
@@ -799,6 +811,9 @@ procedure TFormSettings.LoadFromIni;
       CheckBoxNoQueries.Checked          := IniFile.ReadBool  ('General', 'NoQueries', false);
       EditAutoLoadDBase.Text             := IniFile.ReadString('General', 'AutoLoad', '');
       CheckBoxOpenLastOpened.Checked     := IniFile.ReadBool  ('General', 'AutoLoadLast', true);
+
+      CheckBoxEnableUTFConvert.Checked   := IniFile.ReadBool  ('General', 'EnableUTFConvert', false);
+
 
       CheckBoxShowTree.Checked   := IniFile.ReadBool('Display', 'ShowTree', true);
       CheckBoxExpandTree.Checked := IniFile.ReadBool('Display', 'ExpandTree', false);
@@ -1032,6 +1047,8 @@ procedure TFormSettings.GetOptions(GlobalOptions: TGlobalOptions);
     PersistentBlocks   := CheckBoxPersistentBlocks.Checked;
     NotScanDriveNames  := CheckBoxNotScanDriveNames.Checked;
     EnableShellExecute := CheckBoxEnableShellExecute.Checked;
+
+    EnableUTFConvert   := CheckBoxEnableUTFConvert.Checked;
     end;
   end;
 

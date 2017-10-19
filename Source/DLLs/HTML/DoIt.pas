@@ -1,5 +1,9 @@
 unit DoIt;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 {$ifdef DLLDEBUG}
@@ -23,7 +27,7 @@ function CloseTransfer(Handle: longint): longint; export;
 implementation
 
 uses SysUtils,
-     QStream;
+     Qstream;
 
 const
   ReadBufSize = 8*1024;
@@ -84,7 +88,7 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
       begin
       if ReadBufPos >= WasRead then
         begin
-        InputFile.ReadExt(ReadBuffer[0], ReadBufSize, WasRead);
+        InputFile.ReadExt(ReadBuffer[0], {Read}BufSize, WasRead);
         ReadBufPos := 0;
         end;
       if ReadBufPos >= WasRead then

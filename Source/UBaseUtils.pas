@@ -32,8 +32,13 @@ uses UTypes, UCollections, UApiTypes, UBaseTypes, UCollectionsExt;
   function  FileExists      (FName: ShortString): boolean;
   function  DirExists       (FName: ShortString): boolean;
   function  TestFileCreation (sFileName: AnsiString): boolean;
+  {$ifdef mswindows}
   procedure QGetDiskSizes   (DriveNum: Byte; var lSizeKbytes, lFreeKbytes,
                              lBytesPerSector, lSectorsPerCluster: longword);
+  {$else}
+  procedure QGetDiskSizes   (DriveNum: ShortString; var lSizeKbytes, lFreeKbytes,
+                             lBytesPerSector, lSectorsPerCluster: longword);
+  {$endif}
   procedure FSplit          (Path: ShortString; var Dir, Name, Ext: ShortString);
   function  ExtractDir      (Path: ShortString): ShortString;
   function  GetProgramDir: ShortString;
@@ -162,6 +167,7 @@ function DirExists(FName: ShortString): boolean;
      DirInfo: TSearchRec;
 
    begin
+   {$ifdef mswindows}
    if (length(FName) = 3) and (FName[2] = ':') and (FName[3] = '\')
      then
        begin
@@ -172,6 +178,9 @@ function DirExists(FName: ShortString): boolean;
    Result := SysUtils.FindFirst(FName, faDirectory, DirInfo) = 0;
    if (Result) then Result := (DirInfo.Attr and faDirectory) <> 0;
    SysUtils.FindClose(DirInfo);
+   {$else}
+   Result:=DirectoryExists(FNAme);
+   {$endif}
    end;
 
 //-----------------------------------------------------------------------------
@@ -218,6 +227,7 @@ function IsWin95Osr2OrLater: boolean;
 
 //-----------------------------------------------------------------------------
 
+{$ifdef mswindows}
 procedure QGetDiskSizes (DriveNum: Byte; var lSizeKbytes, lFreeKbytes,
                          lBytesPerSector, lSectorsPerCluster: longword);
 
@@ -239,7 +249,6 @@ procedure QGetDiskSizes (DriveNum: Byte; var lSizeKbytes, lFreeKbytes,
     TotalNumberOfFreeBytes      : Comp;
 
   begin
-  {$ifdef mswindows}
   DriveSpec[0] := Char(DriveNum + Ord('A')-1);
   DriveSpec[1] := ':';
   DriveSpec[2] := '\';
@@ -296,13 +305,21 @@ procedure QGetDiskSizes (DriveNum: Byte; var lSizeKbytes, lFreeKbytes,
           lSectorsPerCluster := 0;
           end;
       end;
+  end;
+
     {$else}
+procedure QGetDiskSizes (DriveNum: ShortString; var lSizeKbytes, lFreeKbytes,
+                         lBytesPerSector, lSectorsPerCluster: longword);
+var
+  i: byte;
     ///lSizeKbytes := 0;
     ///lFreeKbytes := 0;
+ begin
+    i:=AddDisk(DriveNum);
     lBytesPerSector := 0;
     lSectorsPerCluster := 0;
-    lSizeKbytes := round(DiskSize(DriveNum) / 1024);
-    lFreeKbytes := round(DiskFree(DriveNum) / 1024);
+    lSizeKbytes := round(DiskSize(i) / 1024);
+    lFreeKbytes := round(DiskFree(i) / 1024);
     {$endif}
   end;
 
@@ -909,7 +926,6 @@ function GetPQString (P: TPQString): ShortString;
 function DosTimeToStr (DosDateTime: longint; IncludeSeconds: boolean): ShortString;
   var
     Hour, Min, Sec: word;
-
   begin
   Sec         := (DosDateTime and $1F) shl 1;
   DosDateTime := DosDateTime shr 5;
@@ -919,6 +935,7 @@ function DosTimeToStr (DosDateTime: longint; IncludeSeconds: boolean): ShortStri
   if IncludeSeconds
     then DosTimeToStr := Format('%d'+TimeSeparator+'%2.2d'+TimeSeparator+'%2.2d', [Hour, Min, Sec])
     else DosTimeToStr := Format('%d'+TimeSeparator+'%2.2d', [Hour, Min]);
+
   end;
 
 //-----------------------------------------------------------------------------

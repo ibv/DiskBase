@@ -14,14 +14,17 @@ uses
     LCLIntf, LCLType, LMessages, ComCtrls, ExtCtrls,
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, {Gauges,}
+  Forms, Dialogs, StdCtrls, ATGauge,
   UTypes, UApiTypes;
 
 type
+
+  { TFormRepair }
+
   TFormRepair = class(TForm)
-    ///Gauge       : TGauge;
-    Gauge       : TPanel;
+    //Gauge       : TPanel;
     ButtonCancel: TButton;
+    Gauge: TGauge;
     LabelInfo   : TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ButtonCancelClick(Sender: TObject);
@@ -90,9 +93,9 @@ procedure AppendLineToIndicator (Line: ShortString); far;
 procedure UpdateProgressIndicator (Phase, Progress: Integer); far;
 
   begin
-  ///if (FormRepair.Gauge.Progress <> Progress) then
-  ///  FormRepair.Gauge.Progress := Progress;
-  ///Application.ProcessMessages;
+  if (FormRepair.Gauge.Progress <> Progress) then
+    FormRepair.Gauge.Progress := Progress;
+  Application.ProcessMessages;
   end;
 
 //-----------------------------------------------------------------------------

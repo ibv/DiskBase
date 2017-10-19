@@ -22,7 +22,9 @@ function CloseTransfer(Handle: longint): longint; export;
 
 implementation
 
-uses WinTypes, WinProcs, SysUtils;
+uses
+  Qstream,
+  SysUtils;
 
 const
   ReadBufSize = 8*1024;
@@ -110,7 +112,7 @@ type
     ReadBuffer    : array [0..ReadBufSize-1] of char;
     ReadBufPos    : longint;
     WasRead       : longint;
-    hInputFile    : integer;
+    InputFile     : TQBufStream;
     OneWordBuffer : ShortString;
     LastReadChar  : integer;
     FileFormat    : (unknown, WinWord, T602, RTF, HTML);
@@ -157,12 +159,11 @@ function OpenTransfer (FileName: PChar; var Handle: longint): longint;
     TC.ReadBufPos  := 0;
     TC.WasRead := 0;
     TC.OneWordBuffer := '';
+    TC.Level := 0;
     Handle := longint(TC);
-    TC.hInputFile := CreateFile(FileName, GENERIC_READ, FILE_SHARE_READ,
-                                nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-    if TC.hInputFile = INVALID_HANDLE_VALUE then exit;
+    TC.InputFile.Init(FileName, stOpenReadNonExclusive);
     TC.FileFormat := Unknown;
-    if not ReadFile(TC.hInputFile, TC.ReadBuffer[0], ReadBufSize, DWORD(TC.WasRead), nil) then exit;
+    TC.InputFile.ReadExt(TC.ReadBuffer[0], ReadBufSize, TC.WasRead);
     {T602}
     TC.CurrentBufPos := 1;
     TC.FileEncoding  := NoIdea;
@@ -242,8 +243,7 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
       begin
       if ReadBufPos >= WasRead then
         begin
-        if not ReadFile(hInputFile, ReadBuffer[0], ReadBufSize, DWORD(WasRead), nil) then
-          raise EInOutError.Create('Cannot read.');
+        InputFile.ReadExt(ReadBuffer[0], ReadBufSize, WasRead);
         ReadBufPos := 0;
         end;
       if ReadBufPos >= WasRead then
@@ -261,7 +261,8 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
         begin // read again
         if ReadBufPos >= WasRead then
           begin
-          if not ReadFile(hInputFile, ReadBuffer[0], ReadBufSize, DWORD(WasRead), nil) then
+          InputFile.ReadExt(ReadBuffer[0], ReadBufSize, WasRead);
+          if WasRead <> ReadBufSize then
             raise EInOutError.Create('Cannot read.');
           ReadBufPos := 0;
           end;
@@ -855,12 +856,13 @@ function CloseTransfer(Handle: longint): longint;
   begin
   Result := -1;
   try
-    if TC.hInputFile <> INVALID_HANDLE_VALUE then CloseHandle(TC.hInputFile);
+    TC.InputFile.Done;
     TC.Free;
   except
     on Exception do exit;
     end;
   Result := 0;
+
   end;
 
 {--------------------------------------------------------------------}

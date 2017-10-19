@@ -16,7 +16,7 @@ object FormDiskPrint: TFormDiskPrint
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.0.3'
+  LCLVersion = '1.8.0.4'
   object LabelSearched: TLabel
     Left = 164
     Height = 16
@@ -50,19 +50,6 @@ object FormDiskPrint: TFormDiskPrint
     AutoSize = False
     ParentColor = False
   end
-  object Gauge: TPanel
-    Left = 248
-    Height = 76
-    Top = 32
-    Width = 76
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 1
-    Visible = False
-  end
   object ButtonCancel: TButton
     Left = 131
     Height = 25
@@ -73,6 +60,23 @@ object FormDiskPrint: TFormDiskPrint
     Default = True
     OnClick = ButtonCancelClick
     TabOrder = 0
+  end
+  object Gauge: TGauge
+    Left = 248
+    Height = 76
+    Top = 32
+    Width = 76
+    BorderStyle = bsNone
+    Color = clBtnFace
+    DoubleBuffered = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    Kind = gkPie
+    ShowTextInverted = True
   end
   object PrintDialog: TPrintDialog
     FromPage = 1

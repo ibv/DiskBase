@@ -10,7 +10,7 @@ uses
   {$ifdef mswindows}
   WinTypes,WinProcs,
   {$ELSE}
-    LCLIntf, LCLType, LMessages,
+    LCLIntf, LCLType, LMessages, dateutils,
   {$ENDIF}
   Messages, Classes, Graphics, Controls, Forms, Dialogs, Menus, ExtCtrls,
   Buttons, ComCtrls, Grids, PrintersDlgs, IniFiles, UStringList,
@@ -330,7 +330,7 @@ type
     procedure MenuCopyDiskClick(Sender: TObject);
     procedure MenuPrintTreeClick(Sender: TObject);
     procedure MenuRescanClick(Sender: TObject);
-
+    procedure MenuDeleteFileClick(Sender: TObject);
 
   private
     EnableFirstIdle    : boolean;
@@ -348,7 +348,6 @@ type
 
     //---
     ActivePanel        : integer;
-    QGlobalOptions     : TGlobalOptions; {class}
     HeaderWidths       : TPanelHeaderWidths;
     ColumnAttrib       : array[0..maxColumnAttribs] of TOneColumn;
     TimeWidth          : Integer;
@@ -460,6 +459,7 @@ type
     procedure MakeCopy;
     procedure MakeCopyDisks;
     procedure MakeCopyFiles;
+    procedure DeleteFiles;
     procedure MakePrintDisk;
     procedure MakePrintTree;
     procedure MakePrintFiles;
@@ -479,11 +479,17 @@ type
     function  FindOneFileLine(Point: TPoint; var Rect: TRect): TOneFileLine;
     function  AttachDBase(FName: ShortString): boolean;
     function  DBaseIsEmpty: boolean;
-
+    {$ifdef mswindows}
     function  ScanDisk (Drive: char; AutoRun: boolean): boolean; // returns false when interrupted
     function  DoScan (Drive: char;
                       StartPath: ShortString; DiskName: ShortString;
                       AutoRun, NoOverWarning: boolean): boolean;
+    {$else}
+    function  ScanDisk (Drive: ShortString; AutoRun: boolean): boolean; // returns false when interrupted
+    function  DoScan (Drive, StartPath: ShortString; DiskName: ShortString;
+                      AutoRun, NoOverWarning: boolean): boolean;
+    {$endif}
+
     function  APanel: Integer;
     function  CanUndeleteRecord: boolean;
     function  GetDBaseHandle: PDBaseHandle;
@@ -493,6 +499,8 @@ type
   public
     DBaseHandle        : PDBaseHandle;
     DBaseFileName      : ShortString;
+    QGlobalOptions     : TGlobalOptions; {class}
+
 
     function  GetFoundForm(FormType: byte): TForm;
     function  IsDBaseOpened(DBaseFileName: ShortString; ToFront: boolean): boolean;
@@ -716,6 +724,11 @@ procedure TMainForm.MenuRescanClick(Sender: TObject);
   begin
   RescanDisk;
   end;
+
+procedure TMainForm.MenuDeleteFileClick(Sender: TObject);
+begin
+  DeleteFiles;
+end;
 
 //--------------------------------------------------------------------
 // Menu handler - deletes the current disk
@@ -1384,10 +1397,18 @@ procedure TMainForm.DrawGridFilesDrawCell(Sender: TObject; aCol, aRow: Integer;
                       if DosDateTime <> 0
                         then
                           begin
-                          S := DosTimeToStr(DosDateTime, QGlobalOptions.ShowSeconds);
+                          //if DosDateTime > 1000000000 then
+                          if DosDateTime > 970000000 then
+                            s:=FormatDateTime('hh:nn',UniversalTimeToLocal(UnixToDateTime(DosDateTime)))
+                          else
+                            S := DosTimeToStr(DosDateTime, QGlobalOptions.ShowSeconds);
                           StartX := aRect.Right - DrawGridFiles.Canvas.TextWidth(S) - 2;
                           DrawGridFiles.Canvas.TextRect(aRect, StartX, aRect.Top, S);
-                          S := DosDateToStr(DosDateTime);
+                          //if DosDateTime > 1000000000 then
+                          if DosDateTime > 970000000 then
+                            s:=FormatDateTime('d.m.yyyy',UniversalTimeToLocal(UnixToDateTime(DosDateTime)))
+                          else
+                            S := DosDateToStr(DosDateTime);
                           PartRect := aRect;
                           PartRect.Right := PartRect.Right - TimeWidth;
                           if PartRect.Right < PartRect.Left then PartRect.Right := PartRect.Left;
@@ -2706,6 +2727,7 @@ procedure TMainForm.SpeedButtonScanDiskClick(Sender: TObject);
     Drive      : char;
 
   begin
+  {$ifndef mswindows}
   ///if ActiveMDIChild is TFormDBase then
   ///  begin
     FormSelectDrive.ListBoxDrives.MultiSelect := true;
@@ -2727,6 +2749,9 @@ procedure TMainForm.SpeedButtonScanDiskClick(Sender: TObject);
               end;
             end;
     ///end;
+    {$else}
+    MenuScanFolderClick(Sender);
+    {$endif}
   end;
 
 //-----------------------------------------------------------------------------
@@ -4541,8 +4566,14 @@ procedure TMainForm.UpdateStatusLine(Index: Integer; SubTotalsToo: boolean);
           else      StatusLineFiles := StatusLineFiles + FormatSize(POneFile^.Size, QGlobalOptions.ShowInKb) + '   ';
           end;
         if DosDateTime <> 0 then
-          StatusLineFiles := StatusLineFiles + DosDateToStr(DosDateTime) + ' ' +
+        begin
+          //if DosDateTime > 1000000000 then
+          if DosDateTime > 970000000 then
+            StatusLineFiles := StatusLineFiles + FormatDateTime('d.m.yyyy hh:nn',UniversalTimeToLocal(UnixToDateTime(DosDateTime))) + '   '
+          else
+            StatusLineFiles := StatusLineFiles + DosDateToStr(DosDateTime) + ' ' +
                    DosTimeToStr(DosDateTime, QGlobalOptions.ShowSeconds) + '   ';
+        end;
         Description := POneFile^.Description;
         if Description <> 0 then
           begin
@@ -4834,7 +4865,12 @@ procedure TMainForm.ExpandBranch(AnItem: TTreeNode);
 //--------------------------------------------------------------------
 // Scans a disk to the database.
 
+{$ifdef mswindows}
 function TMainForm.ScanDisk (Drive: char; AutoRun: boolean): boolean;
+{$else}
+function TMainForm.ScanDisk (Drive: ShortString; AutoRun: boolean): boolean;
+
+{$endif}
 
   begin
   Result := true;
@@ -4842,7 +4878,11 @@ function TMainForm.ScanDisk (Drive: char; AutoRun: boolean): boolean;
   if DBaseIsReadOnly then exit;
   try
     PanelsLocked := true;
+    {$ifdef mswindows}
     Result := DoScan(Drive, '', '', AutoRun, false);
+    {$else}
+    Result := DoScan(Drive, '', '', AutoRun, false);
+    {$endif}
     PanelsLocked := false;
   except
     on ENormal: EQDirNormalException do
@@ -5332,7 +5372,8 @@ procedure TMainForm.ScanFolder(Directory, DiskName, VolumeLabel: ShortString;
   if DBaseIsReadOnly then exit;
   try
     PanelsLocked := true;
-    DoScan(Directory[1], Directory, DiskName, false, NoOverWarning);
+    ///DoScan(Directory[1], Directory, DiskName, false, NoOverWarning);
+    DoScan(Directory, Directory, DiskName, false, NoOverWarning);
     PanelsLocked := false;
   except
     on ENormal: EQDirNormalException do
@@ -5348,11 +5389,14 @@ procedure TMainForm.ScanFolder(Directory, DiskName, VolumeLabel: ShortString;
 
 //--------------------------------------------------------------------
 // Does the actual scan of the disk, returns false when interrupted by the user
-
+{$ifdef mswindows}
 function TMainForm.DoScan (Drive: char;
                             StartPath: ShortString; DiskName: ShortString;
                             AutoRun, NoOverWarning: boolean): boolean;
-
+{$else}
+function TMainForm.DoScan (Drive, StartPath: ShortString; DiskName: ShortString;
+                            AutoRun, NoOverWarning: boolean): boolean;
+{$endif}
   var
     VolumeLabel        : ShortString;
     MsgText, MsgCaption: array[0..256] of char;
@@ -5383,8 +5427,11 @@ function TMainForm.DoScan (Drive: char;
   QI_GetCurrentKey  (DBaseHandle, SaveKey, SaveAttr, SaveSelected);
   QI_GetFullDirPath (DBaseHandle, SavePath);
   SaveFile := LastSelectedFile;
-
+  {$ifdef mswindows}
   if not ReadVolumeLabel (Drive + ':', VolumeLabel, FileSystem, DriveType) then
+  {$else}
+  if not ReadVolumeLabel (Drive, VolumeLabel, FileSystem, DriveType) then
+  {$endif}
     begin
     Application.MessageBox(
       StrPCopy(MsgText, lsDrive + Drive + ':' + lsIsNotAccesible),
@@ -7579,6 +7626,24 @@ procedure TMainForm.MakeCopyFiles;
       end;
     end;
   end;
+
+//--------------------------------------------------------------------
+// Deletes files
+
+procedure TMainForm.DeleteFiles;
+begin
+  if (CurFileSelected >= 1) and (FilesList.count > CurFileSelected) then
+    begin
+      with TOneFileLine(FilesList.Objects[CurFileSelected]).POneFile^ do
+        QI_DeleteFile(DBaseHandle,LongName);
+
+    QI_UpdateFileCol(DBaseHandle);
+
+//    FilesList.Delete(CurFileSelected);
+//    UpdateFileWindowGrid(CurFileSelected-1);
+
+  end;
+end;
 
 
 //--------------------------------------------------------------------

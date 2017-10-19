@@ -12,16 +12,21 @@ object FormSelectDrive: TFormSelectDrive
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
+  OnClose = FormClose
   OnShow = FormShow
-  LCLVersion = '1.8.0.3'
+  LCLVersion = '1.8.0.4'
   object ListBoxDrives: TListBox
     Left = 0
     Height = 171
     Top = 0
     Width = 217
     Align = alClient
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Sans'
     ItemHeight = 0
     OnDblClick = ListBoxDrivesDblClick
+    ParentFont = False
     ScrollWidth = 213
     TabOrder = 0
     TopIndex = -1
@@ -63,7 +68,7 @@ object FormSelectDrive: TFormSelectDrive
       Left = 9
       Height = 26
       Top = 3
-      Width = 96
+      Width = 97
       Caption = 'No queries'
       OnClick = CheckBoxNoQueriesClick
       TabOrder = 2

@@ -97,22 +97,23 @@ procedure TFormScanFolder.ButtonOKClick(Sender: TObject);
 
   begin
   TmpS := EditFolder.Text;
-  if (length(TmpS) > 3) and (TmpS[length(TmpS)] = '\')
-    then dec(TmpS[0]);
+  ///if (length(TmpS) > 3) and (TmpS[length(TmpS)] = '/')
+  ///  then dec(TmpS[0]);
   if not ScanningFolders and (AnsiUpperCase(SavedPath) <> AnsiUpperCase(TmpS)) then
     if Application.MessageBox(lsRescanWarning, lsWarning, MB_YESNOCANCEL) <> IDYES then exit;
 
     ValidPath := true;
-  if length(TmpS) < 3 then ValidPath := false;
-  if TmpS[2] <> ':' then ValidPath := false;
-  if TmpS[3] <> '\' then ValidPath := false;
+  ///if length(TmpS) < 3 then ValidPath := false;
+  ///if TmpS[2] <> ':' then ValidPath := false;
+  ///if TmpS[3] <> '/' then ValidPath := false;
   if not DirExists(TmpS) then ValidPath := false;
   if ValidPath
     then
       begin
       TmpS[1]     := UpCase(TmpS[1]);
       Directory   := TmpS;
-      VolumeLabel := QGetDriveName(TmpS[1]);
+      ///VolumeLabel := QGetDriveName(TmpS[1]);
+      VolumeLabel := QGetDriveName(TmpS);
       DiskName    := EditDiskName.Text;
       ModalResult := mrOK;
       end
@@ -173,11 +174,13 @@ procedure TFormScanFolder.ButtonCreateDiskNameClick(Sender: TObject);
 
   begin
   TmpS := EditFolder.Text;
-  if (TmpS <> '') and (UpCase(TmpS[1]) >= 'A') and (UpCase(TmpS[1]) <= 'Z') then
-    begin
+  ///if (TmpS <> '') and (UpCase(TmpS[1]) >= 'A') and (UpCase(TmpS[1]) <= 'Z') then
+    ///begin
     Drive := TmpS[1];
-    VolumeLabel := QGetDriveName(Drive);
-    if VolumeLabel <> '' then
+    ///VolumeLabel := QGetDriveName(Drive);
+    VolumeLabel := QGetDriveName(TmpS);
+    ///
+    {if VolumeLabel <> '' then
       begin
       TmpS2 := AnsiUpperCase(VolumeLabel);
       if TmpS2 = VolumeLabel then
@@ -185,8 +188,8 @@ procedure TFormScanFolder.ButtonCreateDiskNameClick(Sender: TObject);
         VolumeLabel := AnsiLowerCase(VolumeLabel);
         VolumeLabel[1] := TmpS2[1];
         end;
-      end;
-    Delete(TmpS, 1, 2);
+      end;}
+    ///Delete(TmpS, 1, 2);
     TmpS := VolumeLabel + ': ' + TmpS;
     Len := length(TmpS);
     if Len > MaxLen then
@@ -197,7 +200,7 @@ procedure TFormScanFolder.ButtonCreateDiskNameClick(Sender: TObject);
     for i := 1 to length(TmpS) do
       if TmpS[i] = '\' then TmpS[i] := '/';
     EditDiskName.Text := TmpS;
-    end;
+    ///end;
   end;
 
 //-----------------------------------------------------------------------------

@@ -15,7 +15,7 @@ object FormScanProgress: TFormScanProgress
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.0.3'
+  LCLVersion = '1.8.0.4'
   object LabelInfo: TLabel
     Left = 16
     Height = 37
@@ -29,19 +29,6 @@ object FormScanProgress: TFormScanProgress
     ParentFont = False
     ShowAccelChar = False
     WordWrap = True
-  end
-  object Gauge: TPanel
-    Left = 436
-    Height = 75
-    Top = 16
-    Width = 75
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 1
-    Visible = False
   end
   object LabelDoing: TLabel
     Left = 16
@@ -68,5 +55,22 @@ object FormScanProgress: TFormScanProgress
     Default = True
     OnClick = ButtonCancelClick
     TabOrder = 0
+  end
+  object Gauge: TGauge
+    Left = 436
+    Height = 75
+    Top = 16
+    Width = 75
+    BorderStyle = bsNone
+    Color = clBtnFace
+    DoubleBuffered = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    Kind = gkPie
+    ShowTextInverted = True
   end
 end

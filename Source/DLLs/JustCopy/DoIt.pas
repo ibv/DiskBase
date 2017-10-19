@@ -1,5 +1,9 @@
 unit DoIt;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 {$ifdef DLLDEBUG}
@@ -22,8 +26,8 @@ function CloseTransfer(Handle: longint): longint; export;
 
 implementation
 
-uses
-  WinTypes, WinProcs, SysUtils;
+uses SysUtils,
+     Qstream;
 
 const
   ReadBufSize = 8*1024;
@@ -33,7 +37,8 @@ type
     ReadBuffer    : array [0..ReadBufSize-1] of char;
     ReadBufPos    : longint;
     WasRead       : longint;
-    hInputFile    : LongWord;
+    ///hInputFile    : LongWord;
+    InputFile     : TQBufStream;
     LastReadChar  : integer;
     end;
 
@@ -48,9 +53,10 @@ function OpenTransfer (FileName: PChar; var Handle: longword): longint;
   Result := -1;
   Handle := 0;
   TC     := TTransferClass.Create;
+  TC.InputFile.Init(FileName, stOpenReadNonExclusive);
   TC.ReadBufPos  := 0;
   TC.WasRead     := 0;
-  TC.hInputFile  := CreateFile(FileName, GENERIC_READ, FILE_SHARE_READ,
+  {TC.hInputFile  := CreateFile(FileName, GENERIC_READ, FILE_SHARE_READ,
                                nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
   if TC.hInputFile = INVALID_HANDLE_VALUE then
     begin
@@ -58,10 +64,13 @@ function OpenTransfer (FileName: PChar; var Handle: longword): longint;
     // so make a cleanup here
     TC.Free;
     exit;
-    end;
-  if not ReadFile(TC.hInputFile, TC.ReadBuffer[0], ReadBufSize, DWORD(TC.WasRead), nil) then
+    end;}
+  ///if not ReadFile(TC.hInputFile, TC.ReadBuffer[0], ReadBufSize, DWORD(TC.WasRead), nil) then
+    TC.InputFile.ReadExt(TC.ReadBuffer[0], ReadBufSize, TC.WasRead);
+  if TC.WasRead <> ReadBufSize then
     begin
-    CloseHandle(TC.hInputFile);
+    ///FileClose(TC.hInputFile);{ *Převedeno z CloseHandle* }
+    TC.InputFile.Done;
     TC.Free;
     exit;
     end;
@@ -83,7 +92,9 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
       begin
       if ReadBufPos >= WasRead then
         begin
-        if not ReadFile(hInputFile, ReadBuffer[0], ReadBufSize, DWORD(WasRead), nil) then
+        ///if not ReadFile(hInputFile, ReadBuffer[0], ReadBufSize, DWORD(WasRead), nil) then
+        TC.InputFile.ReadExt(TC.ReadBuffer[0], ReadBufSize, TC.WasRead);
+        if TC.WasRead <> ReadBufSize then
           raise EInOutError.Create('Cannot read.');
         ReadBufPos := 0;
         end;
@@ -150,14 +161,13 @@ function CloseTransfer(Handle: longint): longint;
   begin
   Result := -1;
   try
-    if TC.hInputFile <> INVALID_HANDLE_VALUE then CloseHandle(TC.hInputFile);
+    TC.InputFile.Done;
     TC.Free;
   except
     on Exception do exit;
     end;
   Result := 0;
   end;
-
 {--------------------------------------------------------------------}
 
 end.

@@ -14,7 +14,7 @@ uses
     LCLIntf, LCLType, LMessages,
   {$ENDIF}
   Messages, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls,
-  Grids, ComCtrls, CustomDrawnControls, {Gauges,}
+  Grids, ComCtrls, {CustomDrawnControls,} ATGauge,
   UTypes, UApiTypes;
 
 type
@@ -22,7 +22,7 @@ type
   { TFormSearchName }
 
   TFormSearchName = class(TForm)
-    Gauge1: TCDProgressBar;
+    Gauge1: TGauge;
     Label1: TLabel;
     LabelSearched: TLabel;
     Label2: TLabel;
@@ -134,8 +134,8 @@ procedure TFormSearchName.UpdateCounters;
   QI_GetSearchProgress (DBaseHandle, Percent, DisksCount, DirsCount, FilesCount);
   LabelSearched.Caption := IntToStr(DisksCount) + '/' + IntToStr(FilesCount);
   LabelFound.Caption := IntToStr(QI_GetFoundCount (DBaseHandle));
-  ///Gauge1.Progress := Percent;
-  Gauge1.Position:=Percent;
+  Gauge1.Progress := Percent;
+  //Gauge1.Position:=Percent;
   end;
 
 //-----------------------------------------------------------------------------

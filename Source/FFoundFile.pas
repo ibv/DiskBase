@@ -337,11 +337,11 @@ procedure TFormFoundFileList.DrawGridDrawCell(Sender: TObject; Col,
             DrawGrid.Canvas.TextRect(Rect, StartX, Rect.Top, S);
             if CutIt then
               begin
-              S := '« ';
+              S := '< ';
               Width := DrawGrid.Canvas.TextWidth(S);
               DrawGrid.Canvas.TextRect(
                 Classes.Rect(Rect.Left, Rect.Top, Rect.Left + Width + 2, Rect.Bottom),
-                Rect.Left+2, Rect.Top, '« ')
+                Rect.Left+2, Rect.Top, '< ')
               end;
             end;
       2:

@@ -17,7 +17,7 @@ object FormSettings: TFormSettings
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poDefault
-  LCLVersion = '1.8.0.3'
+  LCLVersion = '1.8.0.4'
   object TabbedNotebook: TPageControl
     Left = 1
     Height = 284
@@ -545,7 +545,7 @@ object FormSettings: TFormSettings
       object CheckBoxFoundToNewWin: TCheckBox
         Left = 19
         Height = 26
-        Top = 69
+        Top = 70
         Width = 213
         Caption = 'Each search to a new window'
         TabOrder = 3
@@ -553,7 +553,7 @@ object FormSettings: TFormSettings
       object CheckBoxAutoSave: TCheckBox
         Left = 19
         Height = 26
-        Top = 85
+        Top = 88
         Width = 309
         Caption = 'Save settings automatically at program end'
         TabOrder = 4
@@ -561,7 +561,7 @@ object FormSettings: TFormSettings
       object CheckBoxBackupDBase: TCheckBox
         Left = 19
         Height = 26
-        Top = 101
+        Top = 106
         Width = 333
         Caption = 'Make backup copy when compressing database'
         TabOrder = 5
@@ -585,7 +585,7 @@ object FormSettings: TFormSettings
       object CheckBoxNotScanDriveNames: TCheckBox
         Left = 19
         Height = 26
-        Top = 135
+        Top = 142
         Width = 370
         Caption = 'Do not read volume names for "Scan Disk" dialog box'
         TabOrder = 7
@@ -593,7 +593,7 @@ object FormSettings: TFormSettings
       object CheckBoxPersistentBlocks: TCheckBox
         Left = 19
         Height = 26
-        Top = 118
+        Top = 124
         Width = 164
         Caption = 'Persistent selections '
         Checked = True
@@ -613,12 +613,20 @@ object FormSettings: TFormSettings
       object CheckBoxEnableShellExecute: TCheckBox
         Left = 19
         Height = 26
-        Top = 152
+        Top = 160
         Width = 208
         Caption = 'Enable opening existing files'
         Checked = True
         State = cbChecked
         TabOrder = 8
+      end
+      object CheckBoxEnableUTFConvert: TCheckBox
+        Left = 19
+        Height = 26
+        Top = 178
+        Width = 176
+        Caption = 'Enable convert to UTF8'
+        TabOrder = 9
       end
     end
   end

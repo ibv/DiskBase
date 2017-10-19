@@ -85,8 +85,11 @@ procedure TFormSelectFolder.SetFormSize;
   SetBounds(SLeft, STop, SWidth, SHeight);
   end;
 
-//-----------------------------------------------------------------------------
 
+
+
+//-----------------------------------------------------------------------------
+{$ifndef mswindows}
 procedure TFormSelectFolder.ScanSubfolders(sPath: AnsiString; pNode: TTreeNode);
 
   var
@@ -97,14 +100,15 @@ procedure TFormSelectFolder.ScanSubfolders(sPath: AnsiString; pNode: TTreeNode);
 
   begin
   pNode.DeleteChildren();
-  if (Copy(sPath, Length(sPath), 1) <> '\')
-    then sPath := sPath + '\*'
+  if (Copy(sPath, Length(sPath), 1) <> '/')
+    then sPath := sPath + '/*'
     else sPath := sPath + '*';
   bFound := SysUtils.FindFirst(sPath, faAnyFile, SearchRec) = 0;
 
   while (bFound) do
     begin
-    sFileName := UpperCase(SearchRec.Name);
+    ///
+    {sFileName := UpperCase(SearchRec.Name);
     if (sFileName = SearchRec.Name)
       then // all chars in upper case
         begin
@@ -113,6 +117,7 @@ procedure TFormSelectFolder.ScanSubfolders(sPath: AnsiString; pNode: TTreeNode);
         sFileName[1] := cFirstLetter;
         end
       else
+      }
         sFileName := SearchRec.Name;
     if ((SearchRec.Attr and faDirectory) <> 0) and
         (sFileName <> '.') and
@@ -124,6 +129,43 @@ procedure TFormSelectFolder.ScanSubfolders(sPath: AnsiString; pNode: TTreeNode);
   SysUtils.FindClose(SearchRec);
   pNode.AlphaSort();
   end;
+{$else}
+
+procedure TFormSelectFolder.ScanSubFolders(sPath: AnsiString; pNode: TTreeNode);
+var
+  Path: string;
+  sr : TSearchRec;
+begin
+  pNode.DeleteChildren();
+  Path := IncludeTrailingPathDelimiter(sPath);
+  if FindFirst(Path + '*', faAnyFile and faDirectory, sr) = 0 then
+  begin
+    repeat
+      // TSearchRec.Attr contain basic attributes (directory, hidden,
+      // system, etc). TSearchRec only supports a subset of all possible
+      // info. TSearchRec.FindData contains everything that the OS
+      // reported about the item during the search, if you need to
+      // access more detailed information...
+
+      if (sr.Attr and faDirectory) <> 0 then
+      begin
+        // item is a directory
+        if (sr.Name <> '.') and (sr.Name <> '..') then
+        begin
+          DirTreeView.Items.AddChild(pNode, sr.Name);
+          ScanSubFolders(Path + sr.Name,pNode);
+        end;
+      end
+      else
+      begin
+        // item is a file
+      end;
+    until FindNext(sr) <> 0;
+  end;
+  FindClose(sr);
+  pNode.AlphaSort();
+end;
+{$endif}
 
 //---------------------------------------------------------------------------
 
@@ -143,8 +185,9 @@ procedure TFormSelectFolder.InitTreeView();
 
   begin
   DirTreeView.Items.Clear(); // remove any existing nodes
-  ///dwLogicalDrives := GetLogicalDrives();
-  ///uiOldMode := SetErrorMode (SEM_FAILCRITICALERRORS); // hides error message box if the CD is not ready
+  {$ifdef mswindows}
+  dwLogicalDrives := GetLogicalDrives();
+  uiOldMode := SetErrorMode (SEM_FAILCRITICALERRORS); // hides error message box if the CD is not ready
   for i := 2 to 31 do // 2 means skip A: and B:
     begin
     if (((dwLogicalDrives shr i) and $1) = 0) then Continue;
@@ -173,17 +216,24 @@ procedure TFormSelectFolder.InitTreeView();
     else
       DirTreeView.Items.Add(DirTreeView.Items.Item[0], sDrive);
     end;
+  {$else}
+  if (DirTreeView.Items.Count = 0) then
+    DirTreeView.Items.Add(nil, '/')
+  else
+    DirTreeView.Items.Add(DirTreeView.Items.Item[0], '/');
+
+  {$endif}
 
   pNode := DirTreeView.Items.GetFirstNode();
   while (pNode <> nil) do
     begin
     sDrive := pNode.Text;
     SetLength(sDrive, 2);
-    sDrive := sDrive + '\';
+    sDrive := sDrive + '/';
     ScanSubfolders(sDrive, pNode);
     pNode := pNode.getNextSibling();
     end;
-
+  DirTreeView.Items[0].Expand(false);
   ///SetErrorMode (uiOldMode);
   end;
 
@@ -199,12 +249,12 @@ function TFormSelectFolder.GetFullPath(pNode: TTreeNode): AnsiString;
       if (pNode.Parent = nil)
         then // we are at top, extract the drive letter
           begin
-          Result := pNode.Text;
-          SetLength(Result, 2);
+          ///Result := pNode.Text;
+          ///SetLength(Result, 2);
           exit;
           end
         else
-          Result := GetFullPath(pNode.Parent) + '\' + pNode.Text;
+          Result := GetFullPath(pNode.Parent) + '/' + pNode.Text;
   end;
 
 //---------------------------------------------------------------------------
@@ -224,7 +274,7 @@ procedure TFormSelectFolder.DirTreeViewExpanded(Sender: TObject; Node: TTreeNode
   pChildNode := Node.getFirstChild();
   while (pChildNode <> nil) do
     begin
-    sSubPath := sPath + '\' + pChildNode.Text;
+    sSubPath := sPath + '/' + pChildNode.Text;
     ScanSubfolders(sSubPath, pChildNode);
     pChildNode := Node.GetNextChild(pChildNode);
     if ((GetTickCount() - dwStartTime) > 1000) then

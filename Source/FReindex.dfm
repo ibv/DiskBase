@@ -14,19 +14,7 @@ object FormReindex: TFormReindex
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.0.3'
-  object Gauge: TPanel
-    Left = 207
-    Height = 81
-    Top = 8
-    Width = 85
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 1
-  end
+  LCLVersion = '1.8.0.4'
   object LabelInfo: TLabel
     Left = 12
     Height = 16
@@ -50,5 +38,22 @@ object FormReindex: TFormReindex
     Default = True
     OnClick = ButtonCancelClick
     TabOrder = 0
+  end
+  object Gauge: TGauge
+    Left = 207
+    Height = 81
+    Top = 8
+    Width = 85
+    BorderStyle = bsNone
+    Color = clBtnFace
+    DoubleBuffered = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    Kind = gkPie
+    ShowTextInverted = True
   end
 end

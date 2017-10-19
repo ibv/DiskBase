@@ -17,6 +17,9 @@ uses
   UTypes;
 
 type
+
+  { TFormSelectDrive }
+
   TFormSelectDrive = class(TForm)
     ListBoxDrives: TListBox;
     Panel1: TPanel;
@@ -25,6 +28,7 @@ type
     CheckBoxNoQueries: TCheckBox;
     procedure ButtonOKClick(Sender: TObject);
     procedure ButtonCancelClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure ListBoxDrivesDblClick(Sender: TObject);
     procedure CheckBoxNoQueriesClick(Sender: TObject);
@@ -62,6 +66,16 @@ procedure TFormSelectDrive.ButtonCancelClick(Sender: TObject);
   begin
   ModalResult := mrCancel;
   end;
+
+procedure TFormSelectDrive.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+var
+  i: integer;
+begin
+  for i := 0 to DriveList.Count - 1 do
+    Dispose(TPDrive(DriveList.Objects[i]));
+  DriveList.Clear;
+end;
 
 //-----------------------------------------------------------------------------
 
@@ -137,9 +151,14 @@ procedure TFormSelectDrive.SetFormSize;
 //-----------------------------------------------------------------------------
 
 procedure TFormSelectDrive.ListBoxDrivesDblClick(Sender: TObject);
-
+var
+   i: integer;
   begin
-  ButtonOKClick(Sender);
+  ///ButtonOKClick(Sender);
+  i:= DriveList.IndexOf(ListBoxDrives.Items[ListBoxDrives.ItemIndex]);
+  //showmessage(TDriveObj(DriveList.Objects[i]).Drive.Name);
+  showmessage(TPDrive(DriveList.Objects[i]).Name);
+  //showmessage(ListBoxDrives.Items[ListBoxDrives.ItemIndex]);
   end;
 
 //-----------------------------------------------------------------------------

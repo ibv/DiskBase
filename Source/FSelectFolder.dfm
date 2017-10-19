@@ -12,7 +12,7 @@ object FormSelectFolder: TFormSelectFolder
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnShow = FormShow
-  LCLVersion = '1.8.0.3'
+  LCLVersion = '1.8.0.4'
   object Panel1: TPanel
     Left = 0
     Height = 31
@@ -49,8 +49,14 @@ object FormSelectFolder: TFormSelectFolder
     Top = 0
     Width = 261
     Align = alClient
+    ExpandSignType = tvestArrowFill
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Sans'
     HideSelection = False
     Indent = 19
+    ParentFont = False
+    ScrollBars = ssAutoBoth
     TabOrder = 1
     OnClick = DirTreeViewClick
     OnCollapsed = DirTreeViewCollapsed

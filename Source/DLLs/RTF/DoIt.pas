@@ -1,5 +1,9 @@
 unit DoIt;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 {$ifdef DLLDEBUG}
@@ -103,7 +107,7 @@ function CloseTransfer(Handle: longint): longint; export;
 implementation
 
 uses SysUtils,
-     QStream;
+     Qstream;
 
 const
   ReadBufSize = 8*1024;
@@ -291,7 +295,7 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
               (Tag = 'title') or
               (Tag = 'author') then
                 begin
-                FCh := #13; {nutno poté doplnit #10}
+                FCh := #13; {nutno potÃ© doplnit #10}
                 ReturnLF := true;
                 exit;
                 end;
@@ -336,7 +340,7 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
                 (Tag = 'page') or
                 (Tag = 'par')  then
                   begin
-                  FCh := #13; {nutno poté doplnit #10}
+                  FCh := #13; {nutno potÃ© doplnit #10}
                   ReturnLF := true;
                   exit;
                   end;

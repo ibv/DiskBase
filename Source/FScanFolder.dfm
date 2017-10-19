@@ -1,7 +1,7 @@
 object FormScanFolder: TFormScanFolder
-  Left = 347
+  Left = 519
   Height = 136
-  Top = 337
+  Top = 270
   Width = 449
   HelpContext = 116
   BorderIcons = [biSystemMenu]
@@ -11,31 +11,31 @@ object FormScanFolder: TFormScanFolder
   ClientWidth = 449
   Color = clBtnFace
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -12
+  Font.Name = 'Sans'
   OnCreate = FormCreate
   OnShow = FormShow
-  Position = poScreenCenter
-  LCLVersion = '1.8.0.3'
+  Position = poDefault
+  LCLVersion = '1.8.0.5'
   object LabelScanFolder: TLabel
     Left = 12
-    Height = 13
+    Height = 14
     Top = 8
-    Width = 69
+    Width = 75
     Caption = 'Scan folder:'
     ParentColor = False
   end
   object LabelSaveIt: TLabel
     Left = 9
-    Height = 13
+    Height = 14
     Top = 56
-    Width = 184
+    Width = 202
     Caption = 'and save it to database as disk:'
     ParentColor = False
   end
   object EditFolder: TEdit
     Left = 12
-    Height = 19
+    Height = 20
     Top = 24
     Width = 313
     OnChange = EditFolderChange
@@ -43,7 +43,7 @@ object FormScanFolder: TFormScanFolder
   end
   object EditDiskName: TEdit
     Left = 12
-    Height = 19
+    Height = 20
     Top = 72
     Width = 313
     OnChange = EditDiskNameChange

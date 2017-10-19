@@ -75,17 +75,14 @@ object FormSearchName: TFormSearchName
     OnClick = ButtonStopClick
     TabOrder = 0
   end
-  object Gauge1: TCDProgressBar
+  object Gauge1: TGauge
     Left = 37
     Height = 21
     Top = 12
     Width = 393
-    BarShowText = False
-    DrawStyle = dsDefault
-    Max = 100
-    Orientation = pbHorizontal
-    Position = 0
-    Smooth = False
-    Style = pbstNormal
+    Color = clBtnFace
+    DoubleBuffered = True
+    ParentColor = False
+    ShowTextInverted = True
   end
 end

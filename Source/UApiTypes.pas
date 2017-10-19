@@ -56,7 +56,7 @@ type
 
   TFilePointer = longword;
 
-  TFileSystem = (FAT, HPFS, NTFS, Unknown);
+  TFileSystem = (FAT, HPFS, NTFS, EXT4, VFAT, CDROM, Unknown);
 
   // TArchiveType is used to pass the info after the archive was unpacked
   TArchiveType = (atZip, atArj, atLha, atRar, atOther, atAce);
@@ -192,6 +192,14 @@ type
 
 //--------------------------------------------------------------------
 
+{$ifdef linux}
+type
+   TModuleHandle = Pointer;
+const
+  INVALID_MODULEHANDLE_VALUE = TModuleHandle(0);
+{$endif}
+
+
 type
 
   TFileType = (ftFile, ftDir, ftParent, ftArc);  // do not change the roder, because of case
@@ -278,6 +286,8 @@ type
                           var CharsRead: longint): longint;
   TCloseTransferFunc =
     function (Handle: longint): longint;
+
+
 
   PDll = ^TDll;
   TDll = object(TQObject)

@@ -237,11 +237,22 @@ uses
      {$ifdef mswindows}
      WinTypes,WinProcs,
      {$ELSE}
-       LCLIntf, LCLType, LMessages,
+       LCLIntf, LCLType, LMessages, FMain, dateutils, dl, fileutil, dynlibs,
      {$ENDIF}
      SysUtils, UExceptions, UCollectionsExt, UCallbacks,
      UConvQDir4, ULang, UDebugLog,
      UUnRar, UUnAce;
+
+{$ifdef linux}
+type
+   TModuleHandle = Pointer;
+const
+  //libunzipmodulename = 'libunzip.so';
+  INVALID_MODULEHANDLE_VALUE = TModuleHandle(0);
+var
+  UnzipLib: TModuleHandle = INVALID_MODULEHANDLE_VALUE;
+
+{$endif}
 
 //============================================================================
 // Dummy callback functions
@@ -496,6 +507,9 @@ constructor TFileCollection.InitLoad (var F: TQBufStream; SeekPos: longword;
       if AllFiles or (OneFile.Description <> 0) or
         (OneFile.Attr and faQDescModified <> 0) then
           begin
+          // convert from cp150 to utf8
+          if MainForm.QGlobalOptions.EnableUTFConvert then
+             OneFile.LongName  := Cp1250ToUTF8(OneFile.LongName);
           GetMemOneFile(POneFile, OneFile);
           Insert(POneFile);
           end;
@@ -705,6 +719,10 @@ constructor TDirCollection.InitLoad (var F: TQBufStream;
       exit;
       end;
     end;
+
+  // convert from cp150 to utf8
+  if MainForm.QGlobalOptions.EnableUTFConvert then
+     OneDir.LongName := Cp1250ToUTF8(OneDir.LongName);
 
   // data was read O.K. to OneDir, so now allocate Dta
   GetMemOneDir(Dta, OneDir);
@@ -1000,7 +1018,7 @@ function TTreeStruct.StoreStruct (RWMode: TRWMode): boolean;
   QGetDiskSizes(byte(UpCase(PDatabase(OwnerDBase)^.DBaseName[1]))-byte('A')+1,
     SizeKbytes, FreeKbytes, BytesPerSector, SectorsPerCluster);
   {$else}
-  QGetDiskSizes(AddDisk(PDatabase(OwnerDBase)^.DBaseName),
+  QGetDiskSizes(PDatabase(OwnerDBase)^.DBaseName,
     SizeKbytes, FreeKbytes, BytesPerSector, SectorsPerCluster);
   {$endif}
 
@@ -1036,23 +1054,27 @@ procedure TTreeStruct.LoadDlls;
     Dll: PDll;
     ProgramDir: ShortString;
     ZString   : array[0..256] of char;
-    DLLExt    : string[4];
+    DLLExt    : string[7];
 
   begin
 {$ifdef DELPHI1}
   DLLExt := '.q16';
 {$else}
-  DLLExt := '.q32';
+  DLLExt := '.so.q32';
 {$endif}
-{$ifdef mswindows}
   ProgramDir := GetProgramDir;
   for i := 0 to pred(DllCol^.Count) do
     begin
     Dll := PDll(DllCol^.At(i));
     with Dll^ do
       begin
-      CB_NewLineToIndicator(lsLoadingLibrary + DLLName + DLLExt);
+      CB_NewLineToIndicator(lsLoadingLibrary + DllName + DLLExt);
+      {$ifdef mswindows}
       DllHandle := LoadLibrary(StrPCopy(ZString, ProgramDir + DLLName + DLLExt));
+      {$else}
+      DllName:= 'lib'+AnsiLowerCase(DllName);
+      DllHandle := LoadLibrary(ProgramDir + '/' + DllName + DLLExt);
+      {$endif}
       if DllHandle > 32
         then
           begin
@@ -1076,7 +1098,6 @@ procedure TTreeStruct.LoadDlls;
           end;
       end;
     end;
-  {$endif}
   end;
 
 //-----------------------------------------------------------------------------
@@ -1087,15 +1108,14 @@ procedure TTreeStruct.FreeDlls;
   var
     i: Integer;
     Dll: PDll;
-    DLLExt    : string[4];
+    DLLExt    : string[7];
 
   begin
 {$ifdef DELPHI1}
   DLLExt := '.q16';
 {$else}
-  DLLExt := '.q32';
+  DLLExt := '.so.q32';
 {$endif}
-{$ifdef mswindows}
   for i := 0 to pred(DllCol^.Count) do
     begin
     Dll := PDll(DllCol^.At(i));
@@ -1107,7 +1127,6 @@ procedure TTreeStruct.FreeDlls;
         DllHandle := 0;
         end;
     end;
-  {$endif}
   end;
 
 //-----------------------------------------------------------------------------
@@ -1122,7 +1141,6 @@ procedure TTreeStruct.FreeDlls;
     ZString   : array[0..256] of char;
 
   begin
-{$ifdef mswindows}
 {$ifndef DELPHI1}
   ProgramDir := GetProgramDir;
   for i := 0 to pred(ExtractDllCol^.Count) do
@@ -1133,8 +1151,12 @@ procedure TTreeStruct.FreeDlls;
       if (not bStatic) then
         begin
         CB_NewLineToIndicator(lsLoadingLibrary + DLLName);
+        {$ifdef mswindows}
         StrPCopy(ZString, ProgramDir + DLLName);
         DllHandle := LoadLibrary(ZString);
+        {$else}
+        DllHandle := LoadLibrary(ProgramDir + '/'+ DllName);
+        {$endif}
         if DllHandle > 32
           then
             begin
@@ -1157,7 +1179,6 @@ procedure TTreeStruct.FreeDlls;
       end;
     end;
 {$endif}
-{$endif}
   end;
 
 //-----------------------------------------------------------------------------
@@ -1170,7 +1191,7 @@ procedure TTreeStruct.FreeExtractDlls;
     ExtractDll: PExtractDll;
 
   begin
-{$ifdef mswindows}
+
 {$ifndef DELPHI1}
   for i := 0 to pred(ExtractDllCol^.Count) do
     begin
@@ -1183,7 +1204,6 @@ procedure TTreeStruct.FreeExtractDlls;
         DllHandle := 0;
         end;
     end;
-{$endif}
 {$endif}
   end;
 
@@ -1207,7 +1227,8 @@ function TTreeStruct.ScanDisk (Path: ShortString; DiskName: ShortString;
   Dta.OriginPath  := Path;
 
   CharsToCutFromPath := length(Path);
-  if Path[length(Path)] = '\' then dec(CharsToCutFromPath);
+  ///if Path[length(Path)] = '\' then dec(CharsToCutFromPath);
+  if Path[length(Path)] = '/' then dec(CharsToCutFromPath);
   // e.g. if path is C:\, then CharsToCutFromPath=2}
 
   TokenFilterMask(PDatabase(OwnerDBase)^.LocalOptions.AllMasksArray, DescMaskCol, DllCol, false);
@@ -1219,7 +1240,8 @@ function TTreeStruct.ScanDisk (Path: ShortString; DiskName: ShortString;
     ExtractDllCol^.Insert(New(PExtractDll, Init(GetProgramDir + 'UnZip16.exe', atZip)));
   {$else}
   if PDatabase(OwnerDBase)^.LocalOptions.ExtractFromZips then
-    ExtractDllCol^.Insert(New(PExtractDll, Init('DUnZip32.dll', atZip, false,
+    ///ExtractDllCol^.Insert(New(PExtractDll, Init('DUnZip32.dll', atZip, false,
+    ExtractDllCol^.Insert(New(PExtractDll, Init('libunzip.so', atZip, false,
                               PDatabase(OwnerDBase)^.LocalOptions.ExtractSizeLimit)));
   if PDatabase(OwnerDBase)^.LocalOptions.ExtractFromRars then
     ExtractDllCol^.Insert(New(PExtractDll, Init('', atRar, true,
@@ -1229,11 +1251,17 @@ function TTreeStruct.ScanDisk (Path: ShortString; DiskName: ShortString;
                               PDatabase(OwnerDBase)^.LocalOptions.ExtractSizeLimit)));
   {$endif}
 
-  if (UpCase(Path[1]) >= 'A') and (UpCase(Path[1]) <= 'Z') then
+  ///if (UpCase(Path[1]) >= 'A') and (UpCase(Path[1]) <= 'Z') then
+  if (UpCase(Path[2]) >= 'A') and (UpCase(Path[2]) <= 'Z') then
     begin
     Dta.OrigDrive[1] := Path[1];
+    {$ifdef mswindows}
     QGetDiskSizes(byte(UpCase(Path[1]))-byte('A')+1,
       Dta.DiskSizeKb, Dta.DiskFreeKb, Dta.BytesPerSector, Dta.SectorsPerCluster);
+    {$else}
+    QGetDiskSizes(Path,Dta.DiskSizeKb, Dta.DiskFreeKb, Dta.BytesPerSector, Dta.SectorsPerCluster);
+
+    {$endif}
     end;
   DateTime := Now;
   with QDateTime do
@@ -1406,23 +1434,27 @@ function TTreeStruct.RecursScanDirs (Col, aParentCol: PDirCollection;
   RecursScanDirs := true;
   Col^.ParentCol := aParentCol;
   CB_NewLineToIndicator(Path);
-  if Path[length(Path)] <> '\' then Path := Path + '\';
+  ///if Path[length(Path)] <> '\' then Path := Path + '\';
+  if Path[length(Path)] <> '/' then Path := Path + '/';
   OldPathLen := length(Path);
-  ExtPath := Path + '*.*';
+  ExtPath := Path + '*';
   QResult := SysUtils.FindFirst (ExtPath, faAnyFile, QSearchRec);
   while QResult = 0 do
     begin
-    if (QSearchRec.Attr and faDirectory = faDirectory) and
+    ///if (QSearchRec.Attr and faDirectory = faDirectory) and
+    if (QSearchRec.Attr and faDirectory <> 0) and
        (QSearchRec.Name <> '.') and (QSearchRec.Name <> '..') then
         begin
         inc(Dta.Dirs);
         {$ifdef DELPHI1}
         LongName := AnsiLowerCase(QSearchRec.Name);
         {$else}
-        LongName := AnsiUpperCase(QSearchRec.Name);
+        ///
+        {LongName := AnsiUpperCase(QSearchRec.Name);
         if (LongName = QSearchRec.Name)
           then LongName := AnsiLowerCase(QSearchRec.Name)
-          else LongName := QSearchRec.Name;
+          else LongName := QSearchRec.Name;}
+        LongName := QSearchRec.Name;
         {$endif}
         SeparateExt(LongName, Ext);
         NewDirCol := New(PDirCollection, Init(4, 32, LongName, Ext, QSearchRec.Time));
@@ -1557,6 +1589,7 @@ function TTreeStruct.GetDescription (var OutF: TQBufStream; var Path: ShortStrin
 
    begin
    Result := 0;
+   BlockHandle:=0;
    if not PDatabase(OwnerDBase)^.LocalOptions.ScanDesc then exit;
    if CB_AbortScan then exit; // aborted by the user
    for i := 0 to pred(DescMaskCol^.Count) do
@@ -1581,19 +1614,21 @@ function TTreeStruct.GetDescription (var OutF: TQBufStream; var Path: ShortStrin
            DescHeader.Time := 0;
            OutF.Write (DescHeader, SizeOf(TDescHeader)); // not used yet
            PBuf := StrAlloc(BufSize+1);
-
            ReadCount  := 0;
            TransferOK := true;
-           while (ReadCount < InfoSize) and TransferOK do
-             begin
+           ///while (ReadCount < InfoSize) and TransferOK do
+           ///  begin
              TransferOK := OneMask^.ConvDll^.GetOneBlock (BlockHandle, PBuf,
                MinLI (BufSize, InfoSize-ReadCount), Read) = 0;
              ReadCount := ReadCount + Read;
-             if Read > 0
-               then OutF.Write(PBuf[0], Read)
+             if Read > 0  then
+               begin
+                 OneMask^.ConvDll^.CloseTransfer(BlockHandle);
+                 OutF.Write(PBuf[0], Read)
+               end
                else TransferOK := false;
-             end;
-           OneMask^.ConvDll^.CloseTransfer(BlockHandle);
+           ///  end;
+           ///OneMask^.ConvDll^.CloseTransfer(BlockHandle);
            if ReadCount <> InfoSize then // size changed, correct it in the header
              begin
              RecordHeader.Size := SizeOf(TRecordHeader) + SizeOf(TDescHeader) + ReadCount;
@@ -1853,7 +1888,7 @@ function TTreeStruct.RecursScanFiles (Col: PDirCollection; var F: TQBufStream;
 
 
  var
-   ExtPath      : ShortString;
+   ExtPath        : ShortString;
    QSearchRec     : TSearchRec;
    i              : Integer;
    FileCol        : PFileCollection;
@@ -1910,9 +1945,11 @@ function TTreeStruct.RecursScanFiles (Col: PDirCollection; var F: TQBufStream;
   inc(DirsScanned);
   if Dta.Dirs > 0 then
     CB_UpdateProgressIndicator(2, (100*DirsScanned) div Dta.Dirs);
-  if Path[length(Path)] <> '\' then Path := Path + '\';
+  ///if Path[length(Path)] <> '\' then Path := Path + '\';
+  if Path[length(Path)] <> '/' then Path := Path + '/';
   OldPathLen := Length(Path);
-  ExtPath := Path + '*.*';
+  ///ExtPath := Path + '*.*';
+  ExtPath := Path + '*';
 
   FileCol := New(PFileCollection, Init(100,200));
   QResult := SysUtils.FindFirst (ExtPath, faAnyFile, QSearchRec);
@@ -2152,7 +2189,8 @@ function TTreeStruct.RecursScanFilesQDir4 (Col: PDirCollection; var F: TQBufStre
   inc(DirsScanned);
   if Dta.Dirs > 0 then
     CB_UpdateProgressIndicator(2, (100*DirsScanned) div Dta.Dirs);
-  if Path[length(Path)] <> '\' then Path := Path + '\';
+  ///if Path[length(Path)] <> '\' then Path := Path + '\';
+  if Path[length(Path)] <> '/' then Path := Path + '/';
   ExtPath := Path + '*.*';
 
   FileCol := New(PFileCollection, Init(100,200));
@@ -2389,9 +2427,12 @@ function  TTreeStruct.GetDescFromArchive(var F: TQBufStream;
       if MaskCompare (GetPQString(OneMask^.MaskName), FileName, false, true) then
          begin
          delete(InternalPath, 1, 1);
+         // konverze na linux path
+         InternalPath:=StringReplace(InternalPath,'\','/',[rfReplaceAll]);
          {$ifndef DELPHI1}
          ///if (GetTempPath(255, szTmpPath) = 0) then exit; // we cannot get TMP
-         GetTempFileName(szTmpPath, 'DskB', TmpFileNumber, szTmpFileName);
+         //GetTempFileName(szTmpPath, 'DskB', TmpFileNumber, szTmpFileName);
+         GetTempFileName('', 'DskB', TmpFileNumber, szTmpFileName);
          {$else}
          GetTempFileName(#0, 'DskB', TmpFileNumber, szTmpFileName);
          {$endif}
@@ -2467,9 +2508,11 @@ function  TTreeStruct.GetDescFromArchive(var F: TQBufStream;
            end;
          if ExtractResult = 0 then
            begin
-           TmpString := StrPas(szTmpFileName);
-           Result := GetDescription(F, TmpString, FileName, true);
-           DeleteFile(StrPas(szTmpFileName));
+           TmpString := StrPas(szTmpFileName)+'/';
+           ///Result := GetDescription(F, TmpString, FileName, true);
+           Result := GetDescription(F, TmpString, StrPas(szFileName), false);
+           ///DeleteFile(StrPas(szTmpFileName));
+           DeleteDirectory(TmpString,false);
            end;
          break;
          end;
@@ -3508,8 +3551,6 @@ function TDatabase.ReadKeyStr (Position: TFilePointer): ShortString;
     DataFile.Seek (Position + SizeOf(TRecordHeader) + treeInfoHeadSize);
     DataFile.Read (Result[0], 1);
     DataFile.Read (Result[1], length(Result));
-    ///---
-    //Result:=CP1250ToUtf8(Result);
   except
     on EQDirDBaseStructException do
       begin
@@ -4174,9 +4215,12 @@ function TDatabase.CopyDatabase (TargetDatabase: PDatabase; WholeDbase,
           TargetDatabase^.TreeStruct := nil;
           end;
 
+        // convert from cp150 to utf8
+        if MainForm.QGlobalOptions.EnableUTFConvert then
+          TreeStruct^.Dta.Name := Cp1250ToUTF8(disk);
+
         TargetDatabase^.TreeStruct := TreeStruct;
         TreeStruct := nil;
-
         TargetDatabase^.TreeStruct^.OwnerDBase := TargetDatabase;
         if not TargetDatabase^.AppendNewDBaseEntry(CheckDuplicates) then exit;
                                                   // true = do not enable duplicates
@@ -4224,10 +4268,12 @@ procedure TDatabase.RecurseCopy (TargetDatabase: PDatabase;
       end;
     if CurDirCol^.Dta^.FileList <> 0
       then
+        begin
         CurFileCol := New(PFileCollection,
                           InitLoad(DataFile, CurDirCol^.Dta^.FileList,
                                    true, ErrorCounter))
-        // FileCollection.InitLoad catches exceptions DBaseStrut
+        // FileCollection.InitLoad catches exceptions DBaseStru
+        end
       else
         CurFileCol := New(PFileCollection, Init(100,100));
 

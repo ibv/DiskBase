@@ -1,5 +1,9 @@
 unit DoIt;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 {$ifdef DLLDEBUG}
@@ -22,8 +26,8 @@ function CloseTransfer(Handle: longint): longint; export;
 
 implementation
 
-uses
-  WinTypes, WinProcs, SysUtils;
+uses SysUtils,
+     Qstream;
 
 const
   BufSize = 8*1024;
@@ -37,7 +41,8 @@ type
     WriteBuffer   : array [0..BufSize-1] of char;
     WriteBufPos   : longint;
     WasWritten    : longint;
-    hInputFile    : integer;
+    ///hInputFile    : integer;
+    InputFile     : TQBufStream;
     end;
 
 type
@@ -115,25 +120,25 @@ c_sCopyrighted   = 'Audio is copyrighted.';
 {$else}
 
 c_sTitle  = 'Titul: ';
-c_sArtist = 'UmÏlec: ';
+c_sArtist = 'Umƒõlec: ';
 c_sAlbum  = 'Album: ';
 c_sYear   = 'Rok: ';
-c_sComment = 'Pozn·mka: ';
+c_sComment = 'Pozn√°mka: ';
 c_sGenre   = 'Styl: ';
 
 c_sMpeg25 = 'MPEG 2.5, ';
 c_sMpeg2  = 'MPEG Verze 2 (ISO/IEC 13818-3), ';
 c_sMpeg1  = 'MPEG Verze 1 (ISO/IEC 11172-3), ';
-c_sProtected = 'Chr·nÏno pomocÌ CRC.';
-c_sBitrate   = 'Datov˝ tok: ';
-c_sSampling  = 'VzorkovacÌ frekvence: ';
+c_sProtected = 'Chr√°nƒõno pomoc√≠ CRC.';
+c_sBitrate   = 'Datov√Ω tok: ';
+c_sSampling  = 'Vzorkovac√≠ frekvence: ';
 
-c_sStereo        = 'Kan·lov˝ reûim: Stereo';
-c_sJointStereo   = 'Kan·lov˝ reûim: Joint stereo';
-c_sDualChannel   = 'Kan·lov˝ reûim: Dual channel';
-c_sSingleChannel = 'Kan·lov˝ reûim: Single channel';
+c_sStereo        = 'Kan√°lov√Ω re≈æim: Stereo';
+c_sJointStereo   = 'Kan√°lov√Ω re≈æim: Joint stereo';
+c_sDualChannel   = 'Kan√°lov√Ω re≈æim: Dual channel';
+c_sSingleChannel = 'Kan√°lov√Ω re≈æim: Single channel';
 
-c_sCopyrighted   = 'Nahr·vka je chr·nÏna copyrightem.';
+c_sCopyrighted   = 'Nahr√°vka je chr√°nƒõna copyrightem.';
 
 {$endif}
 
@@ -312,7 +317,7 @@ function GetMpegData  (Handle: longint): boolean;
 {--------------------------------------------------------------------}
 
 function OpenTransfer (FileName: PChar; var Handle: longint): longint;
-
+(*
   var
     TC           : TTransferClass;
     dwWasRead    : DWORD;
@@ -336,30 +341,30 @@ function OpenTransfer (FileName: PChar; var Handle: longint): longint;
       TC.Free; // if this function returns nonzero value, CloseTransfer is not called
       exit;
       end;
-    lSize := GetFileSize(TC.hInputFile, nil);
+    lSize := FileSize(TC.hInputFile);{ *P≈ôevedeno z GetFileSize* }
     if (lSize) < 132 then // too small for mpeg file
       begin
-      CloseHandle(TC.hInputFile);
+      FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
       TC.Free;
       exit;
       end;
     if not ReadFile(TC.hInputFile, TC.ReadBuffer1[1], 4, dwWasRead, nil) then
       begin
-      CloseHandle(TC.hInputFile);
+      FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
       TC.Free;
       exit;
       end;
     SetFilePointer(TC.hInputFile, -128, nil, FILE_END);
     if not ReadFile(TC.hInputFile, TC.ReadBuffer2[1], 128, dwWasRead, nil) then
       begin
-      CloseHandle(TC.hInputFile);
+      FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
       TC.Free;
       exit;
       end;
   except
     on Exception do
       begin
-      if TC.hInputFile <> INVALID_HANDLE_VALUE then CloseHandle(TC.hInputFile);
+      if TC.hInputFile <> INVALID_HANDLE_VALUE then FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
       TC.Free;
       exit;
       end;
@@ -368,11 +373,86 @@ function OpenTransfer (FileName: PChar; var Handle: longint): longint;
   SuccessData := GetMpegData(Handle);
   if not (SuccessTag or SuccessData) then
     begin
-    CloseHandle(TC.hInputFile);
+    FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
     TC.hInputFile := INVALID_HANDLE_VALUE;
     exit;
     end;
   Result := 0;
+*)
+
+    var
+      TC           : TTransferClass;
+      dwWasRead    : longint;{DWORD;}
+      lSize        : longint;
+      SuccessTag   : boolean;
+      SuccessData  : boolean;
+
+    begin
+    Result := -1;
+    try
+
+      //TC.InputFile.ReadExt(TC.ReadBuffer[0], ReadBufSize, TC.WasRead);
+      dwWasRead := 0;
+      TC := TTransferClass.Create;
+      TC.InputFile.Init(FileName, stOpenReadNonExclusive);
+      TC.WriteBufPos  := 0;
+      TC.WasWritten   := 0;
+      Handle          := longint(TC);
+      ///TC.hInputFile   := CreateFile(FileName, GENERIC_READ, FILE_SHARE_READ,
+      ///                              nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL or
+      ///                              FILE_FLAG_RANDOM_ACCESS, 0);
+      ///if TC.hInputFile = INVALID_HANDLE_VALUE then
+      if TC.InputFile.Stream =nil then
+        begin
+        TC.Free; // if this function returns nonzero value, CloseTransfer is not called
+        exit;
+        end;
+      ///lSize := FileSize(TC.hInputFile);{ *P≈ôevedeno z GetFileSize* }
+      lsize := TC.InputFile.Getsize;
+      if (lSize) < 132 then // too small for mpeg file
+        begin
+        ///FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
+        TC.Free;
+        exit;
+        end;
+      ///if not ReadFile(TC.hInputFile, TC.ReadBuffer1[1], 4, dwWasRead, nil) then
+        TC.InputFile.ReadExt(TC.ReadBuffer1[1], 4, dwWasRead);
+        if dwWasRead <> 4 then
+        begin
+        ///FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
+        TC.Free;
+        exit;
+        end;
+      ///SetFilePointer(TC.hInputFile, -128, nil, FILE_END);
+      TC.InputFile.Seek(lsize-128);
+      ///if not ReadFile(TC.hInputFile, TC.ReadBuffer2[1], 128, dwWasRead, nil) then
+      TC.InputFile.ReadExt(TC.ReadBuffer2[1], 128, dwWasRead);
+      if dwWasRead <> 128 then
+        begin
+        ///FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
+        TC.Free;
+        exit;
+        end;
+    except
+      on Exception do
+        begin
+        ///if TC.hInputFile <> INVALID_HANDLE_VALUE then FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
+        TC.Free;
+        exit;
+        end;
+      end;
+    SuccessTag := GetMpegTag(Handle);
+    SuccessData := GetMpegData(Handle);
+    if not (SuccessTag or SuccessData) then
+      begin
+      ///FileClose(TC.hInputFile);{ *P≈ôevedeno z CloseHandle* }
+      ///TC.hInputFile := INVALID_HANDLE_VALUE;
+      TC.free;
+      exit;
+      end;
+    Result := 0;
+
+
   end;
 
 {--------------------------------------------------------------------}
@@ -403,7 +483,6 @@ function GetOneBlock  (Handle: longint; Buf: PChar; BufSize: longint;
   end;
 
 {--------------------------------------------------------------------}
-
 function CloseTransfer(Handle: longint): longint;
 
   var
@@ -412,7 +491,7 @@ function CloseTransfer(Handle: longint): longint;
   begin
   Result := -1;
   try
-    if TC.hInputFile <> INVALID_HANDLE_VALUE then CloseHandle(TC.hInputFile);
+    TC.InputFile.Done;
     TC.Free;
   except
     on Exception do exit;

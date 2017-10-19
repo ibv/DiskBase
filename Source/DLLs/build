@@ -1,0 +1,29 @@
+#!/bin/sh
+
+#compile library
+
+rm -f ../Release/DoIt.*
+lazbuild HTML/Html.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild JustCopy/JustCopy.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild MP3/Mp3.lpi 
+
+#lazbuild MP3Ex/Mp3.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild MP3Tag/Mp3Tag.lpi 
+
+#lazbuild MP3TagEx/Mp3Tag.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild RTF/Rtf.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild UNI/Uni.lpi 
+
+rm -f ../Release/DoIt.*
+lazbuild UNZIP/Unzip.lpi 
+

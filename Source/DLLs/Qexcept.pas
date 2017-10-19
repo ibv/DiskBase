@@ -1,5 +1,9 @@
 unit Qexcept;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 uses SysUtils;
@@ -17,7 +21,13 @@ type
 
 implementation
 
-uses WinTypes, WinProcs, Forms;
+uses
+{$IFnDEF FPC}
+  WinTypes, WinProcs,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  Forms;
 
 const
   lsCriticalError = 'Critical error';

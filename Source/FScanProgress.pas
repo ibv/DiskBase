@@ -14,15 +14,18 @@ uses
     LCLIntf, LCLType, LMessages, ExtCtrls,
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, {Gauges,}
+  Forms, Dialogs, StdCtrls, ATGauge,
 
   UTypes, UApiTypes;
 
 type
+
+  { TFormScanProgress }
+
   TFormScanProgress = class(TForm)
+    Gauge: TGauge;
     LabelInfo: TLabel;
-    ///Gauge: TGauge;
-    Gauge: TPanel;
+    //Gauge: TPanel;
     ButtonCancel: TButton;
     LabelDoing: TLabel;
     procedure ButtonCancelClick(Sender: TObject);
@@ -34,7 +37,11 @@ type
   public
     LastPhase    : Integer;
     CancelledByUser: boolean;
+    {$ifdef mswindows}
     Drive        : char;
+    {$else}
+    Drive        : ShortString;
+    {$endif}
     ScanningQDir4: boolean;
     DiskName     : ShortString;
     VolumeLabel  : ShortString;
@@ -139,7 +146,7 @@ procedure UpdateProgressIndicator (Phase, Progress: Integer); far;
       else FormScanProgress.Gauge.Hide;
     end;
   if Phase = 2 then
-    ///FormScanProgress.Gauge.Progress := Progress;
+    FormScanProgress.Gauge.Progress := Progress;
   Application.ProcessMessages;
   end;
 

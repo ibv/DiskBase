@@ -15,14 +15,17 @@ uses
     LCLIntf, LCLType, LMessages, ComCtrls, ExtCtrls,
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, {Gauges,}
-  UTypes, UApiTypes;
+  Forms, Dialogs, StdCtrls,
+  UTypes, UApiTypes, ATGauge;
 
 type
+
+  { TFormReindex }
+
   TFormReindex = class(TForm)
-    ///Gauge       : TGauge;
-    Gauge       : TPanel;
+    //Gauge       : TPanel;
     ButtonCancel: TButton;
+    Gauge: TGauge;
     LabelInfo   : TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ButtonCancelClick(Sender: TObject);
@@ -93,9 +96,9 @@ procedure AppendLineToIndicator (Line: ShortString); far;
 procedure UpdateProgressIndicator (Phase, Progress: Integer); far;
 
   begin
-  ///if (FormReindex.Gauge.Progress <> Progress) then
-  ///  FormReindex.Gauge.Progress := Progress;
-  ///Application.ProcessMessages;
+  if (FormReindex.Gauge.Progress <> Progress) then
+    FormReindex.Gauge.Progress := Progress;
+  Application.ProcessMessages;
   end;
 
 //-----------------------------------------------------------------------------

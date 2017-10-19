@@ -1,5 +1,9 @@
 library Rtf;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 uses
   DoIt in 'DoIt.pas',
   Qstream in '..\Qstream.pas',

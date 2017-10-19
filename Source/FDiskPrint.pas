@@ -14,16 +14,19 @@ uses
     LCLIntf, LCLType, LMessages, ExtCtrls, PrintersDlgs,
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, {Gauges,}
+  Forms, Dialogs, StdCtrls, ATGauge,
   UTypes, UAPiTypes, FSettings, UCollections, UStringList;
 
 type
+
+  { TFormDiskPrint }
+
   TFormDiskPrint = class(TForm)
     ButtonCancel: TButton;
+    Gauge: TGauge;
     LabelSearched: TLabel;
     Label1: TLabel;
-    ///Gauge: TGauge;
-    Gauge: TPanel;
+    //Gauge: TPanel;
     PrintDialog: TPrintDialog;
     LabelWhat: TLabel;
     procedure FormCreate(Sender: TObject);
@@ -162,7 +165,7 @@ procedure TFormDiskPrint.UpdateCounters;
   begin
   QI_GetSearchProgress (DBaseHandle, Percent, DisksCount, DirsCount, FilesCount);
   LabelSearched.Caption := IntToStr(DisksCount) + '/' + IntToStr(FilesCount);
-  ///Gauge.Progress := Percent;
+  Gauge.Progress := Percent;
   end;
 
 //-----------------------------------------------------------------------------

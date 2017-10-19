@@ -14,14 +14,17 @@ uses
     LCLIntf, LCLType, LMessages,
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ExtCtrls, Grids, {Gauges,}
+  Forms, Dialogs, StdCtrls, ExtCtrls, Grids, ATGauge,
   UApiTypes, UTypes;
 
 type
+
+  { TFormSearchEmpty }
+
   TFormSearchEmpty = class(TForm)
     ButtonStop: TButton;
-    ///Gauge1: TGauge;
-    Gauge1: TPanel;
+    Gauge1: TGauge;
+    //Gauge1: TPanel;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
@@ -125,7 +128,7 @@ procedure TFormSearchEmpty.UpdateCounters;
 
   begin
   QI_GetSearchProgress (DBaseHandle, Percent, DisksCount, DirsCount, FilesCount);
-  ///Gauge1.Progress := Percent;
+  Gauge1.Progress := Percent;
   end;
 
 //-----------------------------------------------------------------------------

@@ -14,13 +14,15 @@ uses
   {$ENDIF}
   Messages, Classes, Graphics, Controls,
   Forms, Dialogs, {Gauges,} StdCtrls,
-  UTypes;
+  UTypes, ATGauge;
 
 type
+
+  { TFormProgress }
+
   TFormProgress = class(TForm)
-    ///Gauge1: TGauge;
-    Gauge1: TPanel;
     ButtonStop: TButton;
+    Gauge1: TGauge;
     procedure ButtonStopClick(Sender: TObject);
   private
     { Private declarations }
@@ -45,7 +47,7 @@ uses FSettings;
 procedure TFormProgress.ResetAndShow (Title: ShortString);
 
   begin
-  ///Gauge1.Progress := 0;
+  Gauge1.Progress := 0;
   Caption := Title;
   StopIt  := false;
   Show;
@@ -56,11 +58,11 @@ procedure TFormProgress.ResetAndShow (Title: ShortString);
 procedure TFormProgress.SetProgress(Percent: Integer);
 
   begin
-  ///if Percent > Gauge1.Progress then
-  ///  begin
-  ///  Gauge1.Progress := Percent;
-  ///  Application.ProcessMessages;
-  ///  end;
+  if Percent > Gauge1.Progress then
+    begin
+    Gauge1.Progress := Percent;
+    Application.ProcessMessages;
+    end;
   end;
 
 //-----------------------------------------------------------------------------

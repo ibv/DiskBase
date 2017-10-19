@@ -1528,10 +1528,12 @@ object MainForm: TMainForm
     object MenuCopyFile: TMenuItem
       Caption = '&Copy'
       ShortCut = 16451
+      OnClick = MenuCopyFileClick
     end
     object MenuDeleteFile: TMenuItem
       Caption = '&Delete'
       ShortCut = 46
+      OnClick = MenuDeleteFileClick
     end
     object MenuEditDesc: TMenuItem
       Caption = '&Description...'

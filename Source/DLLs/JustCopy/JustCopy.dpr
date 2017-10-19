@@ -1,7 +1,13 @@
 library JustCopy;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 uses
-  DoIt in 'DoIt.pas';
+  Qstream in '..\Qstream.pas',
+  Qexcept in '..\Qexcept.pas',
+  DoIt in 'DoIt.PAS';
 
 exports
   OpenTransfer,
