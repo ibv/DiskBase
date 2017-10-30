@@ -31,6 +31,5 @@ Netestované (nestabilní) funkce:
 - instalace atgauge_package.lpk z adreáře SOURCE/atgauge_package
 - zkompilovat podpůrné dynamické knihovny ze SOURCE/DLLs, pustit skript "build" v SOURCE/DLLs
 - v Lazarus IDE, menu - File -> Open -> "/cesta/k/DiskBase.lpi"
-- v Lazarus IDE, menu - Run -> F9 (run) or Ctrl+F9 (compile) or Shift+F9 (link)
-
-
+  v Lazarus IDE, menu - Run -> F9 (run) or Ctrl+F9 (compile) or Shift+F9 (link)
+- nebo pomocí "/usr/bin/lazbuild /cesta/k/DiskBase.lpi"
