@@ -8,7 +8,9 @@ uses
 {$IFnDEF FPC}
   WinTypes,
 {$ELSE}
-  Interfaces,  LCLIntf, LCLType, LMessages,
+  Interfaces,
+  DefaultTranslator,  LCLIntf, LCLType,
+  ///LCLIntf, LCLType, LMessages,
 
 {$ENDIF}
   Classes,

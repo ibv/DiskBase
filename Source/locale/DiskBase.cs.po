@@ -1,0 +1,878 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Project-Id-Version: DiskBase\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: tformdbase.caption
+msgctxt "tformdbase.caption"
+msgid "Database"
+msgstr "Databáze"
+
+#: tformdbase.headerbottom.sections[0].text
+msgid "Subtotals"
+msgstr "Mezisoučet"
+
+#: tformdbase.headerbottom.sections[1].text
+msgctxt "tformdbase.headerbottom.sections[1].text"
+msgid "Current file"
+msgstr "Současný soubor"
+
+#: tformdbase.headertop.sections[0].text
+msgctxt "tformdbase.headertop.sections[0].text"
+msgid "Disk"
+msgstr "Disk"
+
+#: tformdbase.headertop.sections[1].text
+msgctxt "tformdbase.headertop.sections[1].text"
+msgid "Tree"
+msgstr "Strom"
+
+#: tformdbase.headertop.sections[2].text
+msgctxt "tformdbase.headertop.sections[2].text"
+msgid "Files"
+msgstr "Soubory"
+
+#: tformdbase.menubrief.caption
+msgctxt "tformdbase.menubrief.caption"
+msgid "File names &only"
+msgstr "Pouze jména souborů"
+
+#: tformdbase.menucollapsetree.caption
+msgctxt "tformdbase.menucollapsetree.caption"
+msgid "&Collapse tree"
+msgstr "Zabalit strom"
+
+#: tformdbase.menucopydisk.caption
+msgctxt "tformdbase.menucopydisk.caption"
+msgid "&Copy"
+msgstr "Kopie"
+
+#: tformdbase.menucopyfile.caption
+msgctxt "tformdbase.menucopyfile.caption"
+msgid "&Copy"
+msgstr "Kopie"
+
+#: tformdbase.menudeletedisk.caption
+msgctxt "tformdbase.menudeletedisk.caption"
+msgid "&Delete disk"
+msgstr "Smazat disk"
+
+#: tformdbase.menudeletefile.caption
+msgctxt "tformdbase.menudeletefile.caption"
+msgid "&Delete"
+msgstr "Smazat"
+
+#: tformdbase.menudeselectdisk.caption
+msgctxt "tformdbase.menudeselectdisk.caption"
+msgid "U&nselect all disks"
+msgstr "Zrušit vybrání všech disků"
+
+#: tformdbase.menudetailed.caption
+msgctxt "tformdbase.menudetailed.caption"
+msgid "Det&ailed display"
+msgstr "Detailní pohled"
+
+#: tformdbase.menueditdesc.caption
+msgctxt "tformdbase.menueditdesc.caption"
+msgid "&Description..."
+msgstr "Poznámka..."
+
+#: tformdbase.menuexpandtree.caption
+msgctxt "tformdbase.menuexpandtree.caption"
+msgid "&Expand tree"
+msgstr "Rozbalit strom"
+
+#: tformdbase.menuhelpdisks.caption
+msgctxt "tformdbase.menuhelpdisks.caption"
+msgid "&Help"
+msgstr "Nápověda"
+
+#: tformdbase.menuhelpfiles.caption
+msgctxt "tformdbase.menuhelpfiles.caption"
+msgid "&Help"
+msgstr "Nápověda"
+
+#: tformdbase.menuhelptree.caption
+msgctxt "tformdbase.menuhelptree.caption"
+msgid "&Help"
+msgstr "Nápověda"
+
+#: tformdbase.menuinfodisk.caption
+msgctxt "tformdbase.menuinfodisk.caption"
+msgid "Disk &information..."
+msgstr "Informace o disku"
+
+#: tformdbase.menuopen.caption
+msgctxt "tformdbase.menuopen.caption"
+msgid "Open"
+msgstr "Otevřít"
+
+#: tformdbase.menuprintdisks.caption
+msgctxt "tformdbase.menuprintdisks.caption"
+msgid "&Print disks..."
+msgstr "Tisk disku"
+
+#: tformdbase.menuprintfiles.caption
+msgctxt "tformdbase.menuprintfiles.caption"
+msgid "&Print files..."
+msgstr "Tisk souborů..."
+
+#: tformdbase.menuprinttree.caption
+msgctxt "tformdbase.menuprinttree.caption"
+msgid "&Print tree..."
+msgstr "Tisk stromu..."
+
+#: tformdbase.menurenamedisk.caption
+msgctxt "tformdbase.menurenamedisk.caption"
+msgid "&Rename disk"
+msgstr "&Přejmenovat disk"
+
+#: tformdbase.menurescan.caption
+msgctxt "tformdbase.menurescan.caption"
+msgid "Rescan disk..."
+msgstr "Znovunačíst disk..."
+
+#: tformdbase.menuselectalldisks.caption
+msgctxt "tformdbase.menuselectalldisks.caption"
+msgid "Select &all"
+msgstr "Vybrat vš&e"
+
+#: tformdbase.menuselectallfiles.caption
+msgctxt "tformdbase.menuselectallfiles.caption"
+msgid "Select &all"
+msgstr "Vybrat vš&e"
+
+#: tformdbase.menuselectdisks.caption
+msgctxt "tformdbase.menuselectdisks.caption"
+msgid "&Select disks..."
+msgstr "Vybrat disky"
+
+#: tformdbase.menuselectfiles.caption
+msgctxt "tformdbase.menuselectfiles.caption"
+msgid "Select &files..."
+msgstr "Vybrat soubory"
+
+#: tformdbase.menushowtree.caption
+msgctxt "tformdbase.menushowtree.caption"
+msgid "Show &tree"
+msgstr "Zobrazit strom"
+
+#: tformdbase.menusortext.caption
+msgctxt "tformdbase.menusortext.caption"
+msgid "Sort by &extension"
+msgstr "Třídit podle přípony"
+
+#: tformdbase.menusortname.caption
+msgctxt "tformdbase.menusortname.caption"
+msgid "Sort by &name"
+msgstr "Třídit podle jména"
+
+#: tformdbase.menusortsize.caption
+msgctxt "tformdbase.menusortsize.caption"
+msgid "Sort by &size"
+msgstr "Třídit podle velikosti"
+
+#: tformdbase.menusorttime.caption
+msgctxt "tformdbase.menusorttime.caption"
+msgid "Sort by &time"
+msgstr "Třídit podle času"
+
+#: tformdbase.menuundeletedisk.caption
+msgctxt "tformdbase.menuundeletedisk.caption"
+msgid "&Undelete disk"
+msgstr "Obnovit disk"
+
+#: tformdbase.menuunselectfiles.caption
+msgctxt "tformdbase.menuunselectfiles.caption"
+msgid "Unse&lect all files"
+msgstr "Obnovit všechny soubory"
+
+#: tformdiskexport.buttoncancel.caption
+msgctxt "tformdiskexport.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformdiskexport.caption
+msgid "Export Database To Text Format"
+msgstr "Export databáze do testového formátu"
+
+#: tformdiskexport.labelwhatdoing.caption
+msgid "LabelWhatDoing"
+msgstr ""
+
+#: tformdiskexport.opendialogexportformat.title
+msgid "Select Export Format"
+msgstr ""
+
+#: tformdiskexport.savedialogexporttotext.title
+msgid "Save Exported Data To File"
+msgstr ""
+
+#: tformrepair.buttoncancel.caption
+msgctxt "tformrepair.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformrepair.caption
+msgid "Repairing Database"
+msgstr "Opravit databázi..."
+
+#: tformrepair.labelinfo.caption
+msgid "LabelInfo"
+msgstr ""
+
+#: tformscanfolder.buttonbrowsefolder.caption
+msgid "Browse &folder..."
+msgstr "Prozkoumat adresář..."
+
+#: tformscanfolder.buttoncancel.caption
+msgctxt "tformscanfolder.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformscanfolder.buttoncreatediskname.caption
+msgid "<- Create name"
+msgstr "<- Vytvořit jméno"
+
+#: tformscanfolder.buttonhelp.caption
+msgid "Help"
+msgstr "Nápověda"
+
+#: tformscanfolder.buttonok.caption
+msgctxt "tformscanfolder.buttonok.caption"
+msgid "OK"
+msgstr "Ano"
+
+#: tformscanfolder.caption
+msgid "Scan Folder As Disk"
+msgstr "Prohledat adresář jako disk..."
+
+#: tformscanfolder.labelsaveit.caption
+msgid "and save it to database as disk:"
+msgstr "a uložit do databáze:"
+
+#: tformscanfolder.labelscanfolder.caption
+msgid "Scan folder:"
+msgstr "Prohledat adresář"
+
+#: tformscanprogress.buttoncancel.caption
+msgctxt "tformscanprogress.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformscanprogress.caption
+msgid "Scanning Disk"
+msgstr "Prohledat disk..."
+
+#: tformselectdrive.buttoncancel.caption
+msgctxt "tformselectdrive.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformselectdrive.buttonok.caption
+msgctxt "tformselectdrive.buttonok.caption"
+msgid "OK"
+msgstr "Ano"
+
+#: tformselectdrive.caption
+msgid "Scan disk:"
+msgstr "Prohledat disk..."
+
+#: tformselectdrive.checkboxnoqueries.caption
+msgid "No queries"
+msgstr ""
+
+#: tformselectfolder.buttoncancel.caption
+msgctxt "tformselectfolder.buttoncancel.caption"
+msgid "Cancel"
+msgstr "Storno"
+
+#: tformselectfolder.buttonok.caption
+msgctxt "tformselectfolder.buttonok.caption"
+msgid "OK"
+msgstr "Ano"
+
+#: tformselectfolder.caption
+msgid "Select folder"
+msgstr "Vybrat adresář"
+
+#: tmainform.caption
+msgid "DiskBase 5"
+msgstr ""
+
+#: tmainform.headertop.sections[0].text
+msgctxt "tmainform.headertop.sections[0].text"
+msgid "Disk"
+msgstr "Disk"
+
+#: tmainform.headertop.sections[1].text
+msgctxt "tmainform.headertop.sections[1].text"
+msgid "Tree"
+msgstr "Strom"
+
+#: tmainform.headertop.sections[2].text
+msgctxt "tmainform.headertop.sections[2].text"
+msgid "Files"
+msgstr "Soubory"
+
+#: tmainform.menuabout.caption
+msgid "&About this program..."
+msgstr "&O..."
+
+#: tmainform.menubrief.caption
+msgid "&File names only"
+msgstr "Pouze jména souborů"
+
+#: tmainform.menubrief1.caption
+msgctxt "tmainform.menubrief1.caption"
+msgid "File names &only"
+msgstr "Pouze jména souborů"
+
+#: tmainform.menuchglabel.caption
+msgid "&Rename disk..."
+msgstr "&Přejmenovat disk"
+
+#: tmainform.menuclosedbase.caption
+msgid "&Close database"
+msgstr "Uzavřít databázi"
+
+#: tmainform.menucollapsetree.caption
+msgctxt "tmainform.menucollapsetree.caption"
+msgid "&Collapse tree"
+msgstr "Zabalit strom"
+
+#: tmainform.menuconfig.caption
+msgid "&Program settings..."
+msgstr "Nastavení programu"
+
+#: tmainform.menucopy.caption
+msgctxt "tmainform.menucopy.caption"
+msgid "&Copy"
+msgstr "Kopie"
+
+#: tmainform.menucopydisk.caption
+msgctxt "tmainform.menucopydisk.caption"
+msgid "&Copy"
+msgstr "Kopie"
+
+#: tmainform.menucopyfile.caption
+msgctxt "tmainform.menucopyfile.caption"
+msgid "&Copy"
+msgstr "Kopie"
+
+#: tmainform.menudbaseinfo.caption
+msgid "Data&base information..."
+msgstr "Informace o databázi"
+
+#: tmainform.menudeldiskselection.caption
+msgid "U&nselect disks/files"
+msgstr "Zrušit vybrání disků/souborů"
+
+#: tmainform.menudeletedisk.caption
+msgctxt "tmainform.menudeletedisk.caption"
+msgid "&Delete disk"
+msgstr "Smazat disk"
+
+#: tmainform.menudeletefile.caption
+msgctxt "tmainform.menudeletefile.caption"
+msgid "&Delete"
+msgstr "Smazat"
+
+#: tmainform.menudelrecord.caption
+msgid "De&lete disk"
+msgstr "Smazat disk"
+
+#: tmainform.menudeselectdisk.caption
+msgctxt "tmainform.menudeselectdisk.caption"
+msgid "U&nselect all disks"
+msgstr "Zrušit vybrání všech disků"
+
+#: tmainform.menudetailed.caption
+msgid "Deta&iled display"
+msgstr "Detailní pohled"
+
+#: tmainform.menudetailed1.caption
+msgctxt "tmainform.menudetailed1.caption"
+msgid "Det&ailed display"
+msgstr "Detailní pohled"
+
+#: tmainform.menudirdescr.caption
+msgctxt "tmainform.menudirdescr.caption"
+msgid "&Description..."
+msgstr "Poznámka..."
+
+#: tmainform.menudiscgearprint.caption
+msgid "Print labels for DiscGear boxes..."
+msgstr ""
+
+#: tmainform.menudiskinfo.caption
+msgctxt "tmainform.menudiskinfo.caption"
+msgid "Disk &information..."
+msgstr "Informace o disku"
+
+#: tmainform.menuedit.caption
+msgid "&Edit"
+msgstr "Upravit"
+
+#: tmainform.menueditdesc.caption
+msgctxt "tmainform.menueditdesc.caption"
+msgid "&Description..."
+msgstr "Poznámka..."
+
+#: tmainform.menuexit.caption
+msgid "E&xit"
+msgstr "Konec"
+
+#: tmainform.menuexpandtree.caption
+msgctxt "tmainform.menuexpandtree.caption"
+msgid "&Expand tree"
+msgstr "Rozbalit strom"
+
+#: tmainform.menuexport.caption
+msgid "&Export..."
+msgstr "Export..."
+
+#: tmainform.menuexporttootherformat.caption
+msgid "Export to other format..."
+msgstr "Export do jiného formátu"
+
+#: tmainform.menufile.caption
+msgid "&File"
+msgstr "Soubory"
+
+#: tmainform.menuhelp.caption
+msgctxt "tmainform.menuhelp.caption"
+msgid "&Help"
+msgstr "&Pomoc..."
+
+#: tmainform.menuhelpcontent.caption
+msgid "Help &contents"
+msgstr ""
+
+#: tmainform.menuhelpdisks.caption
+msgctxt "tmainform.menuhelpdisks.caption"
+msgid "&Help"
+msgstr "&Pomoc..."
+
+#: tmainform.menuhelpfiles.caption
+msgctxt "tmainform.menuhelpfiles.caption"
+msgid "&Help"
+msgstr "&Pomoc..."
+
+#: tmainform.menuhelptree.caption
+msgctxt "tmainform.menuhelptree.caption"
+msgid "&Help"
+msgstr "&Pomoc..."
+
+#: tmainform.menuimport.caption
+msgid "&Import..."
+msgstr "Import"
+
+#: tmainform.menuimport4.caption
+msgid "Import from version 4 format..."
+msgstr ""
+
+#: tmainform.menuinfodisk.caption
+msgctxt "tmainform.menuinfodisk.caption"
+msgid "Disk &information..."
+msgstr "Informace o disku"
+
+#: tmainform.menulastfile1.caption
+msgid "(file1)"
+msgstr ""
+
+#: tmainform.menulastfile10.caption
+msgid "(file10)"
+msgstr ""
+
+#: tmainform.menulastfile2.caption
+msgid "(file2)"
+msgstr ""
+
+#: tmainform.menulastfile3.caption
+msgid "(file3)"
+msgstr ""
+
+#: tmainform.menulastfile4.caption
+msgid "(file4)"
+msgstr ""
+
+#: tmainform.menulastfile5.caption
+msgid "(file5)"
+msgstr ""
+
+#: tmainform.menulastfile6.caption
+msgid "(file6)"
+msgstr ""
+
+#: tmainform.menulastfile7.caption
+msgid "(file7)"
+msgstr ""
+
+#: tmainform.menulastfile8.caption
+msgid "(file8)"
+msgstr ""
+
+#: tmainform.menulastfile9.caption
+msgid "(file9)"
+msgstr ""
+
+#: tmainform.menulocaloptions.caption
+msgid "Data&base settings..."
+msgstr "Natavení databáze..."
+
+#: tmainform.menumakeruntime.caption
+msgid "Export to read-only database..."
+msgstr "Export do read-only databáze..."
+
+#: tmainform.menumaskselectdisks.caption
+msgid "Selec&t disks/files..."
+msgstr "Vybra&t disky/soubory..."
+
+#: tmainform.menunew.caption
+msgid "&New database..."
+msgstr "&Nová databáze..."
+
+#: tmainform.menuopen.caption
+msgctxt "tmainform.menuopen.caption"
+msgid "Open"
+msgstr "Otevřít"
+
+#: tmainform.menuopendbase.caption
+msgid "&Open database..."
+msgstr "&Otevřít databázi..."
+
+#: tmainform.menuprint.caption
+msgid "&Print"
+msgstr "Tisk"
+
+#: tmainform.menuprintdisks.caption
+msgid "Print &disks..."
+msgstr "Tisk &disků..."
+
+#: tmainform.menuprintdisks1.caption
+msgctxt "tmainform.menuprintdisks1.caption"
+msgid "&Print disks..."
+msgstr "Tisk disku"
+
+#: tmainform.menuprintempty.caption
+msgid "Print found free &space..."
+msgstr "Tisk nalezených volných míst..."
+
+#: tmainform.menuprintfiles.caption
+msgid "Print &files..."
+msgstr "Tisk souborů..."
+
+#: tmainform.menuprintfiles1.caption
+msgctxt "tmainform.menuprintfiles1.caption"
+msgid "&Print files..."
+msgstr "Tisk souborů..."
+
+#: tmainform.menuprintfoundfiles.caption
+msgid "Print f&ound files..."
+msgstr "Tisk nalezených souborů..."
+
+#: tmainform.menuprinttree.caption
+msgid "Print &tree..."
+msgstr "Tisk stromu..."
+
+#: tmainform.menuprinttree1.caption
+msgctxt "tmainform.menuprinttree1.caption"
+msgid "&Print tree..."
+msgstr "Tisk stromu..."
+
+#: tmainform.menureindex.caption
+msgid "Co&mpress database..."
+msgstr "Ko&mprimovat databázi"
+
+#: tmainform.menurenamedisk.caption
+msgctxt "tmainform.menurenamedisk.caption"
+msgid "&Rename disk"
+msgstr "&Přejmenovat disk"
+
+#: tmainform.menurepair.caption
+msgid "Repair database..."
+msgstr "Opravit databázi..."
+
+#: tmainform.menurescan.caption
+msgctxt "tmainform.menurescan.caption"
+msgid "Rescan disk..."
+msgstr "Znovunačíst disk..."
+
+#: tmainform.menurescandisk.caption
+msgid "Rescan current dis&k..."
+msgstr "Znovu prohledat současný dis&k..."
+
+#: tmainform.menuscana.caption
+msgid "Scan &A:"
+msgstr "Prohledat A:"
+
+#: tmainform.menuscanb.caption
+msgid "Scan &B:"
+msgstr "Prohledat B:"
+
+#: tmainform.menuscandisk.caption
+msgid "&Scan disk..."
+msgstr "Prohledat disk..."
+
+#: tmainform.menuscanfolder.caption
+msgid "Scan &folder as disk..."
+msgstr "Prohledat adresář jako disk..."
+
+#: tmainform.menusearch.caption
+msgid "&Search"
+msgstr "Hledání"
+
+#: tmainform.menusearchempty.caption
+msgid "&List free space..."
+msgstr "Seznam vo&lného místa..."
+
+#: tmainform.menusearchname.caption
+msgid "&Find files..."
+msgstr "N&ajít soubory"
+
+#: tmainform.menusearchselected.caption
+msgid "Find &selected files"
+msgstr "Najít vybrané &soubory"
+
+#: tmainform.menuselectall.caption
+msgid "S&elect all"
+msgstr "Vybrat vš&e"
+
+#: tmainform.menuselectalldisks.caption
+msgctxt "tmainform.menuselectalldisks.caption"
+msgid "Select &all"
+msgstr "Vybrat vš&e"
+
+#: tmainform.menuselectallfiles.caption
+msgctxt "tmainform.menuselectallfiles.caption"
+msgid "Select &all"
+msgstr "Vybrat vš&e"
+
+#: tmainform.menuselectdisks.caption
+msgctxt "tmainform.menuselectdisks.caption"
+msgid "&Select disks..."
+msgstr "Vybrat disky"
+
+#: tmainform.menuselectfiles.caption
+msgctxt "tmainform.menuselectfiles.caption"
+msgid "Select &files..."
+msgstr "Vybrat soubory"
+
+#: tmainform.menusettings.caption
+msgid "Se&ttings"
+msgstr "Nas&tavení"
+
+#: tmainform.menushowtree.caption
+msgctxt "tmainform.menushowtree.caption"
+msgid "Show &tree"
+msgstr "Zobrazit strom"
+
+#: tmainform.menushowtree1.caption
+msgctxt "tmainform.menushowtree1.caption"
+msgid "Show &tree"
+msgstr "Zobrazit strom"
+
+#: tmainform.menusortext.caption
+msgctxt "tmainform.menusortext.caption"
+msgid "Sort by &extension"
+msgstr "Třídit podle přípony"
+
+#: tmainform.menusortext1.caption
+msgctxt "tmainform.menusortext1.caption"
+msgid "Sort by &extension"
+msgstr "Třídit podle přípony"
+
+#: tmainform.menusortname.caption
+msgctxt "tmainform.menusortname.caption"
+msgid "Sort by &name"
+msgstr "Třídit podle jména"
+
+#: tmainform.menusortname1.caption
+msgctxt "tmainform.menusortname1.caption"
+msgid "Sort by &name"
+msgstr "Třídit podle jména"
+
+#: tmainform.menusortsize.caption
+msgctxt "tmainform.menusortsize.caption"
+msgid "Sort by &size"
+msgstr "Třídit podle velikosti"
+
+#: tmainform.menusortsize1.caption
+msgctxt "tmainform.menusortsize1.caption"
+msgid "Sort by &size"
+msgstr "Třídit podle velikosti"
+
+#: tmainform.menusorttime.caption
+msgid "Sort by &date and time"
+msgstr "Třídit podle &data a času"
+
+#: tmainform.menusorttime1.caption
+msgctxt "tmainform.menusorttime1.caption"
+msgid "Sort by &time"
+msgstr "Třídit podle času"
+
+#: tmainform.menutools.caption
+msgid "T&ools"
+msgstr "Ná&stroje"
+
+#: tmainform.menuundeletedisk.caption
+msgctxt "tmainform.menuundeletedisk.caption"
+msgid "&Undelete disk"
+msgstr "Obnovit disk"
+
+#: tmainform.menuundelrecord.caption
+msgctxt "tmainform.menuundelrecord.caption"
+msgid "&Undelete disk"
+msgstr "Obnovit disk"
+
+#: tmainform.menuunselectfiles.caption
+msgctxt "tmainform.menuunselectfiles.caption"
+msgid "Unse&lect all files"
+msgstr "Obnovit všechny soubory"
+
+#: tmainform.newdialog.title
+msgid "New Database"
+msgstr "Nová databáze"
+
+#: tmainform.opendialog.title
+msgid "Open Database"
+msgstr "Otevřít databázi"
+
+#: tmainform.opendialogimport.title
+msgid "Import Disks From Database"
+msgstr "Importovat disk z databáze"
+
+#: tmainform.opendialogimport4.title
+msgid "Import Database In QDir Format 4.1"
+msgstr "Importovat databázi v QDir formátu 4.1"
+
+#: tmainform.openrepairdialog.title
+msgid "Repair database"
+msgstr "Obnovit databázi"
+
+#: tmainform.reindexdialog.title
+msgid "Compress Database"
+msgstr "Komprimovat databázi"
+
+#: tmainform.savedialogexport.title
+msgid "Export Selected Disks To Database"
+msgstr "Exportovat vybraný disk do databáze"
+
+#: tmainform.saverepairdialog.title
+msgid "Save repaired database as:"
+msgstr "Uložit obnovenou databázi jako:"
+
+#: tmainform.speedbuttonbrief.hint
+msgid "File names only"
+msgstr "Pouze jména souborů"
+
+#: tmainform.speedbuttoncollapse.hint
+msgid "Collapse tree"
+msgstr "Zabalit strom"
+
+#: tmainform.speedbuttondetailed.hint
+msgid "Detailed display"
+msgstr "Detailní pohled"
+
+#: tmainform.speedbuttondirdescr.hint
+msgid "Description..."
+msgstr "Poznámka..."
+
+#: tmainform.speedbuttondiskinfo.hint
+msgid "Disk information..."
+msgstr "Informace o disku"
+
+#: tmainform.speedbuttoneject1.hint
+msgctxt "tmainform.speedbuttoneject1.hint"
+msgid "Eject CD"
+msgstr ""
+
+#: tmainform.speedbuttoneject2.hint
+msgctxt "tmainform.speedbuttoneject2.hint"
+msgid "Eject CD"
+msgstr ""
+
+#: tmainform.speedbuttonexpand.hint
+msgid "Expand tree"
+msgstr "Rozbalit strom"
+
+#: tmainform.speedbuttonopendbase.hint
+msgid "Open database..."
+msgstr "Otevřít databázi"
+
+#: tmainform.speedbuttonparent.hint
+msgid "Go to parent folder"
+msgstr "Nadřízený adresář"
+
+#: tmainform.speedbuttonprint.hint
+msgid "Print..."
+msgstr "Tisk..."
+
+#: tmainform.speedbuttonscana.hint
+msgid "Scan A:"
+msgstr "Prohledat A:"
+
+#: tmainform.speedbuttonscandisk.hint
+msgid "Scan disk..."
+msgstr "Prohledat disk..."
+
+#: tmainform.speedbuttonsearchempty.hint
+msgid "List free space..."
+msgstr "Zobrazit volné místo..."
+
+#: tmainform.speedbuttonsearchfile.hint
+msgid "Find files..."
+msgstr "Najít soubory..."
+
+#: tmainform.speedbuttonsearchselected.hint
+msgid "Find selected files"
+msgstr "Najít vybrané soubory"
+
+#: tmainform.speedbuttonselect.hint
+msgid "Select disks/files..."
+msgstr "Vybrat disky/soubory"
+
+#: tmainform.speedbuttonshowdbase.hint
+msgid "Show window with database"
+msgstr "Zobrazit okno s databází"
+
+#: tmainform.speedbuttonshowfound.hint
+msgid "Show window with found items"
+msgstr "Zobrazit okno s nalezenými položkami"
+
+#: tmainform.speedbuttonshowtree.hint
+msgid "Show tree"
+msgstr "Zobrazit strom"
+
+#: tmainform.speedbuttonunselect.hint
+msgid "Unselect disks/files"
+msgstr "Zrušit vybrání disků/souborů"
+
+#: tmainform.statusbar.panels[0].text
+msgid "Subtotal"
+msgstr "Mezisoučet"
+
+#: tmainform.statusbar.panels[1].text
+msgctxt "tmainform.statusbar.panels[1].text"
+msgid "Current file"
+msgstr "Současný soubor"
+
+#: tmainform.tabsheet1.caption
+msgctxt "tmainform.tabsheet1.caption"
+msgid "Database"
+msgstr "Databáze"
+
+#: tmainform.tabsheet2.caption
+msgid "Search"
+msgstr "Hledat"

@@ -1,0 +1,867 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tformdbase.caption
+msgctxt "tformdbase.caption"
+msgid "Database"
+msgstr ""
+
+#: tformdbase.headerbottom.sections[0].text
+msgid "Subtotals"
+msgstr ""
+
+#: tformdbase.headerbottom.sections[1].text
+msgctxt "tformdbase.headerbottom.sections[1].text"
+msgid "Current file"
+msgstr ""
+
+#: tformdbase.headertop.sections[0].text
+msgctxt "tformdbase.headertop.sections[0].text"
+msgid "Disk"
+msgstr ""
+
+#: tformdbase.headertop.sections[1].text
+msgctxt "tformdbase.headertop.sections[1].text"
+msgid "Tree"
+msgstr ""
+
+#: tformdbase.headertop.sections[2].text
+msgctxt "tformdbase.headertop.sections[2].text"
+msgid "Files"
+msgstr ""
+
+#: tformdbase.menubrief.caption
+msgctxt "tformdbase.menubrief.caption"
+msgid "File names &only"
+msgstr ""
+
+#: tformdbase.menucollapsetree.caption
+msgctxt "tformdbase.menucollapsetree.caption"
+msgid "&Collapse tree"
+msgstr ""
+
+#: tformdbase.menucopydisk.caption
+msgctxt "tformdbase.menucopydisk.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tformdbase.menucopyfile.caption
+msgctxt "tformdbase.menucopyfile.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tformdbase.menudeletedisk.caption
+msgctxt "tformdbase.menudeletedisk.caption"
+msgid "&Delete disk"
+msgstr ""
+
+#: tformdbase.menudeletefile.caption
+msgctxt "tformdbase.menudeletefile.caption"
+msgid "&Delete"
+msgstr ""
+
+#: tformdbase.menudeselectdisk.caption
+msgctxt "tformdbase.menudeselectdisk.caption"
+msgid "U&nselect all disks"
+msgstr ""
+
+#: tformdbase.menudetailed.caption
+msgctxt "tformdbase.menudetailed.caption"
+msgid "Det&ailed display"
+msgstr ""
+
+#: tformdbase.menueditdesc.caption
+msgctxt "tformdbase.menueditdesc.caption"
+msgid "&Description..."
+msgstr ""
+
+#: tformdbase.menuexpandtree.caption
+msgctxt "tformdbase.menuexpandtree.caption"
+msgid "&Expand tree"
+msgstr ""
+
+#: tformdbase.menuhelpdisks.caption
+msgctxt "tformdbase.menuhelpdisks.caption"
+msgid "&Help"
+msgstr ""
+
+#: tformdbase.menuhelpfiles.caption
+msgctxt "tformdbase.menuhelpfiles.caption"
+msgid "&Help"
+msgstr ""
+
+#: tformdbase.menuhelptree.caption
+msgctxt "tformdbase.menuhelptree.caption"
+msgid "&Help"
+msgstr ""
+
+#: tformdbase.menuinfodisk.caption
+msgctxt "tformdbase.menuinfodisk.caption"
+msgid "Disk &information..."
+msgstr ""
+
+#: tformdbase.menuopen.caption
+msgctxt "tformdbase.menuopen.caption"
+msgid "Open"
+msgstr ""
+
+#: tformdbase.menuprintdisks.caption
+msgctxt "tformdbase.menuprintdisks.caption"
+msgid "&Print disks..."
+msgstr ""
+
+#: tformdbase.menuprintfiles.caption
+msgctxt "tformdbase.menuprintfiles.caption"
+msgid "&Print files..."
+msgstr ""
+
+#: tformdbase.menuprinttree.caption
+msgctxt "tformdbase.menuprinttree.caption"
+msgid "&Print tree..."
+msgstr ""
+
+#: tformdbase.menurenamedisk.caption
+msgctxt "tformdbase.menurenamedisk.caption"
+msgid "&Rename disk"
+msgstr ""
+
+#: tformdbase.menurescan.caption
+msgctxt "tformdbase.menurescan.caption"
+msgid "Rescan disk..."
+msgstr ""
+
+#: tformdbase.menuselectalldisks.caption
+msgctxt "tformdbase.menuselectalldisks.caption"
+msgid "Select &all"
+msgstr ""
+
+#: tformdbase.menuselectallfiles.caption
+msgctxt "tformdbase.menuselectallfiles.caption"
+msgid "Select &all"
+msgstr ""
+
+#: tformdbase.menuselectdisks.caption
+msgctxt "tformdbase.menuselectdisks.caption"
+msgid "&Select disks..."
+msgstr ""
+
+#: tformdbase.menuselectfiles.caption
+msgctxt "tformdbase.menuselectfiles.caption"
+msgid "Select &files..."
+msgstr ""
+
+#: tformdbase.menushowtree.caption
+msgctxt "tformdbase.menushowtree.caption"
+msgid "Show &tree"
+msgstr ""
+
+#: tformdbase.menusortext.caption
+msgctxt "tformdbase.menusortext.caption"
+msgid "Sort by &extension"
+msgstr ""
+
+#: tformdbase.menusortname.caption
+msgctxt "tformdbase.menusortname.caption"
+msgid "Sort by &name"
+msgstr ""
+
+#: tformdbase.menusortsize.caption
+msgctxt "tformdbase.menusortsize.caption"
+msgid "Sort by &size"
+msgstr ""
+
+#: tformdbase.menusorttime.caption
+msgctxt "tformdbase.menusorttime.caption"
+msgid "Sort by &time"
+msgstr ""
+
+#: tformdbase.menuundeletedisk.caption
+msgctxt "tformdbase.menuundeletedisk.caption"
+msgid "&Undelete disk"
+msgstr ""
+
+#: tformdbase.menuunselectfiles.caption
+msgctxt "tformdbase.menuunselectfiles.caption"
+msgid "Unse&lect all files"
+msgstr ""
+
+#: tformdiskexport.buttoncancel.caption
+msgctxt "tformdiskexport.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformdiskexport.caption
+msgid "Export Database To Text Format"
+msgstr ""
+
+#: tformdiskexport.labelwhatdoing.caption
+msgid "LabelWhatDoing"
+msgstr ""
+
+#: tformdiskexport.opendialogexportformat.title
+msgid "Select Export Format"
+msgstr ""
+
+#: tformdiskexport.savedialogexporttotext.title
+msgid "Save Exported Data To File"
+msgstr ""
+
+#: tformrepair.buttoncancel.caption
+msgctxt "tformrepair.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformrepair.caption
+msgid "Repairing Database"
+msgstr ""
+
+#: tformrepair.labelinfo.caption
+msgid "LabelInfo"
+msgstr ""
+
+#: tformscanfolder.buttonbrowsefolder.caption
+msgid "Browse &folder..."
+msgstr ""
+
+#: tformscanfolder.buttoncancel.caption
+msgctxt "tformscanfolder.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformscanfolder.buttoncreatediskname.caption
+msgid "<- Create name"
+msgstr ""
+
+#: tformscanfolder.buttonhelp.caption
+msgid "Help"
+msgstr ""
+
+#: tformscanfolder.buttonok.caption
+msgctxt "tformscanfolder.buttonok.caption"
+msgid "OK"
+msgstr ""
+
+#: tformscanfolder.caption
+msgid "Scan Folder As Disk"
+msgstr ""
+
+#: tformscanfolder.labelsaveit.caption
+msgid "and save it to database as disk:"
+msgstr ""
+
+#: tformscanfolder.labelscanfolder.caption
+msgid "Scan folder:"
+msgstr ""
+
+#: tformscanprogress.buttoncancel.caption
+msgctxt "tformscanprogress.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformscanprogress.caption
+msgid "Scanning Disk"
+msgstr ""
+
+#: tformselectdrive.buttoncancel.caption
+msgctxt "tformselectdrive.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformselectdrive.buttonok.caption
+msgctxt "tformselectdrive.buttonok.caption"
+msgid "OK"
+msgstr ""
+
+#: tformselectdrive.caption
+msgid "Scan disk:"
+msgstr ""
+
+#: tformselectdrive.checkboxnoqueries.caption
+msgid "No queries"
+msgstr ""
+
+#: tformselectfolder.buttoncancel.caption
+msgctxt "tformselectfolder.buttoncancel.caption"
+msgid "Cancel"
+msgstr ""
+
+#: tformselectfolder.buttonok.caption
+msgctxt "tformselectfolder.buttonok.caption"
+msgid "OK"
+msgstr ""
+
+#: tformselectfolder.caption
+msgid "Select folder"
+msgstr ""
+
+#: tmainform.caption
+msgid "DiskBase 5"
+msgstr ""
+
+#: tmainform.headertop.sections[0].text
+msgctxt "tmainform.headertop.sections[0].text"
+msgid "Disk"
+msgstr ""
+
+#: tmainform.headertop.sections[1].text
+msgctxt "tmainform.headertop.sections[1].text"
+msgid "Tree"
+msgstr ""
+
+#: tmainform.headertop.sections[2].text
+msgctxt "tmainform.headertop.sections[2].text"
+msgid "Files"
+msgstr ""
+
+#: tmainform.menuabout.caption
+msgid "&About this program..."
+msgstr ""
+
+#: tmainform.menubrief.caption
+msgid "&File names only"
+msgstr ""
+
+#: tmainform.menubrief1.caption
+msgctxt "tmainform.menubrief1.caption"
+msgid "File names &only"
+msgstr ""
+
+#: tmainform.menuchglabel.caption
+msgid "&Rename disk..."
+msgstr ""
+
+#: tmainform.menuclosedbase.caption
+msgid "&Close database"
+msgstr ""
+
+#: tmainform.menucollapsetree.caption
+msgctxt "tmainform.menucollapsetree.caption"
+msgid "&Collapse tree"
+msgstr ""
+
+#: tmainform.menuconfig.caption
+msgid "&Program settings..."
+msgstr ""
+
+#: tmainform.menucopy.caption
+msgctxt "tmainform.menucopy.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tmainform.menucopydisk.caption
+msgctxt "tmainform.menucopydisk.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tmainform.menucopyfile.caption
+msgctxt "tmainform.menucopyfile.caption"
+msgid "&Copy"
+msgstr ""
+
+#: tmainform.menudbaseinfo.caption
+msgid "Data&base information..."
+msgstr ""
+
+#: tmainform.menudeldiskselection.caption
+msgid "U&nselect disks/files"
+msgstr ""
+
+#: tmainform.menudeletedisk.caption
+msgctxt "tmainform.menudeletedisk.caption"
+msgid "&Delete disk"
+msgstr ""
+
+#: tmainform.menudeletefile.caption
+msgctxt "tmainform.menudeletefile.caption"
+msgid "&Delete"
+msgstr ""
+
+#: tmainform.menudelrecord.caption
+msgid "De&lete disk"
+msgstr ""
+
+#: tmainform.menudeselectdisk.caption
+msgctxt "tmainform.menudeselectdisk.caption"
+msgid "U&nselect all disks"
+msgstr ""
+
+#: tmainform.menudetailed.caption
+msgid "Deta&iled display"
+msgstr ""
+
+#: tmainform.menudetailed1.caption
+msgctxt "tmainform.menudetailed1.caption"
+msgid "Det&ailed display"
+msgstr ""
+
+#: tmainform.menudirdescr.caption
+msgctxt "tmainform.menudirdescr.caption"
+msgid "&Description..."
+msgstr ""
+
+#: tmainform.menudiscgearprint.caption
+msgid "Print labels for DiscGear boxes..."
+msgstr ""
+
+#: tmainform.menudiskinfo.caption
+msgctxt "tmainform.menudiskinfo.caption"
+msgid "Disk &information..."
+msgstr ""
+
+#: tmainform.menuedit.caption
+msgid "&Edit"
+msgstr ""
+
+#: tmainform.menueditdesc.caption
+msgctxt "tmainform.menueditdesc.caption"
+msgid "&Description..."
+msgstr ""
+
+#: tmainform.menuexit.caption
+msgid "E&xit"
+msgstr ""
+
+#: tmainform.menuexpandtree.caption
+msgctxt "tmainform.menuexpandtree.caption"
+msgid "&Expand tree"
+msgstr ""
+
+#: tmainform.menuexport.caption
+msgid "&Export..."
+msgstr ""
+
+#: tmainform.menuexporttootherformat.caption
+msgid "Export to other format..."
+msgstr ""
+
+#: tmainform.menufile.caption
+msgid "&File"
+msgstr ""
+
+#: tmainform.menuhelp.caption
+msgctxt "tmainform.menuhelp.caption"
+msgid "&Help"
+msgstr ""
+
+#: tmainform.menuhelpcontent.caption
+msgid "Help &contents"
+msgstr ""
+
+#: tmainform.menuhelpdisks.caption
+msgctxt "tmainform.menuhelpdisks.caption"
+msgid "&Help"
+msgstr ""
+
+#: tmainform.menuhelpfiles.caption
+msgctxt "tmainform.menuhelpfiles.caption"
+msgid "&Help"
+msgstr ""
+
+#: tmainform.menuhelptree.caption
+msgctxt "tmainform.menuhelptree.caption"
+msgid "&Help"
+msgstr ""
+
+#: tmainform.menuimport.caption
+msgid "&Import..."
+msgstr ""
+
+#: tmainform.menuimport4.caption
+msgid "Import from version 4 format..."
+msgstr ""
+
+#: tmainform.menuinfodisk.caption
+msgctxt "tmainform.menuinfodisk.caption"
+msgid "Disk &information..."
+msgstr ""
+
+#: tmainform.menulastfile1.caption
+msgid "(file1)"
+msgstr ""
+
+#: tmainform.menulastfile10.caption
+msgid "(file10)"
+msgstr ""
+
+#: tmainform.menulastfile2.caption
+msgid "(file2)"
+msgstr ""
+
+#: tmainform.menulastfile3.caption
+msgid "(file3)"
+msgstr ""
+
+#: tmainform.menulastfile4.caption
+msgid "(file4)"
+msgstr ""
+
+#: tmainform.menulastfile5.caption
+msgid "(file5)"
+msgstr ""
+
+#: tmainform.menulastfile6.caption
+msgid "(file6)"
+msgstr ""
+
+#: tmainform.menulastfile7.caption
+msgid "(file7)"
+msgstr ""
+
+#: tmainform.menulastfile8.caption
+msgid "(file8)"
+msgstr ""
+
+#: tmainform.menulastfile9.caption
+msgid "(file9)"
+msgstr ""
+
+#: tmainform.menulocaloptions.caption
+msgid "Data&base settings..."
+msgstr ""
+
+#: tmainform.menumakeruntime.caption
+msgid "Export to read-only database..."
+msgstr ""
+
+#: tmainform.menumaskselectdisks.caption
+msgid "Selec&t disks/files..."
+msgstr ""
+
+#: tmainform.menunew.caption
+msgid "&New database..."
+msgstr ""
+
+#: tmainform.menuopen.caption
+msgctxt "tmainform.menuopen.caption"
+msgid "Open"
+msgstr ""
+
+#: tmainform.menuopendbase.caption
+msgid "&Open database..."
+msgstr ""
+
+#: tmainform.menuprint.caption
+msgid "&Print"
+msgstr ""
+
+#: tmainform.menuprintdisks.caption
+msgid "Print &disks..."
+msgstr ""
+
+#: tmainform.menuprintdisks1.caption
+msgctxt "tmainform.menuprintdisks1.caption"
+msgid "&Print disks..."
+msgstr ""
+
+#: tmainform.menuprintempty.caption
+msgid "Print found free &space..."
+msgstr ""
+
+#: tmainform.menuprintfiles.caption
+msgid "Print &files..."
+msgstr ""
+
+#: tmainform.menuprintfiles1.caption
+msgctxt "tmainform.menuprintfiles1.caption"
+msgid "&Print files..."
+msgstr ""
+
+#: tmainform.menuprintfoundfiles.caption
+msgid "Print f&ound files..."
+msgstr ""
+
+#: tmainform.menuprinttree.caption
+msgid "Print &tree..."
+msgstr ""
+
+#: tmainform.menuprinttree1.caption
+msgctxt "tmainform.menuprinttree1.caption"
+msgid "&Print tree..."
+msgstr ""
+
+#: tmainform.menureindex.caption
+msgid "Co&mpress database..."
+msgstr ""
+
+#: tmainform.menurenamedisk.caption
+msgctxt "tmainform.menurenamedisk.caption"
+msgid "&Rename disk"
+msgstr ""
+
+#: tmainform.menurepair.caption
+msgid "Repair database..."
+msgstr ""
+
+#: tmainform.menurescan.caption
+msgctxt "tmainform.menurescan.caption"
+msgid "Rescan disk..."
+msgstr ""
+
+#: tmainform.menurescandisk.caption
+msgid "Rescan current dis&k..."
+msgstr ""
+
+#: tmainform.menuscana.caption
+msgid "Scan &A:"
+msgstr ""
+
+#: tmainform.menuscanb.caption
+msgid "Scan &B:"
+msgstr ""
+
+#: tmainform.menuscandisk.caption
+msgid "&Scan disk..."
+msgstr ""
+
+#: tmainform.menuscanfolder.caption
+msgid "Scan &folder as disk..."
+msgstr ""
+
+#: tmainform.menusearch.caption
+msgid "&Search"
+msgstr ""
+
+#: tmainform.menusearchempty.caption
+msgid "&List free space..."
+msgstr ""
+
+#: tmainform.menusearchname.caption
+msgid "&Find files..."
+msgstr ""
+
+#: tmainform.menusearchselected.caption
+msgid "Find &selected files"
+msgstr ""
+
+#: tmainform.menuselectall.caption
+msgid "S&elect all"
+msgstr ""
+
+#: tmainform.menuselectalldisks.caption
+msgctxt "tmainform.menuselectalldisks.caption"
+msgid "Select &all"
+msgstr ""
+
+#: tmainform.menuselectallfiles.caption
+msgctxt "tmainform.menuselectallfiles.caption"
+msgid "Select &all"
+msgstr ""
+
+#: tmainform.menuselectdisks.caption
+msgctxt "tmainform.menuselectdisks.caption"
+msgid "&Select disks..."
+msgstr ""
+
+#: tmainform.menuselectfiles.caption
+msgctxt "tmainform.menuselectfiles.caption"
+msgid "Select &files..."
+msgstr ""
+
+#: tmainform.menusettings.caption
+msgid "Se&ttings"
+msgstr ""
+
+#: tmainform.menushowtree.caption
+msgctxt "tmainform.menushowtree.caption"
+msgid "Show &tree"
+msgstr ""
+
+#: tmainform.menushowtree1.caption
+msgctxt "tmainform.menushowtree1.caption"
+msgid "Show &tree"
+msgstr ""
+
+#: tmainform.menusortext.caption
+msgctxt "tmainform.menusortext.caption"
+msgid "Sort by &extension"
+msgstr ""
+
+#: tmainform.menusortext1.caption
+msgctxt "tmainform.menusortext1.caption"
+msgid "Sort by &extension"
+msgstr ""
+
+#: tmainform.menusortname.caption
+msgctxt "tmainform.menusortname.caption"
+msgid "Sort by &name"
+msgstr ""
+
+#: tmainform.menusortname1.caption
+msgctxt "tmainform.menusortname1.caption"
+msgid "Sort by &name"
+msgstr ""
+
+#: tmainform.menusortsize.caption
+msgctxt "tmainform.menusortsize.caption"
+msgid "Sort by &size"
+msgstr ""
+
+#: tmainform.menusortsize1.caption
+msgctxt "tmainform.menusortsize1.caption"
+msgid "Sort by &size"
+msgstr ""
+
+#: tmainform.menusorttime.caption
+msgid "Sort by &date and time"
+msgstr ""
+
+#: tmainform.menusorttime1.caption
+msgctxt "tmainform.menusorttime1.caption"
+msgid "Sort by &time"
+msgstr ""
+
+#: tmainform.menutools.caption
+msgid "T&ools"
+msgstr ""
+
+#: tmainform.menuundeletedisk.caption
+msgctxt "tmainform.menuundeletedisk.caption"
+msgid "&Undelete disk"
+msgstr ""
+
+#: tmainform.menuundelrecord.caption
+msgctxt "tmainform.menuundelrecord.caption"
+msgid "&Undelete disk"
+msgstr ""
+
+#: tmainform.menuunselectfiles.caption
+msgctxt "tmainform.menuunselectfiles.caption"
+msgid "Unse&lect all files"
+msgstr ""
+
+#: tmainform.newdialog.title
+msgid "New Database"
+msgstr ""
+
+#: tmainform.opendialog.title
+msgid "Open Database"
+msgstr ""
+
+#: tmainform.opendialogimport.title
+msgid "Import Disks From Database"
+msgstr ""
+
+#: tmainform.opendialogimport4.title
+msgid "Import Database In QDir Format 4.1"
+msgstr ""
+
+#: tmainform.openrepairdialog.title
+msgid "Repair database"
+msgstr ""
+
+#: tmainform.reindexdialog.title
+msgid "Compress Database"
+msgstr ""
+
+#: tmainform.savedialogexport.title
+msgid "Export Selected Disks To Database"
+msgstr ""
+
+#: tmainform.saverepairdialog.title
+msgid "Save repaired database as:"
+msgstr ""
+
+#: tmainform.speedbuttonbrief.hint
+msgid "File names only"
+msgstr ""
+
+#: tmainform.speedbuttoncollapse.hint
+msgid "Collapse tree"
+msgstr ""
+
+#: tmainform.speedbuttondetailed.hint
+msgid "Detailed display"
+msgstr ""
+
+#: tmainform.speedbuttondirdescr.hint
+msgid "Description..."
+msgstr ""
+
+#: tmainform.speedbuttondiskinfo.hint
+msgid "Disk information..."
+msgstr ""
+
+#: tmainform.speedbuttoneject1.hint
+msgctxt "tmainform.speedbuttoneject1.hint"
+msgid "Eject CD"
+msgstr ""
+
+#: tmainform.speedbuttoneject2.hint
+msgctxt "tmainform.speedbuttoneject2.hint"
+msgid "Eject CD"
+msgstr ""
+
+#: tmainform.speedbuttonexpand.hint
+msgid "Expand tree"
+msgstr ""
+
+#: tmainform.speedbuttonopendbase.hint
+msgid "Open database..."
+msgstr ""
+
+#: tmainform.speedbuttonparent.hint
+msgid "Go to parent folder"
+msgstr ""
+
+#: tmainform.speedbuttonprint.hint
+msgid "Print..."
+msgstr ""
+
+#: tmainform.speedbuttonscana.hint
+msgid "Scan A:"
+msgstr ""
+
+#: tmainform.speedbuttonscandisk.hint
+msgid "Scan disk..."
+msgstr ""
+
+#: tmainform.speedbuttonsearchempty.hint
+msgid "List free space..."
+msgstr ""
+
+#: tmainform.speedbuttonsearchfile.hint
+msgid "Find files..."
+msgstr ""
+
+#: tmainform.speedbuttonsearchselected.hint
+msgid "Find selected files"
+msgstr ""
+
+#: tmainform.speedbuttonselect.hint
+msgid "Select disks/files..."
+msgstr ""
+
+#: tmainform.speedbuttonshowdbase.hint
+msgid "Show window with database"
+msgstr ""
+
+#: tmainform.speedbuttonshowfound.hint
+msgid "Show window with found items"
+msgstr ""
+
+#: tmainform.speedbuttonshowtree.hint
+msgid "Show tree"
+msgstr ""
+
+#: tmainform.speedbuttonunselect.hint
+msgid "Unselect disks/files"
+msgstr ""
+
+#: tmainform.statusbar.panels[0].text
+msgid "Subtotal"
+msgstr ""
+
+#: tmainform.statusbar.panels[1].text
+msgctxt "tmainform.statusbar.panels[1].text"
+msgid "Current file"
+msgstr ""
+
+#: tmainform.tabsheet1.caption
+msgctxt "tmainform.tabsheet1.caption"
+msgid "Database"
+msgstr ""
+
+#: tmainform.tabsheet2.caption
+msgid "Search"
+msgstr ""
+

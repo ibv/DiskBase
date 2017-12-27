@@ -27,7 +27,8 @@
       <MajorVersionNr Value="5"/>
       <MinorVersionNr Value="19"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="1"/>
+      <BuildNr Value="2"/>
+      <Language Value="0405"/>
       <Attributes pvaPreRelease="True"/>
       <StringTable ProductVersion="0.0.0.0"/>
     </VersionInfo>
@@ -59,134 +60,140 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="FMain.PAS"/>
+        <Filename Value="FMain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
-        <Filename Value="FDBase.PAS"/>
+        <Filename Value="FDBase.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormDBase"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit2>
       <Unit3>
-        <Filename Value="FSettings.PAS"/>
+        <Filename Value="FSettings.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="FSelectDrive.PAS"/>
+        <Filename Value="FSelectDrive.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormSelectDrive"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit4>
       <Unit5>
-        <Filename Value="FAskForLabel.PAS"/>
+        <Filename Value="FAskForLabel.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="FScanProgress.PAS"/>
+        <Filename Value="FScanProgress.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormScanProgress"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit6>
       <Unit7>
-        <Filename Value="FDiskInfo.PAS"/>
+        <Filename Value="FDiskInfo.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit7>
       <Unit8>
-        <Filename Value="FFindFile.PAS"/>
+        <Filename Value="FFindFile.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit8>
       <Unit9>
-        <Filename Value="FFindFileDlg.PAS"/>
+        <Filename Value="FFindFileDlg.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit9>
       <Unit10>
-        <Filename Value="FFoundFile.PAS"/>
+        <Filename Value="FFoundFile.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit10>
       <Unit11>
-        <Filename Value="FProgress.PAS"/>
+        <Filename Value="FProgress.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit11>
       <Unit12>
-        <Filename Value="FFindEmptyDlg.PAS"/>
+        <Filename Value="FFindEmptyDlg.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="FFindEmpty.PAS"/>
+        <Filename Value="FFindEmpty.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit13>
       <Unit14>
-        <Filename Value="FFoundEmpty.PAS"/>
+        <Filename Value="FFoundEmpty.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit14>
       <Unit15>
-        <Filename Value="FRenameDlg.PAS"/>
+        <Filename Value="FRenameDlg.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="FLocalOptions.PAS"/>
+        <Filename Value="FLocalOptions.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit16>
       <Unit17>
-        <Filename Value="FDescription.PAS"/>
+        <Filename Value="FDescription.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="FReindex.PAS"/>
+        <Filename Value="FReindex.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="FMaskSelect.PAS"/>
+        <Filename Value="FMaskSelect.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit19>
       <Unit20>
-        <Filename Value="FMoreOptions.PAS"/>
+        <Filename Value="FMoreOptions.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="FDbInfo.PAS"/>
+        <Filename Value="FDbInfo.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="FAbortPrint.PAS"/>
+        <Filename Value="FAbortPrint.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit22>
       <Unit23>
-        <Filename Value="FDiskPrint.PAS"/>
+        <Filename Value="FDiskPrint.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit23>
       <Unit24>
-        <Filename Value="FDiskPrintSelect.PAS"/>
+        <Filename Value="FDiskPrintSelect.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit24>
       <Unit25>
-        <Filename Value="FScanArchive.PAS"/>
+        <Filename Value="FScanArchive.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit25>
       <Unit26>
-        <Filename Value="FAbout.PAS"/>
+        <Filename Value="FAbout.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit26>
@@ -237,27 +244,27 @@
         <IsPartOfProject Value="True"/>
       </Unit33>
       <Unit34>
-        <Filename Value="UApiTypes.PAS"/>
+        <Filename Value="UApiTypes.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit34>
       <Unit35>
-        <Filename Value="UBaseTypes.PAS"/>
+        <Filename Value="UBaseTypes.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit35>
       <Unit36>
-        <Filename Value="UBaseUtils.PAS"/>
+        <Filename Value="UBaseUtils.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit36>
       <Unit37>
-        <Filename Value="UCallbacks.PAS"/>
+        <Filename Value="UCallbacks.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit37>
       <Unit38>
-        <Filename Value="UCollections.PAS"/>
+        <Filename Value="UCollections.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit38>
       <Unit39>
-        <Filename Value="UCollectionsExt.PAS"/>
+        <Filename Value="UCollectionsExt.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit39>
       <Unit40>
@@ -277,7 +284,7 @@
         <IsPartOfProject Value="True"/>
       </Unit43>
       <Unit44>
-        <Filename Value="UEngineArchives.PAS"/>
+        <Filename Value="UEngineArchives.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit44>
       <Unit45>
@@ -285,15 +292,15 @@
         <IsPartOfProject Value="True"/>
       </Unit45>
       <Unit46>
-        <Filename Value="UEngineFileFind.PAS"/>
+        <Filename Value="UEngineFileFind.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit46>
       <Unit47>
-        <Filename Value="UEngineMain.PAS"/>
+        <Filename Value="UEngineMain.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit47>
       <Unit48>
-        <Filename Value="UExceptions.PAS"/>
+        <Filename Value="UExceptions.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit48>
       <Unit49>
@@ -313,15 +320,15 @@
         <IsPartOfProject Value="True"/>
       </Unit52>
       <Unit53>
-        <Filename Value="UStream.PAS"/>
+        <Filename Value="UStream.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit53>
       <Unit54>
-        <Filename Value="UStringList.PAS"/>
+        <Filename Value="UStringList.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit54>
       <Unit55>
-        <Filename Value="UTypes.PAS"/>
+        <Filename Value="UTypes.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit55>
       <Unit56>
@@ -333,7 +340,7 @@
         <IsPartOfProject Value="True"/>
       </Unit57>
       <Unit58>
-        <Filename Value="UApi.PAS"/>
+        <Filename Value="UApi.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit58>
       <Unit59>
@@ -347,6 +354,7 @@
     <Version Value="11"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="3rd/Abbrevia/source"/>
       <UnitOutputDirectory Value="Release"/>
     </SearchPaths>
     <Parsing>
