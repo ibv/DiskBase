@@ -16,6 +16,9 @@ Stable functions:
 - data export
 - retrieving new data into the database
 
+Untested functions:
+- print data
+
 ## Stav
 
 Stabilní funkce: 
@@ -23,9 +26,6 @@ Stabilní funkce:
 - vyhledávání souborů
 - exporty dat
 - načtení nových dat do databáze
-
-Untested functions:
-- print data
 
 Netestované (nestabilní) funkce: 
 - tisk dat
