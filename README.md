@@ -11,7 +11,7 @@ Linux verze free windows DiskBase (https://sourceforge.net/projects/diskbase/) ,
 ## Status
 
 Stable functions: 
-- rerieve and display the database disks
+- retrieve and display the database disks
 - file search
 - data export
 - retrieving new data into the database
