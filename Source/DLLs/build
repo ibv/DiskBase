@@ -27,3 +27,6 @@ lazbuild UNI/Uni.lpi
 rm -f ../Release/DoIt.*
 lazbuild UNZIP/Unzip.lpi 
 
+rm -f ../Release/DoIt.*
+lazbuild FFPROBE/ffprobe.lpi 
+
