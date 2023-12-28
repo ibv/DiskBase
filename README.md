@@ -67,4 +67,4 @@ Netestované (nestabilní) funkce:
 ## Further information
 
 For more information about it, please visit:
-> http://ivb.sweb.cz/en/diskbase.html
+> http://ivb.wz.cz/en/diskbase.html
